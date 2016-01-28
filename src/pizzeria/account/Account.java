@@ -12,6 +12,7 @@ public abstract class Account {
 	private static final int MIN_USERNAME_LENGTH = 5;
 	private static final String USERNAME_ALLOWED_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789_";
 	
+	private long id;
 	private String username;
 	private String password;
 	private String email;
