@@ -6,9 +6,9 @@ import pizzeria.menu.IProduct;
 
 public class ShoppingCart {
 	private static final String PRODUCT_IS_NULL_ERROR_MESSAGE = "Product is null!";
-
 	private static final String OWNER_IS_NULL_ERROR_MESSAGE = "Owner is null!";
 	
+	private long id;
 	private User owner;
 	private ArrayList<IProduct> products;
 	private double sum;
