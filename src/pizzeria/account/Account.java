@@ -1,6 +1,7 @@
 package pizzeria.account;
 
 public abstract class Account {
+	private static final String EMAIL_IS_NULL_ERROR_MESSAGE = "Email is null!";
 	private static final String PASSWORD_LENGTH_ERROR_MESSAGE = "Password must be at least %1$1s characters long!";
 	private static final String PASSWORD_IS_NULL_ERROR_MESSAGE = "Password is null!";
 	private static final String USERNAME_CONTAINS_ERROR_MESSAGE = "Username can only have a..z, A..Z, 0..9 and _";
@@ -13,11 +14,13 @@ public abstract class Account {
 	
 	private String username;
 	private String password;
+	private String email;
 	
-	public Account(String username, String password) {
+	public Account(String username, String password, String email) {
 		super();
 		this.setUsername(username);
 		this.setPassword(password);
+		this.setEmail(email);
 	}
 	
 	public String getUsername() {
@@ -38,6 +41,15 @@ public abstract class Account {
 		this.password = password;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.validateEmail(email);
+		this.email = email;
+	}
+
 	private void validateUsername(String username) {
 		if (username == null) {
 			throw new IllegalArgumentException(USERNAME_IS_NULL_ERROR_MESSAGE);
@@ -65,6 +77,12 @@ public abstract class Account {
 		
 		if (password.length() < MIN_PASSWORD_LENGTH) {
 			throw new IllegalArgumentException(String.format(PASSWORD_LENGTH_ERROR_MESSAGE, MIN_PASSWORD_LENGTH));
+		}
+	}
+	
+	private void validateEmail(String email) {
+		if (email == null) {
+			throw new IllegalArgumentException(EMAIL_IS_NULL_ERROR_MESSAGE);
 		}
 	}
 	
