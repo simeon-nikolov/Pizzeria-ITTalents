@@ -21,7 +21,6 @@ public abstract class Food extends Product {
 			if (ingredient != null) {
 				ingredients.add(ingredient);
 				numberOfIngredients++;
-				return;
 			}
 		} else {
 			System.out.println("Maximum limit of ingredients is 10");
