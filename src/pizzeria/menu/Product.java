@@ -18,6 +18,7 @@ public abstract class Product implements IProduct {
 		setQuantity(quantity);
 	}
 
+	@Override
 	public double getPrice() {
 		return price;
 	}
@@ -48,6 +49,7 @@ public abstract class Product implements IProduct {
 		}
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
