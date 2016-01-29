@@ -26,7 +26,7 @@ public class ShoppingCart {
 	}
 	
 	public void addProduct(IProduct product) {
-		validateProduct(product);
+		this.validateProduct(product);
 		this.products.add(product);
 	}
 	
