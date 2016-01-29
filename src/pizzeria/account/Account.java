@@ -1,5 +1,7 @@
 package pizzeria.account;
 
+import exceptions.InvalidArgumentValueException;
+
 public abstract class Account {
 	private static final String EMAIL_IS_NULL_ERROR_MESSAGE = "Email is null!";
 	private static final String PASSWORD_LENGTH_ERROR_MESSAGE = "Password must be at least %1$1s characters long!";
@@ -17,7 +19,7 @@ public abstract class Account {
 	private String password;
 	private String email;
 	
-	public Account(String username, String password, String email) {
+	public Account(String username, String password, String email) throws InvalidArgumentValueException {
 		super();
 		this.setUsername(username);
 		this.setPassword(password);
@@ -28,7 +30,7 @@ public abstract class Account {
 		return username;
 	}
 	
-	public void setUsername(String username) {
+	public void setUsername(String username) throws InvalidArgumentValueException {
 		this.validateUsername(username);
 		this.username = username;
 	}
@@ -37,7 +39,7 @@ public abstract class Account {
 		return password;
 	}
 	
-	public void setPassword(String password) {
+	public void setPassword(String password) throws InvalidArgumentValueException {
 		this.validatePassword(password);
 		this.password = password;
 	}
@@ -46,44 +48,44 @@ public abstract class Account {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws InvalidArgumentValueException {
 		this.validateEmail(email);
 		this.email = email;
 	}
 
-	private void validateUsername(String username) {
+	private void validateUsername(String username) throws InvalidArgumentValueException {
 		if (username == null) {
-			throw new IllegalArgumentException(USERNAME_IS_NULL_ERROR_MESSAGE);
+			throw new InvalidArgumentValueException(USERNAME_IS_NULL_ERROR_MESSAGE);
 		}
 		
 		if (username.length() < MIN_USERNAME_LENGTH) {
-			throw new IllegalArgumentException(String.format(USERNAME_LENGTH_ERROR_MESSAGE, MIN_USERNAME_LENGTH));
+			throw new InvalidArgumentValueException(String.format(USERNAME_LENGTH_ERROR_MESSAGE, MIN_USERNAME_LENGTH));
 		}
 		
 		if (Character.isDigit(username.charAt(0))) {
-			throw new IllegalArgumentException(USERNAME_STARTS_WITH_DIGIT_ERROR_MESSAGE);
+			throw new InvalidArgumentValueException(USERNAME_STARTS_WITH_DIGIT_ERROR_MESSAGE);
 		}
 		
 		for (char c : username.toCharArray()) {
 			if (!USERNAME_ALLOWED_CHARS.contains(Character.toString(c))) {
-				throw new IllegalArgumentException(USERNAME_CONTAINS_ERROR_MESSAGE);
+				throw new InvalidArgumentValueException(USERNAME_CONTAINS_ERROR_MESSAGE);
 			}
 		}
 	}
 	
-	private void validatePassword(String password) {
+	private void validatePassword(String password) throws InvalidArgumentValueException {
 		if (password == null) {
-			throw new IllegalArgumentException(PASSWORD_IS_NULL_ERROR_MESSAGE);
+			throw new InvalidArgumentValueException(PASSWORD_IS_NULL_ERROR_MESSAGE);
 		}
 		
 		if (password.length() < MIN_PASSWORD_LENGTH) {
-			throw new IllegalArgumentException(String.format(PASSWORD_LENGTH_ERROR_MESSAGE, MIN_PASSWORD_LENGTH));
+			throw new InvalidArgumentValueException(String.format(PASSWORD_LENGTH_ERROR_MESSAGE, MIN_PASSWORD_LENGTH));
 		}
 	}
 	
-	private void validateEmail(String email) {
+	private void validateEmail(String email) throws InvalidArgumentValueException {
 		if (email == null) {
-			throw new IllegalArgumentException(EMAIL_IS_NULL_ERROR_MESSAGE);
+			throw new InvalidArgumentValueException(EMAIL_IS_NULL_ERROR_MESSAGE);
 		}
 	}
 	

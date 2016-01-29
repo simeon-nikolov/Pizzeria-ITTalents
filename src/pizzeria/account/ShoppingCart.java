@@ -3,6 +3,7 @@ package pizzeria.account;
 import java.util.ArrayList;
 
 import pizzeria.menu.IProduct;
+import exceptions.InvalidArgumentValueException;
 
 public class ShoppingCart {
 	private static final String PRODUCT_IS_NULL_ERROR_MESSAGE = "Product is null!";
@@ -13,11 +14,11 @@ public class ShoppingCart {
 	private ArrayList<IProduct> products;
 	private double sum;
 	
-	public ShoppingCart(User owner) {
+	public ShoppingCart(User owner) throws InvalidArgumentValueException {
 		super();
 		
 		if (owner == null) {
-			throw new IllegalArgumentException(OWNER_IS_NULL_ERROR_MESSAGE);
+			throw new InvalidArgumentValueException(OWNER_IS_NULL_ERROR_MESSAGE);
 		}
 		
 		this.owner = owner;
@@ -25,12 +26,12 @@ public class ShoppingCart {
 		this.sum = 0.0;
 	}
 	
-	public void addProduct(IProduct product) {
+	public void addProduct(IProduct product) throws InvalidArgumentValueException {
 		this.validateProduct(product);
 		this.products.add(product);
 	}
 	
-	public void removeProduct(IProduct product) {
+	public void removeProduct(IProduct product) throws InvalidArgumentValueException {
 		this.validateProduct(product);
 		
 		for (int index = 0; index < this.products.size(); index++) {
@@ -41,9 +42,9 @@ public class ShoppingCart {
 		}
 	}
 
-	private void validateProduct(IProduct product) {
+	private void validateProduct(IProduct product) throws InvalidArgumentValueException {
 		if (product == null) {
-			throw new IllegalArgumentException(PRODUCT_IS_NULL_ERROR_MESSAGE);
+			throw new InvalidArgumentValueException(PRODUCT_IS_NULL_ERROR_MESSAGE);
 		}
 	}
 }
