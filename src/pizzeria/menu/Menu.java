@@ -33,6 +33,7 @@ public class Menu {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for (IProduct iProduct : products) {
+			sb.append("Product : ");
 			sb.append(iProduct.getName());
 			if (iProduct instanceof Food) {
 				Food p = (Food) iProduct;
@@ -40,10 +41,9 @@ public class Menu {
 					sb.append(ingredients + " ");
 				}
 				sb.append(" " + iProduct.getPrice());
-				sb.append("\n");
-			} 
+			}
 			sb.append(iProduct.getPrice());
-				sb.append("\n");
+			sb.append("\n");
 		}
 		return sb.toString();
 	}
