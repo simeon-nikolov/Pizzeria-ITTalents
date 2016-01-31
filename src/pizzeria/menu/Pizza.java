@@ -28,12 +28,6 @@ public class Pizza extends Food {
 		}
 	}
 
-	@Override
-	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 //	public double priceForPizza(Pizza p) {
 //		int sum = 0;
 //		for (Ingredient c : p.getIngredients()) {
