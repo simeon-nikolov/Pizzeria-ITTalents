@@ -10,6 +10,8 @@ public class Order {
 	private User client;
 	private ArrayList<IProduct> products;
 	private double sum;
+	private boolean isReady;
+	private boolean isReceived;
 	private static long count = 0;
 	
 	public Order(User client, ArrayList<IProduct> produts, double sum) throws InvalidArgumentValueException {
@@ -41,6 +43,22 @@ public class Order {
 	
 	public User getClient() {
 		return this.client;
+	}
+	
+	public void setReady() {
+		this.isReady = true;
+	}
+	
+	public boolean isReady() {
+		return this.isReady;
+	}
+	
+	public void setReceived() {
+		this.isReceived = true;
+	}
+
+	public boolean isReceived() {
+		return this.isReceived;
 	}
 	
 	public ArrayList<IProduct> getProducts() {
