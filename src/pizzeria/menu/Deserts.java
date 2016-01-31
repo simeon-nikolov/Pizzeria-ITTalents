@@ -9,10 +9,4 @@ public class Deserts extends Food {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

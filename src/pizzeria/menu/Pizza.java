@@ -26,12 +26,6 @@ public class Pizza extends Food {
 			throw new InvalidArgumentValueException(SIZE_MESSAGE_ERROR);
 		}
 	}
-
-	@Override
-	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 //	public double priceForPizza (Pizza p){
 //		return p.getSize()*0.2 + p.getPrice() + p.

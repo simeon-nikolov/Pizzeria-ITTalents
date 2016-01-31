@@ -8,10 +8,4 @@ public class Salad extends Food {
 		super(price, quantity, name, grammage);
 	}
 
-	@Override
-	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
