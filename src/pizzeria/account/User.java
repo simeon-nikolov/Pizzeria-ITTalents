@@ -1,5 +1,7 @@
 package pizzeria.account;
 
+import java.util.ArrayList;
+
 import exceptions.InvalidArgumentValueException;
 
 public class User extends Account {
@@ -13,11 +15,27 @@ public class User extends Account {
 	private String address;
 	private String phoneNumber;
 	private ShoppingCart shoppingCart;
+	private ArrayList<Order> orders;
 
 	public User(String username, String password, String email, String firstName,
 			String lastName, String address, String phoneNumber) throws InvalidArgumentValueException {
 		super(username, password, email);
 		this.shoppingCart = new ShoppingCart(this);
+		this.orders = new ArrayList<Order>();
+	}
+	
+	public Order makeOrder() {
+		Order order = null;
+		
+		try {
+			order = new Order(this, this.shoppingCart.getProducts(), this.shoppingCart.getSum());
+			this.orders.add(order);
+			this.shoppingCart.empty();
+		} catch (InvalidArgumentValueException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return order;
 	}
 
 	public ShoppingCart getShoppingCart() {

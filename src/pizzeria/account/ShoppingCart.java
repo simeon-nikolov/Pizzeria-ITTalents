@@ -47,6 +47,25 @@ public class ShoppingCart {
 			}
 		}
 	}
+	
+	public ArrayList<IProduct> getProducts() {
+		ArrayList<IProduct> result = new ArrayList<IProduct>();
+		
+		if (this.products != null && this.products.size() > 0) {
+			result.addAll(this.products);
+		}
+		
+		return result;
+	}
+	
+	public double getSum() {
+		return this.sum;
+	}
+	
+	public void empty() {
+		this.products.clear();
+		this.sum = 0.0;
+	}
 
 	private void validateProduct(IProduct product) throws InvalidArgumentValueException {
 		if (product == null) {
