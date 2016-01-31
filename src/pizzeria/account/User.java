@@ -12,10 +12,16 @@ public class User extends Account {
 	private String lastName;
 	private String address;
 	private String phoneNumber;
+	private ShoppingCart shoppingCart;
 
 	public User(String username, String password, String email, String firstName,
 			String lastName, String address, String phoneNumber) throws InvalidArgumentValueException {
 		super(username, password, email);
+		this.shoppingCart = new ShoppingCart(this);
+	}
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
 	}
 
 	public String getFirstName() {

@@ -13,6 +13,7 @@ public class ShoppingCart {
 	private User owner;
 	private ArrayList<IProduct> products;
 	private double sum;
+	private static long count = 0;
 	
 	public ShoppingCart(User owner) throws InvalidArgumentValueException {
 		super();
@@ -24,6 +25,8 @@ public class ShoppingCart {
 		this.owner = owner;
 		this.products = new ArrayList<IProduct>();
 		this.sum = 0.0;
+		ShoppingCart.count++;
+		this.id = ShoppingCart.count;
 	}
 	
 	public void addProduct(IProduct product) throws InvalidArgumentValueException {

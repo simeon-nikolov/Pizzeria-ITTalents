@@ -26,12 +26,15 @@ public abstract class Account {
 	private String email;
 	private String sessionKey;
 	private static Random randomGenerator = new Random();
+	private static long count = 0;
 
 	public Account(String username, String password, String email) throws InvalidArgumentValueException {
 		super();
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setEmail(email);
+		Account.count++;
+		this.id = Account.count;
 	}
 	
 	public void login(String password) throws InvalidArgumentValueException {
