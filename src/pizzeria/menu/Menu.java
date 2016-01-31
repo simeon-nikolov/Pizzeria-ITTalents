@@ -1,7 +1,6 @@
 package pizzeria.menu;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import exceptions.InvalidArgumentValueException;
 
@@ -25,18 +24,27 @@ public class Menu {
 	public void addProduct(IProduct product) throws InvalidArgumentValueException {
 		if (product != null) {
 			products.add(product);
-			return;
 		} else {
 			throw new InvalidArgumentValueException(NULL_PRODUCT_MESSAGE);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for (IProduct iProduct : products) {
-			sb.append(iProduct.getName() + " " + iProduct.getPrice());
-			sb.append("\n");
+			if (iProduct instanceof Food) {
+				sb.append(iProduct.getName());
+				Food p = (Food) iProduct;
+				for (Ingredient ingredients : p.getIngredients()) {
+					sb.append(ingredients + " ");
+				}
+				sb.append(" " + iProduct.getPrice());
+				sb.append("\n");
+			} else {
+				sb.append(iProduct.getName() + " " + iProduct.getPrice());
+				sb.append("\n");
+			}
 		}
 		return sb.toString();
 	}
