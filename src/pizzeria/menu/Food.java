@@ -2,6 +2,8 @@ package pizzeria.menu;
 
 import java.util.ArrayList;
 
+import exceptions.InvalidArgumentValueException;
+
 public abstract class Food extends Product {
 	private static final int MAX_NUMBER_OF_INGREDIENTS = 10;
 	private static final String GRAMMAGE_MESSAGE_ERROR = "Grammage is not correct";
@@ -10,7 +12,7 @@ public abstract class Food extends Product {
 	private ArrayList<Ingredient> ingredients;
 	private short numberOfIngredients = 0;
 
-	public Food(double price, short quantity, String name, int grammage) {
+	public Food(double price, short quantity, String name, int grammage) throws InvalidArgumentValueException {
 		super(price, quantity, name);
 		setGrammage(grammage);
 		this.ingredients = new ArrayList<Ingredient>();
@@ -38,13 +40,18 @@ public abstract class Food extends Product {
 		return grammage;
 	}
 
-	public void setGrammage(int grammage) {
+	public void setGrammage(int grammage) throws InvalidArgumentValueException {
 		this.validateGrammage(grammage);
 		this.grammage = grammage;
 	}
 
-	private void validateGrammage(int grammage) {
+	private void validateGrammage(int grammage) throws InvalidArgumentValueException {
 		if (grammage < MIN_GRAMMAGE)
-			throw new IllegalArgumentException(GRAMMAGE_MESSAGE_ERROR);
+			throw new InvalidArgumentValueException(GRAMMAGE_MESSAGE_ERROR);
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 }
