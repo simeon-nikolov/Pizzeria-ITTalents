@@ -7,7 +7,8 @@ public class Pizza extends Food {
 	private static final int MIN_SIZE_PIZZA = 0;
 	private int size;
 
-	public Pizza(double price, short quantity, String name, int grammage, int size) throws InvalidArgumentValueException {
+	public Pizza(double price, short quantity, String name, int grammage, int size)
+			throws InvalidArgumentValueException {
 		super(price, quantity, name, grammage);
 		setSize(size);
 	}
@@ -32,9 +33,13 @@ public class Pizza extends Food {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-//	public double priceForPizza (Pizza p){
-//		return p.getSize()*0.2 + p.getPrice() + p.
+
+//	public double priceForPizza(Pizza p) {
+//		int sum = 0;
+//		for (Ingredient c : p.getIngredients()) {
+//			sum++;
+//		}
+//		return p.getQuantity() * (p.getGrammage() * 10 + sum * 0.20);
 //	}
 
 }
