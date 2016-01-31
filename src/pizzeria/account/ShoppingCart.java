@@ -31,6 +31,7 @@ public class ShoppingCart {
 	
 	public void addProduct(IProduct product) throws InvalidArgumentValueException {
 		this.validateProduct(product);
+		this.sum += product.getPrice();
 		this.products.add(product);
 	}
 	
@@ -38,7 +39,9 @@ public class ShoppingCart {
 		this.validateProduct(product);
 		
 		for (int index = 0; index < this.products.size(); index++) {
-			if (product.getId() == this.products.get(index).getId()) {
+			IProduct currentProduct = this.products.get(index);
+			if (product.getId() == currentProduct.getId()) {
+				this.sum -= currentProduct.getPrice();
 				this.products.remove(index);
 				break;
 			}
