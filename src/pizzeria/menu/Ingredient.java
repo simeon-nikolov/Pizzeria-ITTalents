@@ -3,10 +3,14 @@ package pizzeria.menu;
 public class Ingredient {
 	private static final String NAME_IS_EMPTY_ERROR_MESSAGE = "Name is empty!";
 	private static final String NAME_IS_NULL_ERROR_MESSAGE = "Name is null!";
+	private static long count = 0;
+	private long id;
 	private String name;
 
 	public Ingredient(String name) {
 		setName(name);
+		count++;
+		this.id = count;
 	}
 
 	private void validateName(String name) {
