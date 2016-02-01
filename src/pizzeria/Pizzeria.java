@@ -26,4 +26,27 @@ public class Pizzeria {
 		}
 	}
 	
+	public void addShop(Shop shop) {
+		if (shop != null) {
+			this.shops.add(shop);
+		}
+	}
+	
+	public void removeShop(Shop shop) {
+		if (shop != null) {
+			this.shops.remove(shop);
+		}
+	}
+	
+	public void makeOrder(User user) {
+		if (user != null) {
+			Order order = user.makeOrder();
+			this.allOrders.add(order);
+		}
+	}
+	
+	public void showMenu() {
+		System.out.println(this.menu.toString());
+	}
+	
 }

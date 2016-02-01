@@ -1,7 +1,10 @@
 package pizzeria.account;
 
 import java.util.ArrayList;
+import java.util.Set;
 
+import pizzeria.menu.Ingredient;
+import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
 
 public class User extends Account {
@@ -36,6 +39,26 @@ public class User extends Account {
 		}
 		
 		return order;
+	}
+	
+	public Pizza makePizzaByChoice(Set<Ingredient> ingredeients, short quantity, String name) throws InvalidArgumentValueException {
+		Pizza pizza = null;
+		
+		if (ingredeients == null) {
+			throw new InvalidArgumentValueException("Ingredients are null!");
+		}
+		
+		if (ingredeients.size() > 10) {
+			throw new InvalidArgumentValueException("Ingredients must be no more than 10!");
+		}
+		
+		pizza = new Pizza(5, quantity, name, 500, 2);
+		
+		for (Ingredient ingredient : ingredeients) {
+			pizza.addIngredients(ingredient);
+		}
+		
+		return pizza;
 	}
 
 	public ShoppingCart getShoppingCart() {
