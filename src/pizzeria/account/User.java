@@ -8,6 +8,8 @@ import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
 
 public class User extends Account {
+	private static final String INGREDIENTS_COUNT_ERROR_MESSAGE = "Ingredients must be no more than 10!";
+	private static final String INGREDIENTS_NULL_ERROR_MESSAGE = "Ingredients are null!";
 	private static final String PHONE_NUMBER_NULL_ERROR_MESSAGE = "The phone number is null!";
 	private static final String ADDRESS_IS_NULL_ERROR_MESSAGE = "Address is null!";
 	private static final String NAME_IS_EMPTY_ERROR_MESSAGE = "Name is empty!";
@@ -45,11 +47,11 @@ public class User extends Account {
 		Pizza pizza = null;
 		
 		if (ingredeients == null) {
-			throw new InvalidArgumentValueException("Ingredients are null!");
+			throw new InvalidArgumentValueException(INGREDIENTS_NULL_ERROR_MESSAGE);
 		}
 		
 		if (ingredeients.size() > 10) {
-			throw new InvalidArgumentValueException("Ingredients must be no more than 10!");
+			throw new InvalidArgumentValueException(INGREDIENTS_COUNT_ERROR_MESSAGE);
 		}
 		
 		pizza = new Pizza(5, quantity, name, 500, 2);
