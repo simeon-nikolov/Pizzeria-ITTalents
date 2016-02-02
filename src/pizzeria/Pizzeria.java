@@ -65,9 +65,9 @@ public class Pizzeria {
 		}
 	}
 	
-	public void makeOrder(User user) {
-		if (user != null) {
-			Order order = user.makeOrder();
+	public void makeOrder(User user, Shop shop) {
+		if (user != null && shop != null) {
+			Order order = user.makeOrder(shop);
 			this.allOrders.add(order);
 		}
 	}

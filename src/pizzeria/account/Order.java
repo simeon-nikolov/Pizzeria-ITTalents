@@ -2,6 +2,7 @@ package pizzeria.account;
 
 import java.util.ArrayList;
 
+import pizzeria.Shop;
 import pizzeria.menu.IProduct;
 import exceptions.InvalidArgumentValueException;
 
@@ -12,9 +13,10 @@ public class Order {
 	private double sum;
 	private boolean isReady;
 	private boolean isReceived;
+	private Shop shop;
 	private static long count = 0;
 	
-	public Order(User client, ArrayList<IProduct> produts, double sum) throws InvalidArgumentValueException {
+	public Order(User client, ArrayList<IProduct> produts, double sum, Shop shop) throws InvalidArgumentValueException {
 		if (client == null) {
 			throw new InvalidArgumentValueException("Client is null!");
 		}
@@ -31,10 +33,15 @@ public class Order {
 			throw new InvalidArgumentValueException("Sum can't be negative value!");
 		}
 		
+		if (shop == null) {
+			throw new InvalidArgumentValueException("Shop is null!");
+		}
+		
 		this.client = client;
 		this.products = new ArrayList<IProduct>();
 		this.products.addAll(produts);	
 		this.sum = sum;
+		this.shop = shop;
 	}
 	
 	public long getId() {
@@ -59,6 +66,10 @@ public class Order {
 
 	public boolean isReceived() {
 		return this.isReceived;
+	}
+	
+	public Shop getShop() {
+		return this.shop;
 	}
 	
 	public ArrayList<IProduct> getProducts() {

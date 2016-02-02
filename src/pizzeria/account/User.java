@@ -3,6 +3,7 @@ package pizzeria.account;
 import java.util.ArrayList;
 import java.util.Set;
 
+import pizzeria.Shop;
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
@@ -29,11 +30,11 @@ public class User extends Account {
 		this.orders = new ArrayList<Order>();
 	}
 	
-	public Order makeOrder() {
+	public Order makeOrder(Shop shop) {
 		Order order = null;
 		
 		try {
-			order = new Order(this, this.shoppingCart.getProducts(), this.shoppingCart.getSum());
+			order = new Order(this, this.shoppingCart.getProducts(), this.shoppingCart.getSum(), shop);
 			this.orders.add(order);
 			this.shoppingCart.empty();
 		} catch (InvalidArgumentValueException e) {
