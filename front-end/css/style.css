@@ -118,7 +118,7 @@ body {
 }
 
 .logo {
-	float: left;
+	text-align:center;
 	padding-left: 15px;
 }
 
@@ -210,7 +210,9 @@ body {
 	font-size: 25px;
 	color: #00BF79;
 	padding-top: 28px;
+	font-size: 25px;
 }
+
 .main_top h2 {
 	float: left;
 	font-size: 25px;
@@ -418,6 +420,7 @@ body {
 }
 
 .desc {
+	position:relative;
 	float: left;
 	width: 180px;
 	padding-left: 10px;
@@ -435,9 +438,15 @@ body {
 }
 
 .desc li button {
-	position: relative;
-	bottom: 0;
+	position: absolute;
 	right: 0;
+	bottom: -50;
+}
+
+.dobavi_button {
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
 /* services */
 .services_images {
