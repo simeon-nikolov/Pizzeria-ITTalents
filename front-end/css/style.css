@@ -96,7 +96,7 @@ img {
 /*end reset*/
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	background: #800000;
+	background: #660000;
 }
 
 .wrap {
@@ -146,22 +146,27 @@ body {
 
 .menu {
 	padding: 15px 15px;
-	background: #b22222;
+	background: #ec971f;
+	text-align: center;
+	margin: 0 3px;
 }
 
 .menu li {
 	display: inline-block;
 	list-style-image: url(../images/list_img.png);
+	margin: 0 3px;
+	padding-top: 10px;
+	padding-left: 40px;
 }
 
 .menu li a {
 	font-size: 18px;
-	color: #FFF;
-	margin: 0 35px;
+	color: #000000;
+	margin: 0px 50px;
 }
 
 .menu li a img {
-	vertical-align: bottom;
+	vertical-align: top;
 }
 
 .menu li.active a {
@@ -173,8 +178,8 @@ body {
 }
 
 .main {
-	background: #fac695;
-	background: -moz-linear-gradient(top, #fac695 0%, #005f3d 0%, #006d46 25%, #006d46
+	background: #8B0000;
+	/*background: -moz-linear-gradient(top, #fac695 0%, #005f3d 0%, #006d46 25%, #006d46
 		74%, #006d46 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fac695),
 		color-stop(0%, #005f3d), color-stop(25%, #006d46),
@@ -188,13 +193,24 @@ body {
 	background: linear-gradient(to bottom, #fac695 0%, #005f3d 0%, #006d46 25%, #006d46
 		74%, #006d46 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fac695',
-		endColorstr='#006d46', GradientType=0);
+		endColorstr='#006d46', GradientType=0);*/
 }
 
 .main_top {
-	padding: 0 35px;
+	padding: 10px 35px;
 }
 
+.main_top p {
+	text-align: center;
+	padding: 5px 35px;
+}
+
+.main_top h1 {
+	text-align: center;
+	font-size: 25px;
+	color: #00BF79;
+	padding-top: 28px;
+}
 .main_top h2 {
 	float: left;
 	font-size: 25px;
@@ -266,8 +282,8 @@ body {
 }
 
 .box1_data {
-	float: left;
-	width: 155px;
+	float: right;
+	width: 280px;
 }
 
 .box1_data h3 {
@@ -333,7 +349,7 @@ body {
 }
 
 .footer {
-	background: #FFCC33;
+	background: #d58512;
 	padding: 20px;
 	border-bottom-left-radius: 0.6em;
 	border-bottom-right-radius: 0.6em;
@@ -393,7 +409,7 @@ body {
 .pizza_details {
 	float: left;
 	width: 450px;
-	padding: 10px 0;
+	padding: 10px 30px;
 }
 
 .pizza_details img {
@@ -409,13 +425,19 @@ body {
 
 .desc li {
 	display: block;
-	color: #FFF;
+	color: #D2B48C;
 	margin: 5px;
 	font-size: 13px;
 }
 
 .desc li span {
-	color: #222;
+	color: #696969;
+}
+
+.desc li button {
+	position: relative;
+	bottom: 0;
+	right: 0;
 }
 /* services */
 .services_images {
