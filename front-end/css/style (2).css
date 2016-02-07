@@ -96,7 +96,7 @@ img {
 /*end reset*/
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	background: #FF9933;
+	background: #013C28;
 }
 
 .wrap {
@@ -105,14 +105,14 @@ body {
 }
 
 .wrapper {
-	background: #FFCC00;
+	background: #00291F;
 	border-radius: 0.6em;
 	padding: 10px;
 	margin: 20px 0;
 }
 
 .header {
-	background: #FF9933;
+	background: #016B45;
 	border-top-left-radius: 0.6em;
 	border-top-right-radius: 0.6em;
 }
@@ -133,7 +133,8 @@ body {
 }
 
 .header_bottom {
-	
+	border-top: 3px solid #003E29;
+	border-bottom: 3px solid #003E29;
 }
 
 .header_img {
@@ -146,7 +147,7 @@ body {
 
 .menu {
 	padding: 15px 25px;
-	background: #FF9933 url(../images/menu_strip.png) repeat-x;
+	background: #024B30 url(../images/menu_strip.png) repeat-x;
 	margin: 0 3px;
 }
 
@@ -334,7 +335,7 @@ body {
 }
 
 .footer {
-	background: #FFCC33;
+	background: #013C28;
 	padding: 20px;
 	border-bottom-left-radius: 0.6em;
 	border-bottom-right-radius: 0.6em;
