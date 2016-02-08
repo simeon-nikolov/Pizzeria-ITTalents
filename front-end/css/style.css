@@ -100,7 +100,7 @@ body {
 }
 
 .wrap {
-	width: 1000px;
+	width: 60%;
 	margin: 0 auto;
 }
 
@@ -154,15 +154,14 @@ body {
 .menu li {
 	display: inline-block;
 	list-style-image: url(../images/list_img.png);
-	margin: 0 3px;
 	padding-top: 10px;
 	padding-left: 40px;
+	margin: 0px 5%;
 }
 
 .menu li a {
 	font-size: 18px;
 	color: #000000;
-	margin: 0px 50px;
 }
 
 .menu li a img {
@@ -615,6 +614,7 @@ form label {
 
 .login {
 	position: absolute;
+	width: 15%;
 	float: left;
 	margin: 30px 40px;
 	padding: 20px 15px;
@@ -632,6 +632,10 @@ form label {
 
 .register_form {
 	text-align: center;
+}
+
+.login input {
+	width: 100%;
 }
 
 .register_form label {
