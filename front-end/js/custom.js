@@ -1,5 +1,5 @@
 jQuery(function($) {
 	$(window).scroll(function(){
-		$("#login").stop().animate({"marginTop": ($(window).scrollTop()) + "px"}, "slow" );
+		$("#login").stop().animate({"marginTop": ($(window).scrollTop() + 30) + "px"}, "slow" );
 	});
 });

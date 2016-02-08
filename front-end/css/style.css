@@ -100,7 +100,7 @@ body {
 }
 
 .wrap {
-	width: 60%;
+	width: 1000px;
 	margin: 0 auto;
 }
 
@@ -612,18 +612,33 @@ form label {
 
 /* Custom made css */
 
-.login {
-	position: absolute;
-	width: 15%;
+.wrap {
 	float: left;
-	margin: 30px 40px;
+}
+
+.login {
+	float: left;
+	width: 15%;
+	margin: 30px 20px;
 	padding: 20px 15px;
 	border: 5px solid #FFCC00;
 	border-radius: 0.6em;
 }
 
 .login div {
-	margin-top: 10px;
+	margin-top: 5px;
+}
+
+.login button {
+	margin-top: 5px;
+}
+
+.login a {
+	margin-top: 5px;
+}
+
+.login input {
+	width: 100%;
 }
 
 .login  label {
@@ -632,10 +647,6 @@ form label {
 
 .register_form {
 	text-align: center;
-}
-
-.login input {
-	width: 100%;
 }
 
 .register_form label {
