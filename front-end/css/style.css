@@ -616,6 +616,38 @@ form label {
 	float: left;
 }
 
+#right_side_content {
+	float: left;
+}
+
+#shopping_cart {
+	margin: 30px 20px;
+	border: 5px solid #FFCC00;
+	border-radius: 0.6em;
+	min-width: 200px;
+}
+
+.heading {
+	background: #FFCC00;
+	top: 0;
+}
+
+.heading h4 {
+	margin: 0;
+}
+
+#shopping_cart .product {
+	color: #D2B48C;
+}
+
+#shopping_cart .product a {
+	color: #f0ad4e;
+}
+
+#shopping_cart .bottom {
+	margin: 20px 10px;
+}
+
 #left_side_content {
 	float: left;
 	min-width: 15%;
