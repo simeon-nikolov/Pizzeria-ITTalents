@@ -610,3 +610,31 @@ form label {
 .contact_img img {
 	border: 1px solid #DDD;
 }
+
+/* Custom made css */
+
+.login {
+	position: absolute;
+	float: left;
+	margin: 30px 40px;
+	padding: 20px 15px;
+	border: 5px solid #FFCC00;
+	border-radius: 0.6em;
+}
+
+.login div {
+	margin-top: 10px;
+}
+
+.login  label {
+	text-align: left;
+}
+
+.register_form {
+	text-align: center;
+}
+
+.register_form label {
+	display: inline-block;
+	margin: 10px 20px;
+}
