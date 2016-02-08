@@ -616,9 +616,12 @@ form label {
 	float: left;
 }
 
-.login {
+#left_side_content {
 	float: left;
-	width: 15%;
+	min-width: 15%;
+}
+
+.login {
 	margin: 30px 20px;
 	padding: 20px 15px;
 	border: 5px solid #FFCC00;
@@ -647,9 +650,39 @@ form label {
 
 .register_form {
 	text-align: center;
+	padding: 45px 20px;
 }
 
 .register_form label {
 	display: inline-block;
 	margin: 10px 20px;
+}
+
+.register_form form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.register_form label, input {
+    /* in order to define widths */
+    display: inline-block;
+}
+
+.register_form label {
+    width: 30%;
+    /* positions the label text beside the input */
+    text-align: right;
+}
+
+.register_form label + input {
+    width: 30%;
+    /* large margin-right to force the next element to the new-line
+       and margin-left to create a gutter between the label and input */
+    margin: 0 30% 0 4%;
+}
+
+/* only the submit button is matched by this selector,
+   but to be sure you could use an id or class for that button */
+.register_form input + input {
+    float: right;
 }
