@@ -718,3 +718,24 @@ form label {
 .register_form input + input {
     float: right;
 }
+
+.admin_panel {
+	color: #D2B48C;
+	margin-left: 100px;
+}
+
+.admin_panel h4 {
+	color: #FFCC00;
+	text-decoration: underline;
+}
+
+.container div {
+	padding-top: 10px;
+}
+
+.container {
+	/*border: solid 1px black; */
+	border-radius: 10px; 
+	max-width: 400px; 
+	padding: 0px;
+}
