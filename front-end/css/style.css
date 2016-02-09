@@ -738,4 +738,15 @@ form label {
 	border-radius: 10px; 
 	max-width: 400px; 
 	padding: 0px;
+	padding-bottom: 50px;
+}
+
+.table_head {
+	color: #FFCC00;
+	text-decoration: underline;
+}
+
+#shopping_cart_page {
+	color: #D2B48C;
+	text-align: center;
 }
