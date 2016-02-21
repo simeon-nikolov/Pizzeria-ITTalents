@@ -1,13 +1,6 @@
 package database;
 
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Set;
-
-import pizzeria.account.Administrator;
-import pizzeria.account.User;
-import pizzeria.menu.Food;
-import pizzeria.menu.IProduct;
 import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
 
