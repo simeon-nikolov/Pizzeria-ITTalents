@@ -22,7 +22,7 @@ public class ProductDb {
 		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
 		String st = "INSERT INTO `pizzeria`.`food` (`grammage`, `Product_idProduct`) VALUES " + "(?,?);";
 		String stSelect = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
-		String s = "INSET INTO pizzeria.pizza (size,Food_idFood) VALUES  " + " (?,?)";
+		String s = "INSERT INTO pizzeria.pizza (size,Food_idFood) VALUES  " + " (?,?)";
 		try {
 			PreparedStatement stt = conn.prepareStatement(sql);
 			stt.setString(1, product.getName());
