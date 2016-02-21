@@ -28,7 +28,7 @@ public class Drink extends Product {
 	}
 
 	@Override
-	public long getId() {
+	public int getId() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

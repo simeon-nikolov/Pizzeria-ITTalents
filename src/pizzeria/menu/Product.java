@@ -10,11 +10,11 @@ public abstract class Product implements IProduct {
 	private static final int MIN_PRICE = 0;
 	private static final int MAX_QUANTITY = 100;
 	private static final int MIN_QUANTITY = 0;
-	private long id;
+	private int id;
 	private double price;
 	private short quantity;
 	private String name;
-	private static long count = 0;
+	private static int count = 0;
 
 	public Product(double price, short quantity, String name) throws InvalidArgumentValueException {
 		setName(name);
@@ -61,7 +61,7 @@ public abstract class Product implements IProduct {
 	}
 	
 	@Override
-	public long getId() {
+	public int getId() {
 		return this.id;
 	}
 

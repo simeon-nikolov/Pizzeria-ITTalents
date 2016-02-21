@@ -1,7 +1,6 @@
 package pizzeria.menu;
 
 import java.util.ArrayList;
-
 import exceptions.InvalidArgumentValueException;
 
 public abstract class Food extends Product {
@@ -49,6 +48,13 @@ public abstract class Food extends Product {
 		if (grammage < MIN_GRAMMAGE)
 			throw new InvalidArgumentValueException(GRAMMAGE_MESSAGE_ERROR);
 	}
+	
+	@Override
+	public int getId() {
+		// TODO Auto-generated method stub
+		return super.getId();
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
