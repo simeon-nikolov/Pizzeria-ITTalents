@@ -15,11 +15,13 @@ public class Demo {
 		try {
 			DatabaseConnection dbConn = new DatabaseConnection();
 			AdministratorDb adminDao = new AdministratorDb(dbConn.getConnection());
-			Administrator admin = new Administrator("admin2", "123456", "admin2@test.com");
-			//adminDao.addAdministrator(admin);
-			admin.setEmail("newEmail@email.com");
+			Administrator admin = new Administrator();
+			admin.setPassword("123123");
 			admin.setUsername("admincho");
-			adminDao.editAdministrator(7, admin);
+			admin.setEmail("admin2@test.com");
+			//adminDao.addAdministrator(admin);
+			//adminDao.editAdministrator(8, admin);
+			//adminDao.removeAdministrator(7);
 			dbConn.getConnection().close();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());

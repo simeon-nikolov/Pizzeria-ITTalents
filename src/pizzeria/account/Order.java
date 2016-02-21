@@ -1,6 +1,7 @@
 package pizzeria.account;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pizzeria.Shop;
 import pizzeria.menu.IProduct;
@@ -9,14 +10,18 @@ import exceptions.InvalidArgumentValueException;
 public class Order {
 	private long id;
 	private User client;
-	private ArrayList<IProduct> products;
+	private List<IProduct> products;
 	private double sum;
 	private boolean isReady;
 	private boolean isReceived;
 	private Shop shop;
-	private static long count = 0;
 	
-	public Order(User client, ArrayList<IProduct> produts, double sum, Shop shop) throws InvalidArgumentValueException {
+	public Order() {
+		
+	}
+	
+	public Order(int id, User client, ArrayList<IProduct> produts, double sum, Shop shop) 
+			throws InvalidArgumentValueException {
 		if (client == null) {
 			throw new InvalidArgumentValueException("Client is null!");
 		}
@@ -37,6 +42,7 @@ public class Order {
 			throw new InvalidArgumentValueException("Shop is null!");
 		}
 		
+		this.id = id;
 		this.client = client;
 		this.products = new ArrayList<IProduct>();
 		this.products.addAll(produts);	
@@ -72,8 +78,8 @@ public class Order {
 		return this.shop;
 	}
 	
-	public ArrayList<IProduct> getProducts() {
-		ArrayList<IProduct> result = new ArrayList<IProduct>();
+	public List<IProduct> getProducts() {
+		List<IProduct> result = new ArrayList<IProduct>();
 		
 		if (this.products != null && this.products.size() > 0) {
 			result.addAll(this.products);

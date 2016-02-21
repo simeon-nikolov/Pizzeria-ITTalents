@@ -1,6 +1,7 @@
 package pizzeria.account;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import pizzeria.Shop;
@@ -21,11 +22,15 @@ public class User extends Account {
 	private String address;
 	private String phoneNumber;
 	private ShoppingCart shoppingCart;
-	private ArrayList<Order> orders;
+	private List<Order> orders;
+	
+	puclic User() {
+		super();
+	}
 
-	public User(String username, String password, String email, String firstName,
+	public User(int id, String username, String password, String email, String firstName,
 			String lastName, String address, String phoneNumber) throws InvalidArgumentValueException {
-		super(username, password, email);
+		super(id, username, password, email);
 		this.shoppingCart = new ShoppingCart(this);
 		this.orders = new ArrayList<Order>();
 	}

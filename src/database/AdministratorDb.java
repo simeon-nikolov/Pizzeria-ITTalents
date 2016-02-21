@@ -65,5 +65,23 @@ public class AdministratorDb {
 		}
 	}
 	
-	
+	public void removeAdministrator(int id) {
+		String sql = "DELETE FROM `pizzeria`.`account` WHERE `idAccount`=?;";
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+			conn.commit();
+			System.out.println("Success!");
+		} catch (SQLException e) {	
+			try {
+				conn.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
 }
