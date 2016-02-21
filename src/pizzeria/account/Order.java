@@ -20,7 +20,7 @@ public class Order {
 		
 	}
 	
-	public Order(int id, User client, ArrayList<IProduct> produts, double sum, Shop shop) 
+	public Order(User client, ArrayList<IProduct> produts, double sum, Shop shop) 
 			throws InvalidArgumentValueException {
 		if (client == null) {
 			throw new InvalidArgumentValueException("Client is null!");
@@ -42,7 +42,6 @@ public class Order {
 			throw new InvalidArgumentValueException("Shop is null!");
 		}
 		
-		this.id = id;
 		this.client = client;
 		this.products = new ArrayList<IProduct>();
 		this.products.addAll(produts);	

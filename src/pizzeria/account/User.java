@@ -24,7 +24,7 @@ public class User extends Account {
 	private ShoppingCart shoppingCart;
 	private List<Order> orders;
 	
-	puclic User() {
+	public User() {
 		super();
 	}
 
