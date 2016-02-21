@@ -1,12 +1,18 @@
 package database;
 import java.sql.*;
 public class Something {
+	//URL
+	static final String DB_URL = "jdbc:mysql://localhost:3306/pizzeria?autoReconnect=true&useSSL=false";
 
+	// Database credentials
+	static final String USER = "root";
+	static final String PASS = "password";
+	
 	public static void main(String[] args) {
 		try {
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false","root","password");
+			Connection con = DriverManager.getConnection(DB_URL,USER,PASS);
 			Statement st = con.createStatement();
-			String sql = "INSERT INTO mydb.product ( name, price, quantity)"
+			String sql = "INSERT INTO pizzeria.product ( name, price, quantity)"
 					+ "VALUES ('margarita', 9.00, 1)" ;
 			st.execute(sql);
 			System.out.println("Insert complete!");
