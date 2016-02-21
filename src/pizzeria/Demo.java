@@ -51,7 +51,14 @@ public class Demo {
 			kalcone.setGrammage(550);
 			kalcone.setSize(30);
 			ProductDb pizzaDao = new ProductDb(dbConn.getConnection());
-			pizzaDao.addProduct(kalcone);
+			Pizza margarita = new Pizza();
+			margarita.setName("Margarita");
+			margarita.setPrice(5.99);
+			margarita.setQuantity(1);
+			margarita.setGrammage(450);
+			margarita.setSize(25);
+//			pizzaDao.addProduct(kalcone);
+			pizzaDao.editPizza(3, margarita);
 			dbConn.getConnection().close();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());

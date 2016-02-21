@@ -12,7 +12,4 @@ public interface IProduct {
 	void setName(String name) throws InvalidArgumentValueException;
 	void setPrice(double price) throws InvalidArgumentValueException;
 	void setQuantity(int quantity) throws InvalidArgumentValueException;
-	void setGrammage(int grammage) throws InvalidArgumentValueException;
-//	void setSize(int size);
-	int getGrammage();
 }

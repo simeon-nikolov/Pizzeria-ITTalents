@@ -34,16 +34,5 @@ public class Drink extends Product {
 	}
 
 
-	@Override
-	public void setGrammage(int grammage) throws InvalidArgumentValueException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getGrammage() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }
