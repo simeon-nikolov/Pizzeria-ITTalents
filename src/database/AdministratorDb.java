@@ -43,7 +43,26 @@ public class AdministratorDb {
 	}
 	
 	public void editAdministrator(int id, Administrator admin) {
+		String sql = "UPDATE `pizzeria`.`account` SET `username`=?, `password`=?, `email`=? WHERE `idAccount`=?;";
 		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, admin.getUsername());
+			stmt.setString(2, admin.getPassword());
+			stmt.setString(3, admin.getEmail());
+			stmt.setInt(4, id);
+			stmt.executeUpdate();
+			conn.commit();
+			System.out.println("Success!");
+		} catch (SQLException e) {	
+			try {
+				conn.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
 	}
 	
 	
