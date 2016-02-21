@@ -2,8 +2,8 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
+
 
 public class DatabaseConnection {
 	// JDBC driver name and database URL
@@ -21,15 +21,9 @@ public class DatabaseConnection {
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			
+			conn.setAutoCommit(false);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		
 		return conn;
