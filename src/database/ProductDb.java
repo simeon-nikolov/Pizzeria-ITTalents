@@ -20,9 +20,9 @@ public class ProductDb {
 	public void addProduct(IProduct product) {
 		String sql = "INSERT INTO `pizzeria`.`product` ( `name`, `price`, `quantity`) VALUES " + "(?, ?, ?);";
 		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
-		String st = "INSERT INTO `pizzeria`.`food(`grammage`, `Product_idProduct`) VALUES " + "(?,?);";
+		String st = "INSERT INTO `pizzeria`.`food` (`grammage`, `Product_idProduct`) VALUES " + "(?,?);";
 		String stSelect = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
-		String s = "INSET INTO pizzeria.pizza(size,Food_idFood) VALUES  " + " (?,?)";
+		String s = "INSET INTO pizzeria.pizza (size,Food_idFood) VALUES  " + " (?,?)";
 		try {
 			PreparedStatement stt = conn.prepareStatement(sql);
 			stt.setString(1, product.getName());
@@ -39,10 +39,10 @@ public class ProductDb {
 			stt2.setInt(2, idProduct);
 			stt2.executeUpdate();
 			PreparedStatement stSel = conn.prepareStatement(stSelect);
-			stSel.setString(1, product.getName());
+			stSel.setInt(1, idProduct);
 			ResultSet rs2 = stSel.executeQuery();
 			rs2.next();
-			int idFood = rs2.getInt("idProduct");
+			int idFood = rs2.getInt("idFood");
 			PreparedStatement stt3 = conn.prepareStatement(s);
 			stt3.setInt(1, ((Pizza) product).getSize());
 			stt3.setInt(2, idFood);

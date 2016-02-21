@@ -8,4 +8,6 @@ public class Salad extends Food {
 		super(id, price, quantity, name, grammage);
 	}
 
+	
+
 }

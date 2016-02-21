@@ -33,16 +33,16 @@ public class Demo {
 //				System.out.println(administrator.getUsername());
 //			}
 			
-			User user = new User();
-			user.setFirstName("Hsalfkdj");
-			user.setLastName("asldjalsjkd");
-			user.setUsername("user123");
-			user.setPassword("321321");
-			user.setEmail("user@asld.asd");
-			user.setPhoneNumber("11231123");
-			user.setAddress("fhs kkj fsdkjhf sdh kjdhf ksdjfkjd fkjfk");
-			UserDb userDao = new UserDb(dbConn.getConnection());
-			userDao.addUser(user);
+//			User user = new User();
+//			user.setFirstName("Hsalfkdj");
+//			user.setLastName("asldjalsjkd");
+//			user.setUsername("user123");
+//			user.setPassword("321321");
+//			user.setEmail("user@asld.asd");
+//			user.setPhoneNumber("11231123");
+//			user.setAddress("fhs kkj fsdkjhf sdh kjdhf ksdjfkjd fkjfk");
+//			UserDb userDao = new UserDb(dbConn.getConnection());
+//			userDao.addUser(user);
 			
 			Pizza kalcone = new Pizza();
 			kalcone.setName("Kalcone");
