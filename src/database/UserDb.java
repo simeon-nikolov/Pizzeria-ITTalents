@@ -96,4 +96,36 @@ public class UserDb {
 			e.printStackTrace();
 		}
 	}
+	
+	public void removeUser(int idUser) {
+		String sqlSelectUserId = "SELECT `idAccount` FROM `pizzeria`.`user` WHERE `idUser` = ?;";
+		String sqlAccountUpdate = "DELETE FROM `pizzeria`.`account` WHERE `idAccount`=?;";
+		String sqlUserUpdate = "DELETE FROM `pizzeria`.`user` WHERE `idUser`=?;";
+		
+		try {
+			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectUserId);
+			stmtAccId.setInt(1, idUser);
+			ResultSet rs = stmtAccId.executeQuery();
+			rs.next();
+			int idAccount = rs.getInt("idAccount");
+			
+			PreparedStatement stmtAcc = conn.prepareStatement(sqlAccountUpdate);
+			stmtAcc.setInt(1, idAccount);
+			stmtAcc.executeUpdate();
+			
+			PreparedStatement stmtUser = conn.prepareStatement(sqlUserUpdate);
+			stmtUser.setInt(1, idUser);
+			stmtUser.executeUpdate();
+			conn.commit();
+			System.out.println("Success!");
+		} catch (SQLException e) {	
+			try {
+				conn.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
 }
