@@ -6,10 +6,13 @@ public class Pizza extends Food {
 	private static final String SIZE_MESSAGE_ERROR = "Size is not correct";
 	private static final int MIN_SIZE_PIZZA = 0;
 	private int size;
-
-	public Pizza(double price, short quantity, String name, int grammage, int size)
+	public Pizza(){
+		super();
+	}
+	
+	public Pizza(int id,double price, short quantity, String name, int grammage, int size)
 			throws InvalidArgumentValueException {
-		super(price, quantity, name, grammage);
+		super(id, price, quantity, name, grammage);
 		setSize(size);
 	}
 
@@ -27,6 +30,7 @@ public class Pizza extends Food {
 			throw new InvalidArgumentValueException(SIZE_MESSAGE_ERROR);
 		}
 	}
+
 
 //	public double priceForPizza(Pizza p) {
 //		int sum = 0;

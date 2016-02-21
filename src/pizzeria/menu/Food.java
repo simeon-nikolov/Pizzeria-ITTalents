@@ -7,12 +7,17 @@ public abstract class Food extends Product {
 	private static final int MAX_NUMBER_OF_INGREDIENTS = 10;
 	private static final String GRAMMAGE_MESSAGE_ERROR = "Grammage is not correct";
 	private static final int MIN_GRAMMAGE = 0;
+	private int id;
 	private int grammage;
 	private ArrayList<Ingredient> ingredients;
 	private short numberOfIngredients = 0;
+	
+	public Food(){
+		super();
+	}
 
-	public Food(double price, short quantity, String name, int grammage) throws InvalidArgumentValueException {
-		super(price, quantity, name);
+	public Food(int id,double price, short quantity, String name, int grammage) throws InvalidArgumentValueException {
+		super(id, price, quantity, name);
 		setGrammage(grammage);
 		this.ingredients = new ArrayList<Ingredient>();
 	}

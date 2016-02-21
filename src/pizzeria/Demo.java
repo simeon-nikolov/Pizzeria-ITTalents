@@ -4,8 +4,11 @@ import java.sql.SQLException;
 
 import pizzeria.account.Administrator;
 import pizzeria.account.User;
+import pizzeria.menu.IProduct;
+import pizzeria.menu.Pizza;
 import database.AdministratorDb;
 import database.DatabaseConnection;
+import database.ProductDb;
 import database.UserDb;
 import exceptions.InvalidArgumentValueException;
 
@@ -41,6 +44,14 @@ public class Demo {
 			UserDb userDao = new UserDb(dbConn.getConnection());
 			userDao.addUser(user);
 			
+			Pizza kalcone = new Pizza();
+			kalcone.setName("Kalcone");
+			kalcone.setPrice(8.99);
+			kalcone.setQuantity(2);
+			kalcone.setGrammage(550);
+			kalcone.setSize(30);
+			ProductDb pizzaDao = new ProductDb(dbConn.getConnection());
+			pizzaDao.addProduct(kalcone);
 			dbConn.getConnection().close();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());

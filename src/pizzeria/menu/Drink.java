@@ -7,8 +7,8 @@ public class Drink extends Product {
 	private static final int MIN_SIZE_DRINK = 0;
 	private int size;
 
-	public Drink(double price, short quantity, String name, int size) throws InvalidArgumentValueException {
-		super(price, quantity, name);
+	public Drink(int id,double price, short quantity, String name, int size) throws InvalidArgumentValueException {
+		super(id,price, quantity, name);
 		this.setSize(size);
 	}
 
@@ -29,6 +29,19 @@ public class Drink extends Product {
 
 	@Override
 	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setGrammage(int grammage) throws InvalidArgumentValueException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getGrammage() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

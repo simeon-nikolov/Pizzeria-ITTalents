@@ -12,16 +12,22 @@ public abstract class Product implements IProduct {
 	private static final int MIN_QUANTITY = 0;
 	private int id;
 	private double price;
-	private short quantity;
+	private int quantity;
 	private String name;
-	private static int count = 0;
 
-	public Product(double price, short quantity, String name) throws InvalidArgumentValueException {
+	public Product(){
+		
+	}
+	
+	public Product(int id,double price, short quantity, String name) throws InvalidArgumentValueException {
 		setName(name);
 		setPrice(price);
 		setQuantity(quantity);
-		count++;
-		this.id = count;
+		this.id = id;
+	}
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override
@@ -40,16 +46,16 @@ public abstract class Product implements IProduct {
 		}
 	}
 
-	public short getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(short quantity) throws InvalidArgumentValueException {
-		this.validateQuantity(quantity);
-		this.quantity = quantity;
+	public void setQuantity(int i) throws InvalidArgumentValueException {
+		this.validateQuantity(i);
+		this.quantity = i;
 	}
 
-	private void validateQuantity(short quantity) throws InvalidArgumentValueException {
+	private void validateQuantity(int quantity) throws InvalidArgumentValueException {
 		if (quantity < MIN_QUANTITY && quantity > MAX_QUANTITY) {
 			throw new InvalidArgumentValueException(GRAMMAGE_IS_MESSAGE_ERROR);
 		}

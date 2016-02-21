@@ -49,25 +49,25 @@ public class User extends Account {
 		return order;
 	}
 	
-	public Pizza makePizzaByChoice(Set<Ingredient> ingredeients, short quantity, String name) throws InvalidArgumentValueException {
-		Pizza pizza = null;
-		
-		if (ingredeients == null) {
-			throw new InvalidArgumentValueException(INGREDIENTS_NULL_ERROR_MESSAGE);
-		}
-		
-		if (ingredeients.size() > 10) {
-			throw new InvalidArgumentValueException(INGREDIENTS_COUNT_ERROR_MESSAGE);
-		}
-		
-		pizza = new Pizza(5, quantity, name, 500, 2);
-		
-		for (Ingredient ingredient : ingredeients) {
-			pizza.addIngredients(ingredient);
-		}
-		
-		return pizza;
-	}
+//	public Pizza makePizzaByChoice(Set<Ingredient> ingredeients, short quantity, String name) throws InvalidArgumentValueException {
+//		Pizza pizza = null;
+//		
+//		if (ingredeients == null) {
+//			throw new InvalidArgumentValueException(INGREDIENTS_NULL_ERROR_MESSAGE);
+//		}
+//		
+//		if (ingredeients.size() > 10) {
+//			throw new InvalidArgumentValueException(INGREDIENTS_COUNT_ERROR_MESSAGE);
+//		}
+//		
+//		pizza = new Pizza(5, quantity, name, 500, 2);
+//		
+//		for (Ingredient ingredient : ingredeients) {
+//			pizza.addIngredients(ingredient);
+//		}
+//		
+//		return pizza;
+//	}
 
 	public ShoppingCart getShoppingCart() {
 		return shoppingCart;
