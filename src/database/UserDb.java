@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 
 import pizzeria.account.User;
 import exceptions.InvalidArgumentValueException;
@@ -24,7 +22,9 @@ public class UserDb {
 	public void addUser(User user) {
 		String sqlAccountInsert = "INSERT INTO `pizzeria`.`account` (`username`, `password`, `email`, `isAdmin`) VALUES "
 				+ "(?, ?, ?, ?);";
-		String sqlUserInsert = "";
+		String sqlSelectAccId = "SELECT `idAccount` FROM `pizzeria`.`account` WHERE `username` = ?;";
+		String sqlUserInsert = "INSERT INTO `pizzeria`.`user` (`first_name`, `last_name`, `address`, `phone_number`, `idAccount`) VALUES "
+				+ "(?, ?, ?, ?, ?);";
 		
 		try {
 			PreparedStatement stmtAcc = conn.prepareStatement(sqlAccountInsert);
@@ -32,10 +32,19 @@ public class UserDb {
 			stmtAcc.setString(2, user.getPassword());
 			stmtAcc.setString(3, user.getEmail());
 			stmtAcc.setBoolean(4, false);
-			ResultSet rs = stmtAcc.executeQuery();
+			stmtAcc.executeUpdate();
+			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectAccId);
+			stmtAccId.setString(1, user.getUsername());
+			ResultSet rs = stmtAccId.executeQuery();
 			rs.next();
 			int idAccount = rs.getInt("idAccount");
-			
+			PreparedStatement stmtUser = conn.prepareStatement(sqlUserInsert);
+			stmtUser.setString(1, user.getFirstName());
+			stmtUser.setString(2, user.getLastName());
+			stmtUser.setString(3, user.getAddress());
+			stmtUser.setString(4, user.getPhoneNumber());
+			stmtUser.setInt(5, idAccount);
+			stmtUser.executeUpdate();
 			conn.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
@@ -47,175 +56,5 @@ public class UserDb {
 			}
 			e.printStackTrace();
 		}
-	}
-	
-	public void editUser(int id, User admin) {
-		String sql = "UPDATE `pizzeria`.`account` SET `username`=?, `password`=?, `email`=? WHERE `idAccount`=?;";
-		
-		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, admin.getUsername());
-			stmt.setString(2, admin.getPassword());
-			stmt.setString(3, admin.getEmail());
-			stmt.setInt(4, id);
-			stmt.executeUpdate();
-			conn.commit();
-			System.out.println("Success!");
-		} catch (SQLException e) {	
-			try {
-				conn.rollback();
-				System.out.println("Transaction ROLLBACK");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		}
-	}
-	
-	public void removeUser(int id) {
-		String sql = "DELETE FROM `pizzeria`.`account` WHERE `idAccount`=?;";
-		
-		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id);
-			stmt.executeUpdate();
-			conn.commit();
-			System.out.println("Success!");
-		} catch (SQLException e) {	
-			try {
-				conn.rollback();
-				System.out.println("Transaction ROLLBACK");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		}
-	}
-	
-	public User getUserById(int id) {
-		User admin = null;
-		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `idAccount`=?";
-		
-		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id);
-			ResultSet rs = stmt.executeQuery();
-			conn.commit();
-			rs.next();
-			admin = new User(
-					rs.getInt("idAccount"), 
-					rs.getString("username"),
-					rs.getString("password"),
-					rs.getString("email"));
-			System.out.println("Success!");
-		} catch (SQLException e) {	
-			try {
-				conn.rollback();
-				System.out.println("Transaction ROLLBACK");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} catch (InvalidArgumentValueException e) {
-			e.printStackTrace();
-		}
-		
-		return admin;
-	}
-	
-	public User getUserByUsername(String username) {
-		User admin = null;
-		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `username`=?;";
-		
-		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, username);
-			ResultSet rs = stmt.executeQuery();
-			conn.commit();
-			rs.next();
-			admin = new User(
-					rs.getInt("idAccount"), 
-					rs.getString("username"),
-					rs.getString("password"),
-					rs.getString("email"));
-			System.out.println("Success!");
-		} catch (SQLException e) {	
-			try {
-				conn.rollback();
-				System.out.println("Transaction ROLLBACK");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} catch (InvalidArgumentValueException e) {
-			e.printStackTrace();
-		}
-		
-		return admin;
-	}
-	
-	public User getUserByEmail(String email) {
-		User admin = null;
-		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `email`=?;";
-		
-		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, email);
-			ResultSet rs = stmt.executeQuery();
-			conn.commit();
-			rs.next();
-			admin = new User(
-					rs.getInt("idAccount"), 
-					rs.getString("username"),
-					rs.getString("password"),
-					rs.getString("email"));
-			System.out.println("Success!");
-		} catch (SQLException e) {	
-			try {
-				conn.rollback();
-				System.out.println("Transaction ROLLBACK");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} catch (InvalidArgumentValueException e) {
-			e.printStackTrace();
-		}
-		
-		return admin;
-	}
-	
-	public Set<User> getAllUser() {
-		Set<User> admins = new HashSet<User>();
-		String sql = "SELECT * FROM `pizzeria`.`account`;";
-		
-		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
-			conn.commit();
-			
-			while(rs.next()) {
-				User admin = new User(
-						rs.getInt("idAccount"), 
-						rs.getString("username"),
-						rs.getString("password"),
-						rs.getString("email"));
-				admins.add(admin);
-			}
-			
-			System.out.println("Success!");
-		} catch (SQLException e) {	
-			try {
-				conn.rollback();
-				System.out.println("Transaction ROLLBACK");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} catch (InvalidArgumentValueException e) {
-			e.printStackTrace();
-		}
-		
-		return admins;
 	}
 }
