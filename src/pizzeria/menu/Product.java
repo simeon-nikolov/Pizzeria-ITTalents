@@ -3,6 +3,7 @@ package pizzeria.menu;
 import exceptions.InvalidArgumentValueException;
 
 public abstract class Product implements IProduct {
+
 	private static final String PRICE_MESSAGE_ERROR = "Price is not correct";
 	private static final String GRAMMAGE_IS_MESSAGE_ERROR = "Grammage is not correct";
 	private static final String NAME_IS_EMPTY_ERROR_MESSAGE = "Name is empty!";
@@ -84,5 +85,10 @@ public abstract class Product implements IProduct {
 		if (name.equals("")) {
 			throw new InvalidArgumentValueException(NAME_IS_EMPTY_ERROR_MESSAGE);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", price=" + price + ", quantity=" + quantity + ", name=" + name + "]";
 	}
 }

@@ -1,6 +1,7 @@
 package pizzeria;
 
 import java.sql.SQLException;
+import java.util.Set;
 
 import pizzeria.account.Administrator;
 import pizzeria.account.User;
@@ -58,7 +59,13 @@ public class Demo {
 			margarita.setGrammage(450);
 			margarita.setSize(25);
 //			pizzaDao.addProduct(kalcone);
-			pizzaDao.editPizza(3, margarita);
+			//pizzaDao.editPizza(3, margarita);
+			Set<Pizza> pizzas = pizzaDao.getAllPizza();
+			for (Pizza pizza : pizzas) {
+				System.out.println(pizza);
+			}
+//			Pizza a = pizzaDao.getPizzaById(1);
+//			System.out.println(a);
 			dbConn.getConnection().close();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());

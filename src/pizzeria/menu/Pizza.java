@@ -6,11 +6,12 @@ public class Pizza extends Food {
 	private static final String SIZE_MESSAGE_ERROR = "Size is not correct";
 	private static final int MIN_SIZE_PIZZA = 0;
 	private int size;
-	public Pizza(){
+
+	public Pizza() {
 		super();
 	}
-	
-	public Pizza(int id,double price, short quantity, String name, int grammage, int size)
+
+	public Pizza(int id, String name, double price, short quantity, int grammage, int size)
 			throws InvalidArgumentValueException {
 		super(id, price, quantity, name, grammage);
 		setSize(size);
@@ -31,14 +32,17 @@ public class Pizza extends Food {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + " size " + size;
+	}
 
-//	public double priceForPizza(Pizza p) {
-//		int sum = 0;
-//		for (Ingredient c : p.getIngredients()) {
-//			sum++;
-//		}
-//		return p.getQuantity() * (p.getGrammage() * 10 + sum * 0.20);
-//   }
-
+	// public double priceForPizza(Pizza p) {
+	// int sum = 0;
+	// for (Ingredient c : p.getIngredients()) {
+	// sum++;
+	// }
+	// return p.getQuantity() * (p.getGrammage() * 10 + sum * 0.20);
+	// }
 
 }

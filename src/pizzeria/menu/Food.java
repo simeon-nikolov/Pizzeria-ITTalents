@@ -59,10 +59,10 @@ public abstract class Food extends Product {
 		// TODO Auto-generated method stub
 		return super.getId();
 	}
-	
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return super.toString() + " grammage " + grammage;
 	}
+	
 }
