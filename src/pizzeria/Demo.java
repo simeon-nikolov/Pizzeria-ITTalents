@@ -6,9 +6,11 @@ import java.util.Set;
 import pizzeria.account.Administrator;
 import pizzeria.account.User;
 import pizzeria.menu.IProduct;
+import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import database.AdministratorDb;
 import database.DatabaseConnection;
+import database.IngredientDb;
 import database.ProductDb;
 import database.UserDb;
 import exceptions.InvalidArgumentValueException;
@@ -60,12 +62,26 @@ public class Demo {
 			margarita.setSize(25);
 //			pizzaDao.addProduct(kalcone);
 			//pizzaDao.editPizza(3, margarita);
-			Set<Pizza> pizzas = pizzaDao.getAllPizza();
-			for (Pizza pizza : pizzas) {
-				System.out.println(pizza);
-			}
+//			Set<Pizza> pizzas = pizzaDao.getAllPizza();
+//			for (Pizza pizza : pizzas) {
+//				System.out.println(pizza);
+//			}
 //			Pizza a = pizzaDao.getPizzaById(1);
 //			System.out.println(a);
+			
+			
+			IngredientDb ingDao = new IngredientDb(dbConn.getConnection());
+//			ingDao.addIngredient(new Ingredient("Parmezan"));
+			ingDao.addIngredient(new Ingredient("Brokoli"));
+			ingDao.addIngredient(new Ingredient("Mocarela"));
+			ingDao.addIngredient(new Ingredient("Maslini"));
+			ingDao.addIngredient(new Ingredient("Bekon"));
+			ingDao.addIngredient(new Ingredient("Gybi"));
+			ingDao.addIngredient(new Ingredient("Topeno sirene"));
+			ingDao.addIngredient(new Ingredient("Carevica"));
+			ingDao.addIngredient(new Ingredient("Luk"));
+			ingDao.addIngredient(new Ingredient("Shunka"));
+			ingDao.addIngredient(new Ingredient("Peperoni"));
 			dbConn.getConnection().close();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());

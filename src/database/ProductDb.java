@@ -3,13 +3,11 @@ package database;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import pizzeria.account.Administrator;
 import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
 
 public class ProductDb {
-	Connection conn;
+	private Connection conn;
 
 	public ProductDb(Connection conn) throws InvalidArgumentValueException {
 		if (conn != null)
@@ -24,6 +22,9 @@ public class ProductDb {
 		String st = "INSERT INTO `pizzeria`.`food` (`grammage`, `Product_idProduct`) VALUES " + "(?,?);";
 		String stSelect = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
 		String s = "INSERT INTO pizzeria.pizza (size,Food_idFood) VALUES  " + " (?,?)";
+		String sqlFoodIngredient = " INSERT INTO pizzeria.food_has_ingredient (Ingredient_idIngredient,Food_idFood) "
+				+ "VALUES " + "(?,?);";
+		String sqlIngredientSelect = "SELECT idIngredient FROM pizzera.ingredient WHERE name = ?;";
 		try {
 			PreparedStatement stt = conn.prepareStatement(sql);
 			stt.setString(1, pizza.getName());
@@ -167,25 +168,25 @@ public class ProductDb {
 		}
 		return pizza;
 	}
-	
+
 	public Set<Pizza> getAllPizza() {
 		Set<Pizza> pizzas = new HashSet<Pizza>();
 		String sql = "select p.idProduct, p.name , p.price, p.quantity, f.grammage, pi.size from pizzeria.product p "
 				+ "join pizzeria.food f on p.idProduct = f.Product_idProduct join pizzeria.pizza pi on f.idFood = pi.Food_idFood;";
-		
+
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			conn.commit();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				Pizza pizza = new Pizza(rs.getInt("idProduct"), rs.getString("name"), rs.getDouble("price"),
 						(short) rs.getInt("quantity"), rs.getInt("grammage"), rs.getInt("size"));
 				pizzas.add(pizza);
 			}
-			
+
 			System.out.println("Success!");
-		} catch (SQLException e) {	
+		} catch (SQLException e) {
 			try {
 				conn.rollback();
 				System.out.println("Transaction ROLLBACK");
@@ -196,8 +197,6 @@ public class ProductDb {
 		} catch (InvalidArgumentValueException e) {
 			e.printStackTrace();
 		}
-		
 		return pizzas;
 	}
-
 }
