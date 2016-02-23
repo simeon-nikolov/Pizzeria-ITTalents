@@ -89,6 +89,10 @@ public class Demo {
 			}
 			
 //			pizzaDao.addProduct(peperoni);
+			Set<Ingredient> in = pizzaDao.getAllPizzaIngredients(peperoni);
+			for (Ingredient ingredient : in) {
+				System.out.print(ingredient.getName() + " ");
+			}
 			dbConn.getConnection().close();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());

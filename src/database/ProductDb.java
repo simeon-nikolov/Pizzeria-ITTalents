@@ -2,7 +2,6 @@ package database;
 
 import java.sql.*;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import pizzeria.menu.Ingredient;
@@ -214,5 +213,43 @@ public class ProductDb {
 			e.printStackTrace();
 		}
 		return pizzas;
+	}
+	
+	public Set<Ingredient> getAllPizzaIngredients(Pizza pizza){
+		Set<Ingredient> ing = new HashSet<Ingredient>();
+		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
+		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
+		String sql = "select i.name from pizzeria.ingredient i join pizzeria.food_has_ingredient fi "
+				+ "on i.idIngredient = fi.Ingredient_idIngredient where Food_idFood = ?;";
+		try {
+			PreparedStatement sttSel = conn.prepareStatement(sqlSelect);
+			sttSel.setString(1, pizza.getName());
+			ResultSet rs = sttSel.executeQuery();
+			rs.next();
+			int idProduct = rs.getInt("idProduct");
+			PreparedStatement stfo = conn.prepareStatement(sqlSelectFoodId);
+			stfo.setInt(1, idProduct);
+			ResultSet rsF = stfo.executeQuery();
+			rsF.next();
+			int idFood = rsF.getInt("idFood");
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, idFood);
+			ResultSet rsI = stmt.executeQuery();
+			conn.commit();
+			while(rsI.next()){
+				Ingredient ingredient = new Ingredient(rsI.getString("name")); 
+				ing.add(ingredient);
+			}
+			System.out.println("Success!");
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} 
+		return ing;
 	}
 }
