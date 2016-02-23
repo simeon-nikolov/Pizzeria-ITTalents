@@ -82,6 +82,7 @@ public class ProductDb {
 		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
 		String sqlFoodUpdate = "UPDATE pizzeria.food SET grammage = ?  WHERE idFood = ? ;";
 		String sqlPizzaUpdate = "UPDATE pizzeria.pizza SET size = ? WHERE Food_idFood = ?;";
+		String sqlIngUpdate = "UPDATE pizzeria.food_has_ingredient SET Food_idFood = ? WHERE Food_idFood = ?;";
 
 		try {
 
@@ -124,6 +125,7 @@ public class ProductDb {
 		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
 		String sqlAccountUpdate = "DELETE FROM pizzeria.food WHERE idFood = ?;";
 		String sqlUserUpdate = "DELETE FROM pizzeria.pizza WHERE Food_idFood = ?;";
+		String sqlIngredientsUpdate = "DELETE FROM pizzeria.food_has_ingredient WHERE Food_idFood = ?;";
 
 		try {
 			PreparedStatement stmtPro = conn.prepareStatement(sqlProductUpdate);
@@ -142,6 +144,10 @@ public class ProductDb {
 			PreparedStatement stmtUser = conn.prepareStatement(sqlUserUpdate);
 			stmtUser.setInt(1, idFood);
 			stmtUser.executeUpdate();
+			
+			PreparedStatement stmtIng = conn.prepareStatement(sqlIngredientsUpdate);
+			stmtIng.setInt(1, idFood);
+			stmtIng.executeUpdate();
 
 			conn.commit();
 			System.out.println("Success!");
