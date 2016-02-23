@@ -8,10 +8,9 @@ import pizzeria.menu.IProduct;
 import exceptions.InvalidArgumentValueException;
 
 public class Order {
-	private long id;
+	private int id;
 	private User client;
 	private List<IProduct> products;
-	private double sum;
 	private boolean isReady;
 	private boolean isReceived;
 	private Shop shop;
@@ -20,7 +19,7 @@ public class Order {
 		
 	}
 	
-	public Order(User client, ArrayList<IProduct> produts, double sum, Shop shop) 
+	public Order(User client, ArrayList<IProduct> produts, Shop shop) 
 			throws InvalidArgumentValueException {
 		if (client == null) {
 			throw new InvalidArgumentValueException("Client is null!");
@@ -34,10 +33,6 @@ public class Order {
 			throw new InvalidArgumentValueException("There are no products to be ordered!");
 		}
 		
-		if (sum < 0.0) {
-			throw new InvalidArgumentValueException("Sum can't be negative value!");
-		}
-		
 		if (shop == null) {
 			throw new InvalidArgumentValueException("Shop is null!");
 		}
@@ -45,11 +40,20 @@ public class Order {
 		this.client = client;
 		this.products = new ArrayList<IProduct>();
 		this.products.addAll(produts);	
-		this.sum = sum;
 		this.shop = shop;
 	}
 	
-	public long getId() {
+	public double getSum() {
+		double sum = 0;
+		
+		for (IProduct product : this.products) {
+			sum += product.getPrice();
+		}
+		
+		return sum;
+	}
+
+	public int getId() {
 		return this.id;
 	}
 	
