@@ -20,6 +20,11 @@ public abstract class Product implements IProduct {
 		
 	}
 	
+	public Product(double price, short quantity, String name) throws InvalidArgumentValueException {
+		setName(name);
+		setPrice(price);
+		setQuantity(quantity);
+	}
 	public Product(int id,double price, short quantity, String name) throws InvalidArgumentValueException {
 		setName(name);
 		setPrice(price);

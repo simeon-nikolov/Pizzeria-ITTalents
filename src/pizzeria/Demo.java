@@ -5,7 +5,6 @@ import java.util.Set;
 
 import pizzeria.account.Administrator;
 import pizzeria.account.User;
-import pizzeria.menu.IProduct;
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import database.AdministratorDb;
@@ -47,20 +46,21 @@ public class Demo {
 //			UserDb userDao = new UserDb(dbConn.getConnection());
 //			userDao.addUser(user);
 			
-			Pizza kalcone = new Pizza();
-			kalcone.setName("Kalcone");
-			kalcone.setPrice(8.99);
-			kalcone.setQuantity(2);
-			kalcone.setGrammage(550);
-			kalcone.setSize(30);
+//			Pizza kalcone = new Pizza();
+//			kalcone.setName("Kalcone");
+//			kalcone.setPrice(8.99);
+//			kalcone.setQuantity(2);
+//			kalcone.setGrammage(550);
+//			kalcone.setSize(30);
 			ProductDb pizzaDao = new ProductDb(dbConn.getConnection());
-			Pizza margarita = new Pizza();
-			margarita.setName("Margarita");
-			margarita.setPrice(5.99);
-			margarita.setQuantity(1);
-			margarita.setGrammage(450);
-			margarita.setSize(25);
+//			Pizza margarita = new Pizza();
+//			margarita.setName("Margarita");
+//			margarita.setPrice(5.99);
+//			margarita.setQuantity(1);
+//			margarita.setGrammage(450);
+//			margarita.setSize(25);
 //			pizzaDao.addProduct(kalcone);
+//			pizzaDao.addProduct(margarita);
 			//pizzaDao.editPizza(3, margarita);
 //			Set<Pizza> pizzas = pizzaDao.getAllPizza();
 //			for (Pizza pizza : pizzas) {
@@ -72,16 +72,23 @@ public class Demo {
 			
 			IngredientDb ingDao = new IngredientDb(dbConn.getConnection());
 //			ingDao.addIngredient(new Ingredient("Parmezan"));
-			ingDao.addIngredient(new Ingredient("Brokoli"));
-			ingDao.addIngredient(new Ingredient("Mocarela"));
-			ingDao.addIngredient(new Ingredient("Maslini"));
-			ingDao.addIngredient(new Ingredient("Bekon"));
-			ingDao.addIngredient(new Ingredient("Gybi"));
-			ingDao.addIngredient(new Ingredient("Topeno sirene"));
-			ingDao.addIngredient(new Ingredient("Carevica"));
-			ingDao.addIngredient(new Ingredient("Luk"));
-			ingDao.addIngredient(new Ingredient("Shunka"));
-			ingDao.addIngredient(new Ingredient("Peperoni"));
+//			ingDao.addIngredient(new Ingredient("Brokoli"));
+//			ingDao.addIngredient(new Ingredient("Mocarela"));
+//			ingDao.addIngredient(new Ingredient("Maslini"));
+//			ingDao.addIngredient(new Ingredient("Bekon"));
+//			ingDao.addIngredient(new Ingredient("Gybi"));
+//			ingDao.addIngredient(new Ingredient("Topeno sirene"));
+//			ingDao.addIngredient(new Ingredient("Carevica"));
+//			ingDao.addIngredient(new Ingredient("Luk"));
+//			ingDao.addIngredient(new Ingredient("Shunka"));
+//			ingDao.addIngredient(new Ingredient("Peperoni"));
+			String[] ingredients = {"Parmezan","Gybi","Peperoni","Maslini"};
+			Pizza peperoni = new Pizza("Peperoni", 8.50, (short) 1, 600, 30);
+			for (String string : ingredients) {
+				peperoni.addIngredients(new Ingredient(string));
+			}
+			
+//			pizzaDao.addProduct(peperoni);
 			dbConn.getConnection().close();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());

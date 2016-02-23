@@ -11,6 +11,11 @@ public class Pizza extends Food {
 		super();
 	}
 
+	public Pizza( String name, double price, short quantity, int grammage, int size)
+			throws InvalidArgumentValueException {
+		super( price, quantity, name, grammage);
+		setSize(size);
+	}
 	public Pizza(int id, String name, double price, short quantity, int grammage, int size)
 			throws InvalidArgumentValueException {
 		super(id, price, quantity, name, grammage);

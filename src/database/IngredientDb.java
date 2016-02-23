@@ -78,7 +78,7 @@ public class IngredientDb {
 		}
 	}
 	
-	public Ingredient getIngredientByUsername(String name) {
+	public Ingredient getIngredientByname(String name) {
 		Ingredient ingredient = null;
 		String sql = "SELECT * FROM pizzeria.ingredient WHERE name = ?;";
 		

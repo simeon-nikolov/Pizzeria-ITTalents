@@ -2,7 +2,10 @@ package database;
 
 import java.sql.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+
+import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
 
@@ -24,7 +27,7 @@ public class ProductDb {
 		String s = "INSERT INTO pizzeria.pizza (size,Food_idFood) VALUES  " + " (?,?)";
 		String sqlFoodIngredient = " INSERT INTO pizzeria.food_has_ingredient (Ingredient_idIngredient,Food_idFood) "
 				+ "VALUES " + "(?,?);";
-		String sqlIngredientSelect = "SELECT idIngredient FROM pizzera.ingredient WHERE name = ?;";
+		String sqlIngredientSelect = "SELECT idIngredient FROM pizzeria.ingredient WHERE name = ?;";
 		try {
 			PreparedStatement stt = conn.prepareStatement(sql);
 			stt.setString(1, pizza.getName());
@@ -49,6 +52,19 @@ public class ProductDb {
 			stt3.setInt(1, pizza.getSize());
 			stt3.setInt(2, idFood);
 			stt3.executeUpdate();
+			
+			for (Ingredient ing : pizza.getIngredients()) {
+				PreparedStatement stIng = conn.prepareStatement(sqlIngredientSelect);
+				stIng.setString(1, ing.getName());
+				ResultSet rsIng = stIng.executeQuery();
+				rsIng.next();
+				int idIngredient = rsIng.getInt("IdIngredient");
+				PreparedStatement stmt = conn.prepareStatement(sqlFoodIngredient);
+				stmt.setInt(1, idIngredient);
+				stmt.setInt(2, idFood);
+				stmt.executeUpdate();
+			}
+			
 			conn.commit();
 			System.out.println("Success!");
 		} catch (Exception e) {

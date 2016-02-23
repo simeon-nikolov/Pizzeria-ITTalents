@@ -1,6 +1,8 @@
 package pizzeria.menu;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import exceptions.InvalidArgumentValueException;
 
 public abstract class Food extends Product {
@@ -9,17 +11,23 @@ public abstract class Food extends Product {
 	private static final int MIN_GRAMMAGE = 0;
 	private int id;
 	private int grammage;
-	private ArrayList<Ingredient> ingredients;
+	private Set<Ingredient> ingredients;
 	private short numberOfIngredients = 0;
 	
 	public Food(){
 		super();
 	}
+	
+	public Food(double price, short quantity, String name, int grammage) throws InvalidArgumentValueException {
+		super(price, quantity, name);
+		setGrammage(grammage);
+		this.ingredients = new HashSet<Ingredient>();
+	}
 
 	public Food(int id,double price, short quantity, String name, int grammage) throws InvalidArgumentValueException {
 		super(id, price, quantity, name);
 		setGrammage(grammage);
-		this.ingredients = new ArrayList<Ingredient>();
+		this.ingredients = new HashSet<Ingredient>();
 	}
 
 	public void addIngredients(Ingredient ingredient) {
@@ -34,8 +42,8 @@ public abstract class Food extends Product {
 		}
 	}
 
-	public ArrayList<Ingredient> getIngredients() {
-		ArrayList<Ingredient> result = new ArrayList<Ingredient>();
+	public Set<Ingredient> getIngredients() {
+		Set<Ingredient> result = new HashSet<Ingredient>();
 		result.addAll(this.ingredients);
 		return result;
 	}
@@ -57,7 +65,7 @@ public abstract class Food extends Product {
 	@Override
 	public int getId() {
 		// TODO Auto-generated method stub
-		return super.getId();
+		return id;
 	}
 
 	@Override
