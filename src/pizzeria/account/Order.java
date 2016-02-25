@@ -19,28 +19,19 @@ public class Order {
 		
 	}
 	
-	public Order(User client, ArrayList<IProduct> produts, Shop shop) 
+	public Order(User client, Shop shop) 
 			throws InvalidArgumentValueException {
-		if (client == null) {
-			throw new InvalidArgumentValueException("Client is null!");
-		}
-		
-		if (produts == null) {
-			throw new InvalidArgumentValueException("Products is null!");
-		}
-		
-		if (produts.size() == 0) {
-			throw new InvalidArgumentValueException("There are no products to be ordered!");
-		}
-		
-		if (shop == null) {
-			throw new InvalidArgumentValueException("Shop is null!");
-		}
-		
-		this.client = client;
+		this.setShop(shop);
+		this.setClient(client);
 		this.products = new ArrayList<IProduct>();
-		this.products.addAll(produts);	
-		this.shop = shop;
+	}
+	
+	public void addProduct(IProduct product) throws InvalidArgumentValueException {
+		if (product == null) {
+			throw new InvalidArgumentValueException("Product is null!");
+		}
+		
+		this.products.add(product);
 	}
 	
 	public double getSum() {
@@ -57,20 +48,28 @@ public class Order {
 		return this.id;
 	}
 	
+	public void setClient(User client) throws InvalidArgumentValueException {
+		if (client == null) {
+			throw new InvalidArgumentValueException("Client is null!");
+		}
+		
+		this.client = client;
+	}
+	
 	public User getClient() {
 		return this.client;
 	}
 	
-	public void setReady() {
-		this.isReady = true;
+	public void setReady(boolean isReady) {
+		this.isReady = isReady;
 	}
 	
 	public boolean isReady() {
 		return this.isReady;
 	}
 	
-	public void setReceived() {
-		this.isReceived = true;
+	public void setReceived(boolean isReceived) {
+		this.isReceived = isReceived;
 	}
 
 	public boolean isReceived() {
@@ -79,6 +78,14 @@ public class Order {
 	
 	public Shop getShop() {
 		return this.shop;
+	}
+	
+	public void setShop(Shop shop) throws InvalidArgumentValueException {
+		if (shop == null) {
+			throw new InvalidArgumentValueException("Shop is null!");
+		}
+		
+		this.shop = shop;
 	}
 	
 	public List<IProduct> getProducts() {

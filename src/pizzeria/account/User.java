@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pizzeria.Shop;
+import pizzeria.menu.IProduct;
 import exceptions.InvalidArgumentValueException;
 
 public class User extends Account {
@@ -36,7 +37,12 @@ public class User extends Account {
 		Order order = null;
 		
 		try {
-			order = new Order(this, this.shoppingCart.getProducts(), shop);
+			order = new Order(this, shop);
+			
+			for (IProduct product : this.shoppingCart.getProducts()) {
+				order.addProduct(product);
+			}
+			
 			this.orders.add(order);
 			this.shoppingCart.empty();
 		} catch (InvalidArgumentValueException e) {
