@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import pizzeria.Shop;
 import pizzeria.account.Order;
+import pizzeria.account.User;
 import pizzeria.menu.IProduct;
 
 import com.mysql.jdbc.Statement;
@@ -128,6 +130,7 @@ public class OrderDb {
 
 	public Order getOrderById(int idOrder) {
 		String sqlSelectOrder = "SELECT * FROM `pizzeria`.`Order` WHERE `idOrder`=?;";
+		String sqlSelectShop = "SELECT * FROM `pizzeria`.`Shop` WHERE `pizzeria`.`Order_idOrder` = ?";
 		String sqlSelectProducts = "SELECT * FROM `pizzeria`.`Product` pr "
 				+ "JOIN `pizzeria`.`Products_In_Order` po ON (pr.`idProduct` = po.`idProduct`) "
 				+ "WHERE po.`Order_idOrder` = ?;";
@@ -142,9 +145,25 @@ public class OrderDb {
 			order = new Order(); 
 			order.setReady(rs.getBoolean("is_ready"));
 			order.setReceived(rs.getBoolean("is_received"));
-			// TO DO
+			int userId = rs.getInt("User_idUser");
+			User client = new UserDb(conn).getUserById(userId);
+			order.setClient(client);
+			PreparedStatement stmtSelectShop = conn.prepareStatement(sqlSelectShop);
+			stmtSelectShop.setInt(1, idOrder);
+			rs = stmtSelectShop.executeQuery();
+			rs.next();
+			Shop shop = new Shop(
+					rs.getInt("idShop"),
+					rs.getString("name"),
+					rs.getString("address")
+				);
+			order.setShop(shop);
 			PreparedStatement stmtSelectProducts = conn.prepareStatement(sqlSelectProducts);
-
+			rs = stmtSelectProducts.executeQuery();
+			
+			while(rs.next()) {
+				// To do - depends on ProductDb
+			}
 
 			conn.commit();
 			System.out.println("Success!");
@@ -155,6 +174,8 @@ public class OrderDb {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			e.printStackTrace();
+		} catch (InvalidArgumentValueException e) {
 			e.printStackTrace();
 		}
 		

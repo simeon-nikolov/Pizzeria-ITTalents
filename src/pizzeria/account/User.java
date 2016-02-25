@@ -37,7 +37,9 @@ public class User extends Account {
 		Order order = null;
 		
 		try {
-			order = new Order(this, shop);
+			order = new Order();
+			order.setClient(this);
+			order.setShop(shop);
 			
 			for (IProduct product : this.shoppingCart.getProducts()) {
 				order.addProduct(product);

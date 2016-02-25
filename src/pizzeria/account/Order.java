@@ -19,7 +19,7 @@ public class Order {
 		
 	}
 	
-	public Order(User client, Shop shop) 
+	public Order(int id, User client, Shop shop) 
 			throws InvalidArgumentValueException {
 		this.setShop(shop);
 		this.setClient(client);
@@ -46,6 +46,10 @@ public class Order {
 
 	public int getId() {
 		return this.id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public void setClient(User client) throws InvalidArgumentValueException {
