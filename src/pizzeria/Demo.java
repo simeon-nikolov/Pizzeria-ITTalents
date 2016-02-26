@@ -1,27 +1,26 @@
 package pizzeria;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Set;
 
 import pizzeria.account.Administrator;
-import pizzeria.account.User;
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import database.AdministratorDb;
 import database.DatabaseConnection;
 import database.IngredientDb;
 import database.ProductDb;
-import database.UserDb;
 import exceptions.InvalidArgumentValueException;
 
 public class Demo {
 
 	public static void main(String[] args) {
 		Pizzeria dominos = new Pizzeria();
+		Connection dbConnection = DatabaseConnection.getConnection();
 
 		try {
-			DatabaseConnection dbConn = new DatabaseConnection();
-			AdministratorDb adminDao = new AdministratorDb(dbConn.getConnection());
+			AdministratorDb adminDao = new AdministratorDb(dbConnection);
 			Administrator admin = new Administrator();
 			admin.setPassword("123123");
 			admin.setUsername("admincho");
@@ -43,8 +42,8 @@ public class Demo {
 			// user.setEmail("user@asld.asd");
 			// user.setPhoneNumber("11231123");
 			// user.setAddress("fhs kkj fsdkjhf sdh kjdhf ksdjfkjd fkjfk");
-			// UserDb userDao = new UserDb(dbConn.getConnection());
-			// userDao.addUser(user);
+			//UserDb userDao = new UserDb(dbConnection);
+			//userDao.addUser(user);
 
 			// Pizza kalcone = new Pizza();
 			// kalcone.setName("Kalcone");
@@ -56,7 +55,7 @@ public class Demo {
 			// for (String string : ingredients) {
 			// kalcone.addIngredients(new Ingredient(string));
 			// }
-			ProductDb pizzaDao = new ProductDb(dbConn.getConnection());
+			ProductDb pizzaDao = new ProductDb(dbConnection);
 			// Pizza margarita = new Pizza();
 			// margarita.setName("Margarita");
 			// margarita.setPrice(5.99);
@@ -72,7 +71,7 @@ public class Demo {
 			// Pizza a = pizzaDao.getPizzaById(1);
 			// System.out.println(a);
 
-			IngredientDb ingDao = new IngredientDb(dbConn.getConnection());
+			IngredientDb ingDao = new IngredientDb(dbConnection);
 			// ingDao.addIngredient(new Ingredient("Parmezan"));
 			// ingDao.addIngredient(new Ingredient("Brokoli"));
 			// ingDao.addIngredient(new Ingredient("Mocarela"));
@@ -105,11 +104,14 @@ public class Demo {
 			for (Ingredient ingredient : in) {
 				System.out.print(ingredient.getName() + " ");
 			}
-			dbConn.getConnection().close();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} finally {
+			try {
+				dbConnection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
