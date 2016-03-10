@@ -9,6 +9,7 @@ import pizzeria.Shop;
 import pizzeria.account.Order;
 import pizzeria.account.User;
 import pizzeria.menu.IProduct;
+import pizzeria.menu.Pizza;
 
 import com.mysql.jdbc.Statement;
 
@@ -131,9 +132,6 @@ public class OrderDb {
 	public Order getOrderById(int idOrder) {
 		String sqlSelectOrder = "SELECT * FROM `pizzeria`.`Order` WHERE `idOrder`=?;";
 		String sqlSelectShop = "SELECT * FROM `pizzeria`.`Shop` WHERE `pizzeria`.`Order_idOrder` = ?";
-		String sqlSelectProducts = "SELECT * FROM `pizzeria`.`Product` pr "
-				+ "JOIN `pizzeria`.`Products_In_Order` po ON (pr.`idProduct` = po.`idProduct`) "
-				+ "WHERE po.`Order_idOrder` = ?;";
 		
 		Order order = null;
 		
@@ -158,11 +156,27 @@ public class OrderDb {
 					rs.getString("address")
 				);
 			order.setShop(shop);
-			PreparedStatement stmtSelectProducts = conn.prepareStatement(sqlSelectProducts);
-			rs = stmtSelectProducts.executeQuery();
+			
+			// get pizzas
+			String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
+					+ "JOIN `pizzeria`.`Products_In_Order` po ON (pr.`idProduct` = po.`idProduct`) "
+					+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
+					+ "JOIN `pizeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
+					+ "WHERE po.`Order_idOrder` = ?;";
+			PreparedStatement stmtSelectPizzas = conn.prepareStatement(sqlSelectPizzas);
+			stmtSelectPizzas.setInt(1, idOrder);
+			rs = stmtSelectPizzas.executeQuery();
 			
 			while(rs.next()) {
-				// To do - depends on ProductDb
+				Pizza pizza = new Pizza(
+						rs.getInt("idProduct"),
+						rs.getString("name"),
+						rs.getDouble("price"),
+						rs.getShort("quantity"),
+						rs.getInt("grammage"),
+						rs.getInt("size")
+					);
+				order.addProduct(pizza);
 			}
 
 			conn.commit();
