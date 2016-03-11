@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import pizzeria.account.User;
 import exceptions.InvalidArgumentValueException;
@@ -239,8 +239,8 @@ public class UserDb extends DataAccessObject {
 		return user;
 	}
 	
-	public Set<User> getAllUsers() {
-		Set<User> users = new HashSet<User>();
+	public List<User> getAllUsers() {
+		List<User> users = new ArrayList<User>();
 		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "
 				+ "JOIN `pizzeria`.`account` a ON u.idAccount = a.idAccount;";
 		

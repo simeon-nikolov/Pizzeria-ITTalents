@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import pizzeria.account.Administrator;
 import exceptions.InvalidArgumentValueException;
@@ -173,8 +173,8 @@ public class AdministratorDb extends DataAccessObject {
 		return admin;
 	}
 	
-	public Set<Administrator> getAllAdministrator() {
-		Set<Administrator> admins = new HashSet<Administrator>();
+	public List<Administrator> getAllAdministrator() {
+		List<Administrator> admins = new ArrayList<Administrator>();
 		String sql = "SELECT * FROM `pizzeria`.`account`;";
 		
 		try {
