@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import pizzeria.menu.Ingredient;
@@ -103,7 +105,14 @@ public class PizzaDb extends DataAccessObject {
 			stmtPizza.setInt(1, pizza.getSize());
 			stmtPizza.setInt(2, idFood);
 			stmtPizza.executeUpdate();
+
+			PreparedStatement stmtIngredient = connection.prepareStatement(sqlIngUpdate);
+			stmtIngredient.setInt(1, pizza.getId());
+			stmtIngredient.setInt(2, idFood);
+			stmtIngredient.executeUpdate();
+			
 			connection.commit();
+
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
@@ -186,8 +195,8 @@ public class PizzaDb extends DataAccessObject {
 		return pizza;
 	}
 
-	public Set<Pizza> getAllPizza() {
-		Set<Pizza> pizzas = new HashSet<Pizza>();
+	public List<Pizza> getAllPizza() {
+		List<Pizza> pizzas = new ArrayList<Pizza>();
 		String sql = "select p.idProduct, p.name , p.price, p.quantity, f.grammage, pi.size from pizzeria.product p "
 				+ "join pizzeria.food f on p.idProduct = f.Product_idProduct join pizzeria.pizza pi on f.idFood = pi.Food_idFood;";
 
@@ -217,8 +226,8 @@ public class PizzaDb extends DataAccessObject {
 		return pizzas;
 	}
 
-	public Set<Ingredient> getAllPizzaIngredients(Pizza pizza) {
-		Set<Ingredient> ing = new HashSet<Ingredient>();
+	public List<Ingredient> getAllPizzaIngredients(Pizza pizza) {
+		List<Ingredient> ing = new ArrayList<Ingredient>();
 		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
 		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
 		String sql = "select i.name from pizzeria.ingredient i join pizzeria.food_has_ingredient fi "

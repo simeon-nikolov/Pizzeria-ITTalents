@@ -4,13 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
 
 import pizzeria.Shop;
 import pizzeria.account.Order;
 import pizzeria.account.User;
 import pizzeria.menu.IProduct;
-import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 
 import com.mysql.jdbc.Statement;
@@ -178,14 +176,6 @@ public class OrderDb {
 						rs.getInt("grammage"),
 						rs.getInt("size")
 					);
-				
-				int foodId = rs.getInt("idFood");
-				Set<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
-				
-				for (Ingredient ingredient : ingredients) {
-					pizza.addIngredients(ingredient);
-				}
-				
 				order.addProduct(pizza);
 			}
 
