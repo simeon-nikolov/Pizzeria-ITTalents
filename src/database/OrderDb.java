@@ -11,6 +11,7 @@ import pizzeria.Shop;
 import pizzeria.account.Order;
 import pizzeria.account.User;
 import pizzeria.menu.IProduct;
+import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 
 import com.mysql.jdbc.Statement;
@@ -194,11 +195,11 @@ public class OrderDb extends DataAccessObject {
 					rs.getInt("size")
 				);
 			
-//			Set<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
-//			
-//			for (Ingredient ingredient : ingredients) {
-//				pizza.addIngredients(ingredient);
-//			}
+			List<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
+			
+			for (Ingredient ingredient : ingredients) {
+				pizza.addIngredients(ingredient);
+			}
 			
 			pizzas.add(pizza);
 		}
