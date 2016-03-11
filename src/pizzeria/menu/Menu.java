@@ -1,6 +1,7 @@
 package pizzeria.menu;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import exceptions.InvalidArgumentValueException;
 
@@ -8,7 +9,7 @@ public class Menu {
 
 	private static final String NULL_PRODUCT_MESSAGE = "Product is null";
 	private static Menu instance = null;
-	private ArrayList<IProduct> products;
+	private List<IProduct> products;
 
 	private Menu() {
 		this.products = new ArrayList<IProduct>();

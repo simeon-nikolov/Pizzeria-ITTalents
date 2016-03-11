@@ -16,21 +16,23 @@ public abstract class Product implements IProduct {
 	private int quantity;
 	private String name;
 
-	public Product(){
-		
+	public Product() {
+
 	}
-	
+
 	public Product(double price, short quantity, String name) throws InvalidArgumentValueException {
 		setName(name);
 		setPrice(price);
 		setQuantity(quantity);
 	}
-	public Product(int id,double price, short quantity, String name) throws InvalidArgumentValueException {
+
+	public Product(int id, double price, short quantity, String name) throws InvalidArgumentValueException {
 		setName(name);
 		setPrice(price);
 		setQuantity(quantity);
 		this.id = id;
 	}
+
 	@Override
 	public void setId(int id) {
 		this.id = id;
@@ -71,7 +73,7 @@ public abstract class Product implements IProduct {
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
 	public int getId() {
 		return this.id;
@@ -91,7 +93,7 @@ public abstract class Product implements IProduct {
 			throw new InvalidArgumentValueException(NAME_IS_EMPTY_ERROR_MESSAGE);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", price=" + price + ", quantity=" + quantity + ", name=" + name + "]";

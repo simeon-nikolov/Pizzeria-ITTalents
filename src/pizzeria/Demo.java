@@ -1,5 +1,6 @@
 package pizzeria;
 
+import java.util.List;
 import java.util.Set;
 
 import pizzeria.account.Administrator;
@@ -101,19 +102,19 @@ public class Demo {
 //			}
 			// pizzaDao.addProduct(kalcone);
 			// pizzaDao.addProduct(peperoni);
-			Set<Ingredient> in = pizzaDao.getAllPizzaIngredients(peperoni);
+			List<Ingredient> in = pizzaDao.getAllPizzaIngredients(peperoni);
 			System.out.println("Systavki na : " + peperoni.getName());
 			for (Ingredient ingredient : in) {
 				System.out.print(ingredient.getName() + " ");
 			}
 			System.out.println();
-			Set<Pizza> pizzas = pizzaDao.getAllPizza();
+			List<Pizza> pizzas = pizzaDao.getAllPizza();
 			for (Pizza pizza : pizzas) {
 				System.out.println(pizza);
 			}
 			// pizzaDao.removePizza(5); // Iztri margaritata
 			
-			Set<Ingredient> in2 = pizzaDao.getAllPizzaIngredients(kalcone);
+			List<Ingredient> in2 = pizzaDao.getAllPizzaIngredients(kalcone);
 			System.out.println("Systavki na : " + kalcone.getName());
 			for (Ingredient ingredient : in2) {
 				System.out.print(ingredient.getName() + " ");
