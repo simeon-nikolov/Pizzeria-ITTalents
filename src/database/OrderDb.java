@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import pizzeria.Shop;
 import pizzeria.account.Order;
@@ -17,18 +18,10 @@ import com.mysql.jdbc.Statement;
 
 import exceptions.InvalidArgumentValueException;
 
-public class OrderDb {
+public class OrderDb extends DataAccessObject {
 	private static final String DB_CONNECTION_ERROR_MESSAGE = "Database connection is null!";
 
-	private Connection conn;
-
-	public OrderDb(Connection conn) throws InvalidArgumentValueException {
-		if (conn == null) {
-			throw new InvalidArgumentValueException(DB_CONNECTION_ERROR_MESSAGE);
-		}
-
-		this.conn = conn;
-	}
+	private Connection connection = super.getConnection();
 
 	public void addOrder(Order order) {
 		String sqlInserOrder = "INSERT INTO `pizzeria`.`Order` (`sum`, `is_ready`, `is_received`, `User_idUser`) VALUES "
@@ -37,7 +30,7 @@ public class OrderDb {
 				+ "(?, ?, ?);";
 
 		try {
-			PreparedStatement stmtInsertOrder = conn.prepareStatement(sqlInserOrder, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmtInsertOrder = connection.prepareStatement(sqlInserOrder, Statement.RETURN_GENERATED_KEYS);
 			stmtInsertOrder.setDouble(1, order.getSum());
 			stmtInsertOrder.setBoolean(2, false);
 			stmtInsertOrder.setBoolean(3, false);
@@ -53,7 +46,7 @@ public class OrderDb {
 				}
 			}
 
-			PreparedStatement stmtInsertProductId = conn.prepareStatement(sqlInserProductId);
+			PreparedStatement stmtInsertProductId = connection.prepareStatement(sqlInserProductId);
 
 			for (IProduct product : order.getProducts()) {
 				stmtInsertProductId.setInt(1, product.getId());
@@ -61,11 +54,11 @@ public class OrderDb {
 				stmtInsertProductId.setInt(3, orderId);
 			}
 
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -79,13 +72,13 @@ public class OrderDb {
 		String sqlInserProductId = "UPDATE `pizzeria`.`Products_In_Orders` SET `idProduct`=?, `quantity`=?, `Order_idOrder`=?;";
 
 		try {
-			PreparedStatement stmtInsertOrder = conn.prepareStatement(sqlUpdateOrder);
+			PreparedStatement stmtInsertOrder = connection.prepareStatement(sqlUpdateOrder);
 			stmtInsertOrder.setDouble(1, order.getSum());
 			stmtInsertOrder.setBoolean(2, order.isReady());
 			stmtInsertOrder.setBoolean(3, order.isReceived());
 			stmtInsertOrder.setInt(4, order.getClient().getId());
 			stmtInsertOrder.executeUpdate();
-			PreparedStatement stmtInsertProductId = conn.prepareStatement(sqlInserProductId);
+			PreparedStatement stmtInsertProductId = connection.prepareStatement(sqlInserProductId);
 
 			for (IProduct product : order.getProducts()) {
 				stmtInsertProductId.setInt(1, product.getId());
@@ -94,11 +87,11 @@ public class OrderDb {
 				stmtInsertProductId.executeUpdate();
 			}
 
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -112,17 +105,17 @@ public class OrderDb {
 		String sqlDeleteProductsFromOrder = "DELETE FROM `pizzeria`.`Products_In_Orders` WHERE `Order_idOrder`=?;";
 
 		try {
-			PreparedStatement stmtDeleteProductsFromOrder = conn.prepareStatement(sqlDeleteProductsFromOrder);
+			PreparedStatement stmtDeleteProductsFromOrder = connection.prepareStatement(sqlDeleteProductsFromOrder);
 			stmtDeleteProductsFromOrder.setInt(1, idOrder);
 			stmtDeleteProductsFromOrder.executeUpdate();
-			PreparedStatement stmtDeleteOrder = conn.prepareStatement(sqlDeleteOrder);
+			PreparedStatement stmtDeleteOrder = connection.prepareStatement(sqlDeleteOrder);
 			stmtDeleteOrder.setInt(1, idOrder);
 			stmtDeleteOrder.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -138,7 +131,7 @@ public class OrderDb {
 		Order order = null;
 		
 		try {
-			PreparedStatement stmtSelectOrder = conn.prepareStatement(sqlSelectOrder);
+			PreparedStatement stmtSelectOrder = connection.prepareStatement(sqlSelectOrder);
 			stmtSelectOrder.setInt(1, idOrder);
 			ResultSet rs = stmtSelectOrder.executeQuery();
 			rs.next();
@@ -148,7 +141,7 @@ public class OrderDb {
 			int userId = rs.getInt("User_idUser");
 			User client = new UserDb().getUserById(userId);
 			order.setClient(client);
-			PreparedStatement stmtSelectShop = conn.prepareStatement(sqlSelectShop);
+			PreparedStatement stmtSelectShop = connection.prepareStatement(sqlSelectShop);
 			stmtSelectShop.setInt(1, idOrder);
 			rs = stmtSelectShop.executeQuery();
 			rs.next();
@@ -158,42 +151,17 @@ public class OrderDb {
 					rs.getString("address")
 				);
 			order.setShop(shop);
+			List<Pizza> pizzas = getPizzasByOrderId(idOrder);
 			
-			// get pizzas
-			String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
-					+ "JOIN `pizzeria`.`Products_In_Order` po ON (pr.`idProduct` = po.`idProduct`) "
-					+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
-					+ "JOIN `pizeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
-					+ "WHERE po.`Order_idOrder` = ?;";
-			PreparedStatement stmtSelectPizzas = conn.prepareStatement(sqlSelectPizzas);
-			stmtSelectPizzas.setInt(1, idOrder);
-			rs = stmtSelectPizzas.executeQuery();
-			
-			while(rs.next()) {
-				Pizza pizza = new Pizza(
-						rs.getInt("idProduct"),
-						rs.getString("name"),
-						rs.getDouble("price"),
-						rs.getShort("quantity"),
-						rs.getInt("grammage"),
-						rs.getInt("size")
-					);
-				
-				int foodId = rs.getInt("idFood");
-				Set<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
-				
-				for (Ingredient ingredient : ingredients) {
-					pizza.addIngredients(ingredient);
-				}
-				
+			for (Pizza pizza : pizzas) {
 				order.addProduct(pizza);
 			}
 
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -204,5 +172,38 @@ public class OrderDb {
 		}
 		
 		return order;
+	}
+
+	private List<Pizza> getPizzasByOrderId(int idOrder) throws SQLException, InvalidArgumentValueException {
+		String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
+				+ "JOIN `pizzeria`.`Products_In_Order` po ON (pr.`idProduct` = po.`idProduct`) "
+				+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
+				+ "JOIN `pizeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
+				+ "WHERE po.`Order_idOrder` = ?;";
+		PreparedStatement stmtSelectPizzas = connection.prepareStatement(sqlSelectPizzas);
+		stmtSelectPizzas.setInt(1, idOrder);
+		ResultSet rs = stmtSelectPizzas.executeQuery();
+		List<Pizza> pizzas = new ArrayList<Pizza>(); 
+		
+		while(rs.next()) {
+			Pizza pizza = new Pizza(
+					rs.getInt("idProduct"),
+					rs.getString("name"),
+					rs.getDouble("price"),
+					rs.getShort("quantity"),
+					rs.getInt("grammage"),
+					rs.getInt("size")
+				);
+			
+			Set<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
+			
+			for (Ingredient ingredient : ingredients) {
+				pizza.addIngredients(ingredient);
+			}
+			
+			pizzas.add(pizza);
+		}
+		
+		return pizzas;
 	}
 }

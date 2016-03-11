@@ -173,7 +173,7 @@ public class AdministratorDb extends DataAccessObject {
 		return admin;
 	}
 	
-	public List<Administrator> getAllAdministrator() {
+	public List<Administrator> getAllAdministrators() {
 		List<Administrator> admins = new ArrayList<Administrator>();
 		String sql = "SELECT * FROM `pizzeria`.`account`;";
 		

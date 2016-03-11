@@ -1,7 +1,9 @@
 package pizzeria;
 
-import pizzeria.account.Administrator;
-import database.AdministratorDb;
+import pizzeria.account.Order;
+import pizzeria.account.User;
+import database.PizzaDb;
+import database.UserDb;
 import exceptions.InvalidArgumentValueException;
 
 public class AccountDemo {
@@ -10,33 +12,30 @@ public class AccountDemo {
 		Pizzeria dominos = new Pizzeria();
 
 		try {
-			AdministratorDb adminDao = new AdministratorDb();
-			Administrator admin = new Administrator();
-			admin.setPassword("123123");
-			admin.setUsername("admincho");
-			admin.setEmail("admin2@test.com");
-			// adminDao.addAdministrator(admin);
-			// adminDao.editAdministrator(8, admin);
-			// adminDao.removeAdministrator(7);
-			// Set<Administrator> admins = adminDao.getAllAdministrator();
-			//
-			// for (Administrator administrator : admins) {
-			// System.out.println(administrator.getUsername());
-			// }
-
-			// User user = new User();
-			// user.setFirstName("Hsalfkdj");
-			// user.setLastName("asldjalsjkd");
-			// user.setUsername("user123");
-			// user.setPassword("321321");
-			// user.setEmail("user@asld.asd");
-			// user.setPhoneNumber("11231123");
-			// user.setAddress("fhs kkj fsdkjhf sdh kjdhf ksdjfkjd fkjfk");
-			// UserDb userDao = new UserDb(dbConnection);
-			// userDao.addUser(user);
+			User user = addUser();
+			addSomePizzasToDb();
+			
+			Order order = new Order();
+			order.setClient(user);
+			
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	private static void addSomePizzasToDb() {
+		PizzaDb pizzaDao = new PizzaDb();
+		
+		for (int pizzaIndex = 1; pizzaIndex <= 5; pizzaIndex++) {
+			
+		}
+	}
+
+	private static User addUser() throws InvalidArgumentValueException {
+		User user = new User(0, "user123", "user123", "user123@asd.asd", "liolio", "sausage", "somewhere", "123123123");
+		UserDb userDao = new UserDb();
+		userDao.addUser(user);
+		return user;
 	}
 
 }
