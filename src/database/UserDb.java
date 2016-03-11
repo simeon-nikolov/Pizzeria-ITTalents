@@ -10,18 +10,10 @@ import java.util.Set;
 import pizzeria.account.User;
 import exceptions.InvalidArgumentValueException;
 
-public class UserDb {
+public class UserDb extends DataAccessObject {
 	private static final String DB_CONNECTION_ERROR_MESSAGE = "Database connection is null!";
 	
-	private Connection conn;
-	
-	public UserDb(Connection conn) throws InvalidArgumentValueException {
-		if (conn == null) {
-			throw new InvalidArgumentValueException(DB_CONNECTION_ERROR_MESSAGE);
-		}
-		
-		this.conn = conn;
-	}
+	private Connection connection = super.getConnection();
 	
 	public void addUser(User user) {
 		String sqlAccountInsert = "INSERT INTO `pizzeria`.`account` (`username`, `password`, `email`, `isAdmin`) VALUES "
@@ -31,29 +23,29 @@ public class UserDb {
 				+ "(?, ?, ?, ?, ?);";
 		
 		try {
-			PreparedStatement stmtAcc = conn.prepareStatement(sqlAccountInsert);
+			PreparedStatement stmtAcc = connection.prepareStatement(sqlAccountInsert);
 			stmtAcc.setString(1, user.getUsername());
 			stmtAcc.setString(2, user.getPassword());
 			stmtAcc.setString(3, user.getEmail());
 			stmtAcc.setBoolean(4, false);
 			stmtAcc.executeUpdate();
-			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectAccId);
+			PreparedStatement stmtAccId = connection.prepareStatement(sqlSelectAccId);
 			stmtAccId.setString(1, user.getUsername());
 			ResultSet rs = stmtAccId.executeQuery();
 			rs.next();
 			int idAccount = rs.getInt("idAccount");
-			PreparedStatement stmtUser = conn.prepareStatement(sqlUserInsert);
+			PreparedStatement stmtUser = connection.prepareStatement(sqlUserInsert);
 			stmtUser.setString(1, user.getFirstName());
 			stmtUser.setString(2, user.getLastName());
 			stmtUser.setString(3, user.getAddress());
 			stmtUser.setString(4, user.getPhoneNumber());
 			stmtUser.setInt(5, idAccount);
 			stmtUser.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -68,31 +60,31 @@ public class UserDb {
 		String sqlUserUpdate = "UPDATE `pizzeria`.`user` SET `first_name`=?, `last_name`=?, `address`=?, `phone_number`=? WHERE `idUser`=?;";
 		
 		try {
-			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectAccountId);
+			PreparedStatement stmtAccId = connection.prepareStatement(sqlSelectAccountId);
 			stmtAccId.setInt(1, idUser);
 			ResultSet rs = stmtAccId.executeQuery();
 			rs.next();
 			int idAccount = rs.getInt("idAccount");
 			
-			PreparedStatement stmtAcc = conn.prepareStatement(sqlAccountUpdate);
+			PreparedStatement stmtAcc = connection.prepareStatement(sqlAccountUpdate);
 			stmtAcc.setString(1, user.getUsername());
 			stmtAcc.setString(2, user.getPassword());
 			stmtAcc.setString(3, user.getEmail());
 			stmtAcc.setInt(4, idAccount);
 			stmtAcc.executeUpdate();
 			
-			PreparedStatement stmtUser = conn.prepareStatement(sqlUserUpdate);
+			PreparedStatement stmtUser = connection.prepareStatement(sqlUserUpdate);
 			stmtUser.setString(1, user.getFirstName());
 			stmtUser.setString(2, user.getLastName());
 			stmtUser.setString(3, user.getAddress());
 			stmtUser.setString(4, user.getPhoneNumber());
 			stmtUser.setInt(5, idUser);
 			stmtUser.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -107,24 +99,24 @@ public class UserDb {
 		String sqlUserUpdate = "DELETE FROM `pizzeria`.`user` WHERE `idUser`=?;";
 		
 		try {
-			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectAccountId);
+			PreparedStatement stmtAccId = connection.prepareStatement(sqlSelectAccountId);
 			stmtAccId.setInt(1, idUser);
 			ResultSet rs = stmtAccId.executeQuery();
 			rs.next();
 			int idAccount = rs.getInt("idAccount");
 			
-			PreparedStatement stmtAcc = conn.prepareStatement(sqlAccountUpdate);
+			PreparedStatement stmtAcc = connection.prepareStatement(sqlAccountUpdate);
 			stmtAcc.setInt(1, idAccount);
 			stmtAcc.executeUpdate();
 			
-			PreparedStatement stmtUser = conn.prepareStatement(sqlUserUpdate);
+			PreparedStatement stmtUser = connection.prepareStatement(sqlUserUpdate);
 			stmtUser.setInt(1, idUser);
 			stmtUser.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -140,10 +132,10 @@ public class UserDb {
 				+ "WHERE `idUser` = ?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sqlSelectUser);
+			PreparedStatement stmt = connection.prepareStatement(sqlSelectUser);
 			stmt.setInt(1, idUser);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connection.commit();
 			rs.next();
 			user = new User(
 					rs.getInt("idUser"),
@@ -158,7 +150,7 @@ public class UserDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -178,10 +170,10 @@ public class UserDb {
 				+ "WHERE a.`username` = ?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sqlSelectUser);
+			PreparedStatement stmt = connection.prepareStatement(sqlSelectUser);
 			stmt.setString(1, username);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connection.commit();
 			rs.next();
 			user = new User(
 					rs.getInt("idUser"),
@@ -196,7 +188,7 @@ public class UserDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -216,10 +208,10 @@ public class UserDb {
 				+ "WHERE a.`email` = ?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sqlSelectUser);
+			PreparedStatement stmt = connection.prepareStatement(sqlSelectUser);
 			stmt.setString(1, email);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connection.commit();
 			rs.next();
 			user = new User(
 					rs.getInt("idUser"),
@@ -234,7 +226,7 @@ public class UserDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -253,9 +245,9 @@ public class UserDb {
 				+ "JOIN `pizzeria`.`account` a ON u.idAccount = a.idAccount;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sqlSelectUser);
+			PreparedStatement stmt = connection.prepareStatement(sqlSelectUser);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connection.commit();
 			
 			while(rs.next()) {
 				User user = new User(
@@ -274,7 +266,7 @@ public class UserDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();

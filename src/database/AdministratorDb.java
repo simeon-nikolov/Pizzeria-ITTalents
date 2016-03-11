@@ -10,33 +10,25 @@ import java.util.Set;
 import pizzeria.account.Administrator;
 import exceptions.InvalidArgumentValueException;
 
-public class AdministratorDb {
-	private Connection conn;
-	
-	public AdministratorDb(Connection conn) throws InvalidArgumentValueException {
-		if (conn == null) {
-			throw new InvalidArgumentValueException("Database connection is null!");
-		}
-		
-		this.conn = conn;
-	}
+public class AdministratorDb extends DataAccessObject {
+	private Connection connecion = super.getConnection();
 	
 	public void addAdministrator(Administrator admin) {
 		String sql = "INSERT INTO `pizzeria`.`account` (`username`, `password`, `email`, `isAdmin`) VALUES "
 				+ "(?, ?, ?, ?);";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connecion.prepareStatement(sql);
 			stmt.setString(1, admin.getUsername());
 			stmt.setString(2, admin.getPassword());
 			stmt.setString(3, admin.getEmail());
 			stmt.setBoolean(4, true);
 			stmt.executeUpdate();
-			conn.commit();
+			connecion.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connecion.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -49,17 +41,17 @@ public class AdministratorDb {
 		String sql = "UPDATE `pizzeria`.`account` SET `username`=?, `password`=?, `email`=? WHERE `idAccount`=?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connecion.prepareStatement(sql);
 			stmt.setString(1, admin.getUsername());
 			stmt.setString(2, admin.getPassword());
 			stmt.setString(3, admin.getEmail());
 			stmt.setInt(4, id);
 			stmt.executeUpdate();
-			conn.commit();
+			connecion.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connecion.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -72,14 +64,14 @@ public class AdministratorDb {
 		String sql = "DELETE FROM `pizzeria`.`account` WHERE `idAccount`=?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connecion.prepareStatement(sql);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
-			conn.commit();
+			connecion.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connecion.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -93,10 +85,10 @@ public class AdministratorDb {
 		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `idAccount`=?";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connecion.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connecion.commit();
 			rs.next();
 			admin = new Administrator(
 					rs.getInt("idAccount"), 
@@ -106,7 +98,7 @@ public class AdministratorDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connecion.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -124,10 +116,10 @@ public class AdministratorDb {
 		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `username`=?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connecion.prepareStatement(sql);
 			stmt.setString(1, username);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connecion.commit();
 			rs.next();
 			admin = new Administrator(
 					rs.getInt("idAccount"), 
@@ -137,7 +129,7 @@ public class AdministratorDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connecion.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -155,10 +147,10 @@ public class AdministratorDb {
 		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `email`=?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connecion.prepareStatement(sql);
 			stmt.setString(1, email);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connecion.commit();
 			rs.next();
 			admin = new Administrator(
 					rs.getInt("idAccount"), 
@@ -168,7 +160,7 @@ public class AdministratorDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connecion.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -186,9 +178,9 @@ public class AdministratorDb {
 		String sql = "SELECT * FROM `pizzeria`.`account`;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connecion.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connecion.commit();
 			
 			while(rs.next()) {
 				Administrator admin = new Administrator(
@@ -202,7 +194,7 @@ public class AdministratorDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connecion.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();

@@ -1,21 +1,16 @@
 package pizzeria;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import pizzeria.account.Administrator;
 import database.AdministratorDb;
-import database.DatabaseConnection;
 import exceptions.InvalidArgumentValueException;
 
 public class AccountDemo {
 
 	public static void main(String[] args) {
 		Pizzeria dominos = new Pizzeria();
-		Connection dbConnection = DatabaseConnection.getConnection();
 
 		try {
-			AdministratorDb adminDao = new AdministratorDb(dbConnection);
+			AdministratorDb adminDao = new AdministratorDb();
 			Administrator admin = new Administrator();
 			admin.setPassword("123123");
 			admin.setUsername("admincho");
@@ -41,12 +36,6 @@ public class AccountDemo {
 			// userDao.addUser(user);
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());
-		} finally {
-			try {
-				dbConnection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

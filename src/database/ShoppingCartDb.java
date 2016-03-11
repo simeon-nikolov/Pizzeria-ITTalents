@@ -8,36 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pizzeria.menu.IProduct;
-import exceptions.InvalidArgumentValueException;
 
-public class ShoppingCartDb {
+public class ShoppingCartDb extends DataAccessObject {
 	private static final String DB_CONNECTION_ERROR_MESSAGE = "Database connection is null!";
 
-	private Connection conn;
-	
-	public ShoppingCartDb(Connection conn) throws InvalidArgumentValueException {
-		if (conn == null) {
-			throw new InvalidArgumentValueException(DB_CONNECTION_ERROR_MESSAGE);
-		}
-
-		this.conn = conn;
-	}
+	private Connection connection = super.getConnection();
 	
 	public void addProductToShoppingCart(int userId, int productId, int quantity) {
 		String sqlInserToShoppingCart = "INSERT INTO `pizzeria`.`Products_In_Carts` (`Product_idProduct`, `User_idUser`, `quantity`) VALUES "
 				+ "(?, ?, ?);";
 
 		try {
-			PreparedStatement stmtInsert = conn.prepareStatement(sqlInserToShoppingCart);
+			PreparedStatement stmtInsert = connection.prepareStatement(sqlInserToShoppingCart);
 			stmtInsert.setInt(1, productId);
 			stmtInsert.setInt(2, userId);
 			stmtInsert.setInt(3, quantity);
 			stmtInsert.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -51,15 +42,15 @@ public class ShoppingCartDb {
 		String sqlDeleteInShoppingCart = "DELETE FROM `pizzeria`.`Products_In_Carts` WHERE `pizzeria`.`Product_idProduct`=? AND `pizzeria`.`User_idUser`=?;";
 
 		try {
-			PreparedStatement stmtDelete = conn.prepareStatement(sqlDeleteInShoppingCart);
+			PreparedStatement stmtDelete = connection.prepareStatement(sqlDeleteInShoppingCart);
 			stmtDelete.setInt(1, productId);
 			stmtDelete.setInt(2, userId);
 			stmtDelete.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -73,14 +64,14 @@ public class ShoppingCartDb {
 		String sqlEmptyShoppingCart = "DELETE FROM `pizzeria`.`Products_In_Carts` WHERE `pizzeria`.`User_idUser`=?;";
 
 		try {
-			PreparedStatement stmtDelete = conn.prepareStatement(sqlEmptyShoppingCart);
+			PreparedStatement stmtDelete = connection.prepareStatement(sqlEmptyShoppingCart);
 			stmtDelete.setInt(1, userId);
 			stmtDelete.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -97,7 +88,7 @@ public class ShoppingCartDb {
 		List<IProduct> products = new ArrayList<IProduct>();
 		
 		try {
-			PreparedStatement  stmtSelectProducts = conn.prepareStatement(sqlSelectProducts);
+			PreparedStatement  stmtSelectProducts = connection.prepareStatement(sqlSelectProducts);
 			stmtSelectProducts.setInt(1, userId);
 			ResultSet rs = stmtSelectProducts.executeQuery();
 			
@@ -106,11 +97,11 @@ public class ShoppingCartDb {
 				// add product in List products
 			}
 			
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();

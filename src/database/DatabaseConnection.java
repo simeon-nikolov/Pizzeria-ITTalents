@@ -2,6 +2,7 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 
 public class DatabaseConnection {
@@ -16,14 +17,18 @@ public class DatabaseConnection {
 	private static Connection instance;
 
 	public static Connection getConnection() {
-		if (instance == null) {
-			try {
-				Class.forName(JDBC_DRIVER);
-				instance = DriverManager.getConnection(DB_URL, USER, PASS);
-				instance.setAutoCommit(false);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		synchronized (DatabaseConnection.class) {
+			if (instance == null) {
+				try {
+					Class.forName(JDBC_DRIVER);
+					instance = DriverManager.getConnection(DB_URL, USER, PASS);
+					instance.setAutoCommit(false);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}	
 		}
 		
 		return instance;

@@ -144,7 +144,7 @@ public class OrderDb {
 			order.setReady(rs.getBoolean("is_ready"));
 			order.setReceived(rs.getBoolean("is_received"));
 			int userId = rs.getInt("User_idUser");
-			User client = new UserDb(conn).getUserById(userId);
+			User client = new UserDb().getUserById(userId);
 			order.setClient(client);
 			PreparedStatement stmtSelectShop = conn.prepareStatement(sqlSelectShop);
 			stmtSelectShop.setInt(1, idOrder);

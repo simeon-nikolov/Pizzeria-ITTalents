@@ -1,34 +1,29 @@
 package database;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import exceptions.InvalidArgumentValueException;
 import pizzeria.menu.Ingredient;
 
-public class IngredientDb {
+public class IngredientDb extends DataAccessObject {
 
-	private Connection conn;
-	
-	public IngredientDb(Connection conn) throws InvalidArgumentValueException {
-		if (conn != null)
-			this.conn = conn;
-		else
-			throw new InvalidArgumentValueException("Database connection is null");
-	}
+	private Connection connection = super.getConnection();
 	
 	public void addIngredient(Ingredient ing) {
 		String sql = "INSERT INTO pizzeria.ingredient (name) VALUES "
 				+ "(?);";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, ing.getName());
 			stmt.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -41,15 +36,15 @@ public class IngredientDb {
 		String sql = "UPDATE pizzeria.ingredient SET name = ?, WHERE idIngredient = ?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, ing.getName());
 			stmt.setInt(2, id);
 			stmt.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -62,14 +57,14 @@ public class IngredientDb {
 		String sql = "DELETE FROM pizzeria.ingredient WHERE idIngredient = ?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
-			conn.commit();
+			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -83,10 +78,10 @@ public class IngredientDb {
 		String sql = "SELECT * FROM pizzeria.ingredient WHERE name = ?;";
 		
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, name);
 			ResultSet rs = stmt.executeQuery();
-			conn.commit();
+			connection.commit();
 			rs.next();
 			ingredient = new Ingredient(
 					rs.getInt("idIngredient"),
@@ -94,7 +89,7 @@ public class IngredientDb {
 			System.out.println("Success!");
 		} catch (SQLException e) {	
 			try {
-				conn.rollback();
+				connection.rollback();
 				System.out.println("Transaction ROLLBACK");
 			} catch (SQLException e1) {
 				e1.printStackTrace();

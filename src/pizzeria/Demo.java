@@ -1,26 +1,22 @@
 package pizzeria;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Set;
 
 import pizzeria.account.Administrator;
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import database.AdministratorDb;
-import database.DatabaseConnection;
 import database.IngredientDb;
-import database.ProductDb;
+import database.PizzaDb;
 import exceptions.InvalidArgumentValueException;
 
 public class Demo {
 
 	public static void main(String[] args) {
 		Pizzeria dominos = new Pizzeria();
-		Connection dbConnection = DatabaseConnection.getConnection();
 
 		try {
-			AdministratorDb adminDao = new AdministratorDb(dbConnection);
+			AdministratorDb adminDao = new AdministratorDb();
 			Administrator admin = new Administrator();
 			admin.setPassword("123123");
 			admin.setUsername("admincho");
@@ -56,7 +52,7 @@ public class Demo {
 			// kalcone.addIngredients(new Ingredient(string));
 			// }
 			Pizza margarita = new Pizza("Margarita", 5.99, (short) 1, 450, 25);
-			ProductDb pizzaDao = new ProductDb(dbConnection);
+			PizzaDb pizzaDao = new PizzaDb();
 			// Pizza margarita = new Pizza();
 			// margarita.setName("Margarita");
 			// margarita.setPrice(5.99);
@@ -76,7 +72,7 @@ public class Demo {
 			// Pizza a = pizzaDao.getPizzaById(1);
 			// System.out.println(a);
 
-			IngredientDb ingDao = new IngredientDb(dbConnection);
+			IngredientDb ingDao = new IngredientDb();
 			// ingDao.addIngredient(new Ingredient("Parmezan"));
 			// ingDao.addIngredient(new Ingredient("Brokoli"));
 			// ingDao.addIngredient(new Ingredient("Mocarela"));
@@ -122,15 +118,8 @@ public class Demo {
 			for (Ingredient ingredient : in2) {
 				System.out.print(ingredient.getName() + " ");
 			}
-			dbConnection.close();
-		} catch (InvalidArgumentValueException | SQLException e) {
+		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());
-		} finally {
-			try {
-				dbConnection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
