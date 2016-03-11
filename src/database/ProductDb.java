@@ -51,7 +51,7 @@ public class ProductDb {
 			stt3.setInt(1, pizza.getSize());
 			stt3.setInt(2, idFood);
 			stt3.executeUpdate();
-			
+
 			for (Ingredient ing : pizza.getIngredients()) {
 				PreparedStatement stIng = conn.prepareStatement(sqlIngredientSelect);
 				stIng.setString(1, ing.getName());
@@ -63,7 +63,7 @@ public class ProductDb {
 				stmt.setInt(2, idFood);
 				stmt.executeUpdate();
 			}
-			
+
 			conn.commit();
 			System.out.println("Success!");
 		} catch (Exception e) {
@@ -123,31 +123,31 @@ public class ProductDb {
 	public void removePizza(int idPizza) {
 		String sqlProductUpdate = "DELETE FROM pizzeria.product WHERE idProduct = ?;";
 		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
-		String sqlAccountUpdate = "DELETE FROM pizzeria.food WHERE idFood = ?;";
-		String sqlUserUpdate = "DELETE FROM pizzeria.pizza WHERE Food_idFood = ?;";
+		String sqlFoodUpdate = "DELETE FROM pizzeria.food WHERE idFood = ?;";
+		String sqlPizzaUpdate = "DELETE FROM pizzeria.pizza WHERE Food_idFood = ?;";
 		String sqlIngredientsUpdate = "DELETE FROM pizzeria.food_has_ingredient WHERE Food_idFood = ?;";
 
 		try {
 			PreparedStatement stmtPro = conn.prepareStatement(sqlProductUpdate);
 			stmtPro.setInt(1, idPizza);
-
+			stmtPro.executeUpdate();
 			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectFoodId);
 			stmtAccId.setInt(1, idPizza);
 			ResultSet rs = stmtAccId.executeQuery();
 			rs.next();
 			int idFood = rs.getInt("idFood");
 
-			PreparedStatement stmtAcc = conn.prepareStatement(sqlAccountUpdate);
-			stmtAcc.setInt(1, idFood);
-			stmtAcc.executeUpdate();
+			PreparedStatement stmtPizza = conn.prepareStatement(sqlPizzaUpdate);
+			stmtPizza.setInt(1, idFood);
+			stmtPizza.executeUpdate();
 
-			PreparedStatement stmtUser = conn.prepareStatement(sqlUserUpdate);
-			stmtUser.setInt(1, idFood);
-			stmtUser.executeUpdate();
-			
 			PreparedStatement stmtIng = conn.prepareStatement(sqlIngredientsUpdate);
 			stmtIng.setInt(1, idFood);
 			stmtIng.executeUpdate();
+
+			PreparedStatement stmtFood = conn.prepareStatement(sqlFoodUpdate);
+			stmtFood.setInt(1, idFood);
+			stmtFood.executeUpdate();
 
 			conn.commit();
 			System.out.println("Success!");
@@ -220,8 +220,8 @@ public class ProductDb {
 		}
 		return pizzas;
 	}
-	
-	public Set<Ingredient> getAllPizzaIngredients(Pizza pizza){
+
+	public Set<Ingredient> getAllPizzaIngredients(Pizza pizza) {
 		Set<Ingredient> ing = new HashSet<Ingredient>();
 		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
 		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
@@ -242,8 +242,8 @@ public class ProductDb {
 			stmt.setInt(1, idFood);
 			ResultSet rsI = stmt.executeQuery();
 			conn.commit();
-			while(rsI.next()){
-				Ingredient ingredient = new Ingredient(rsI.getString("name")); 
+			while (rsI.next()) {
+				Ingredient ingredient = new Ingredient(rsI.getString("name"));
 				ing.add(ingredient);
 			}
 			System.out.println("Success!");
@@ -255,7 +255,7 @@ public class ProductDb {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		} 
+		}
 		return ing;
 	}
 }

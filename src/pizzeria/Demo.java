@@ -57,14 +57,18 @@ public class Demo {
 			// kalcone.addIngredients(new Ingredient(string));
 			// }
 			ProductDb pizzaDao = new ProductDb(dbConn.getConnection());
-			// Pizza margarita = new Pizza();
+			Pizza margarita = new Pizza("Margarita", 5.99, (short) 1, 450, 25);
 			// margarita.setName("Margarita");
 			// margarita.setPrice(5.99);
 			// margarita.setQuantity(1);
 			// margarita.setGrammage(450);
 			// margarita.setSize(25);
+			String[] ingredients2 = { "Mocarela", "Bekon", "Luk", "Carevica" };
+			for (String string : ingredients2) {
+				margarita.addIngredients(new Ingredient(string));
+			}
 			// pizzaDao.addProduct(margarita);
-			// pizzaDao.editPizza(3, margarita);
+			// pizzaDao.editPizza(5, margarita);
 			// Set<Pizza> pizzas = pizzaDao.getAllPizza();
 			// for (Pizza pizza : pizzas) {
 			// System.out.println(pizza);
@@ -95,14 +99,27 @@ public class Demo {
 			// kalcone.setQuantity(2);
 			// kalcone.setGrammage(550);
 			// kalcone.setSize(30);
-			String[] ingredients2 = { "Mocarela", "Bekon", "Luk", "Carevica" };
-			for (String string : ingredients2) {
-				kalcone.addIngredients(new Ingredient(string));
-			}
+//			String[] ingredients2 = { "Mocarela", "Bekon", "Luk", "Carevica" };
+//			for (String string : ingredients2) {
+//				kalcone.addIngredients(new Ingredient(string));
+//			}
 			// pizzaDao.addProduct(kalcone);
 			// pizzaDao.addProduct(peperoni);
 			Set<Ingredient> in = pizzaDao.getAllPizzaIngredients(peperoni);
+			System.out.println("Systavki na : " + peperoni.getName());
 			for (Ingredient ingredient : in) {
+				System.out.print(ingredient.getName() + " ");
+			}
+			System.out.println();
+			Set<Pizza> pizzas = pizzaDao.getAllPizza();
+			for (Pizza pizza : pizzas) {
+				System.out.println(pizza);
+			}
+			// pizzaDao.removePizza(5); // Iztri margaritata
+			
+			Set<Ingredient> in2 = pizzaDao.getAllPizzaIngredients(kalcone);
+			System.out.println("Systavki na : " + kalcone.getName());
+			for (Ingredient ingredient : in2) {
 				System.out.print(ingredient.getName() + " ");
 			}
 			dbConn.getConnection().close();
