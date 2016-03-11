@@ -9,8 +9,6 @@ import java.util.List;
 
 import exceptions.InvalidArgumentValueException;
 import pizzeria.menu.Drink;
-import pizzeria.menu.Ingredient;
-import pizzeria.menu.Pizza;
 
 public class DrinkDb extends DataAccessObject {
 	private Connection connection = super.getConnection();
