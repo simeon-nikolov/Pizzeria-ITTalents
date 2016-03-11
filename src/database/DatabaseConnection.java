@@ -2,7 +2,6 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 
 
 public class DatabaseConnection {
@@ -13,19 +12,20 @@ public class DatabaseConnection {
 	// Database credentials
 	private static final String USER = "root";
 	private static final String PASS = "password";
+	
+	private static Connection instance;
 
-	public Connection getConnection() {
-		Connection conn = null;
-		Statement stmt = null;
-		
-		try {
-			Class.forName(JDBC_DRIVER);
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			conn.setAutoCommit(false);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public static Connection getConnection() {
+		if (instance == null) {
+			try {
+				Class.forName(JDBC_DRIVER);
+				instance = DriverManager.getConnection(DB_URL, USER, PASS);
+				instance.setAutoCommit(false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
-		return conn;
+		return instance;
 	}
 }

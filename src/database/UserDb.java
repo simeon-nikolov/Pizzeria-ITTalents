@@ -4,16 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 import pizzeria.account.User;
 import exceptions.InvalidArgumentValueException;
 
 public class UserDb {
+	private static final String DB_CONNECTION_ERROR_MESSAGE = "Database connection is null!";
+	
 	private Connection conn;
 	
 	public UserDb(Connection conn) throws InvalidArgumentValueException {
 		if (conn == null) {
-			throw new InvalidArgumentValueException("Database connection is null!");
+			throw new InvalidArgumentValueException(DB_CONNECTION_ERROR_MESSAGE);
 		}
 		
 		this.conn = conn;
@@ -59,12 +63,12 @@ public class UserDb {
 	}
 	
 	public void editUser(int idUser, User user) {
-		String sqlSelectUserId = "SELECT `idAccount` FROM `pizzeria`.`user` WHERE `idUser` = ?;";
+		String sqlSelectAccountId = "SELECT `idAccount` FROM `pizzeria`.`user` WHERE `idUser` = ?;";
 		String sqlAccountUpdate = "UPDATE `pizzeria`.`account` SET `username`=?, `password`=?, `email`=? WHERE `idAccount`=?;";
 		String sqlUserUpdate = "UPDATE `pizzeria`.`user` SET `first_name`=?, `last_name`=?, `address`=?, `phone_number`=? WHERE `idUser`=?;";
 		
 		try {
-			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectUserId);
+			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectAccountId);
 			stmtAccId.setInt(1, idUser);
 			ResultSet rs = stmtAccId.executeQuery();
 			rs.next();
@@ -98,12 +102,12 @@ public class UserDb {
 	}
 	
 	public void removeUser(int idUser) {
-		String sqlSelectUserId = "SELECT `idAccount` FROM `pizzeria`.`user` WHERE `idUser` = ?;";
+		String sqlSelectAccountId = "SELECT `idAccount` FROM `pizzeria`.`user` WHERE `idUser` = ?;";
 		String sqlAccountUpdate = "DELETE FROM `pizzeria`.`account` WHERE `idAccount`=?;";
 		String sqlUserUpdate = "DELETE FROM `pizzeria`.`user` WHERE `idUser`=?;";
 		
 		try {
-			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectUserId);
+			PreparedStatement stmtAccId = conn.prepareStatement(sqlSelectAccountId);
 			stmtAccId.setInt(1, idUser);
 			ResultSet rs = stmtAccId.executeQuery();
 			rs.next();
@@ -127,5 +131,159 @@ public class UserDb {
 			}
 			e.printStackTrace();
 		}
+	}
+	
+	public User getUserById(int idUser) {
+		User user = null;
+		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "
+				+ "JOIN `pizzeria`.`account` a ON u.idAccount = a.idAccount "
+				+ "WHERE `idUser` = ?;";
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sqlSelectUser);
+			stmt.setInt(1, idUser);
+			ResultSet rs = stmt.executeQuery();
+			conn.commit();
+			rs.next();
+			user = new User(
+					rs.getInt("idUser"),
+					rs.getString("username"),
+					rs.getString("password"),
+					rs.getString("email"),
+					rs.getString("first_name"),
+					rs.getString("last_name"),
+					rs.getString("address"),
+					rs.getString("phone_number")
+				);
+			System.out.println("Success!");
+		} catch (SQLException e) {	
+			try {
+				conn.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (InvalidArgumentValueException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	public User getUserByUsername(String username) {
+		User user = null;
+		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "
+				+ "JOIN `pizzeria`.`account` a ON u.idAccount = a.idAccount "
+				+ "WHERE a.`username` = ?;";
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sqlSelectUser);
+			stmt.setString(1, username);
+			ResultSet rs = stmt.executeQuery();
+			conn.commit();
+			rs.next();
+			user = new User(
+					rs.getInt("idUser"),
+					rs.getString("username"),
+					rs.getString("password"),
+					rs.getString("email"),
+					rs.getString("first_name"),
+					rs.getString("last_name"),
+					rs.getString("address"),
+					rs.getString("phone_number")
+				);
+			System.out.println("Success!");
+		} catch (SQLException e) {	
+			try {
+				conn.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (InvalidArgumentValueException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	public User getUserByEmail(String email) {
+		User user = null;
+		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "
+				+ "JOIN `pizzeria`.`account` a ON u.idAccount = a.idAccount "
+				+ "WHERE a.`email` = ?;";
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sqlSelectUser);
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
+			conn.commit();
+			rs.next();
+			user = new User(
+					rs.getInt("idUser"),
+					rs.getString("username"),
+					rs.getString("password"),
+					rs.getString("email"),
+					rs.getString("first_name"),
+					rs.getString("last_name"),
+					rs.getString("address"),
+					rs.getString("phone_number")
+				);
+			System.out.println("Success!");
+		} catch (SQLException e) {	
+			try {
+				conn.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (InvalidArgumentValueException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	public Set<User> getAllUsers() {
+		Set<User> users = new HashSet<User>();
+		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "
+				+ "JOIN `pizzeria`.`account` a ON u.idAccount = a.idAccount;";
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sqlSelectUser);
+			ResultSet rs = stmt.executeQuery();
+			conn.commit();
+			
+			while(rs.next()) {
+				User user = new User(
+						rs.getInt("idUser"),
+						rs.getString("username"),
+						rs.getString("password"),
+						rs.getString("email"),
+						rs.getString("first_name"),
+						rs.getString("last_name"),
+						rs.getString("address"),
+						rs.getString("phone_number")
+					);
+				users.add(user);
+			}
+			
+			System.out.println("Success!");
+		} catch (SQLException e) {	
+			try {
+				conn.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (InvalidArgumentValueException e) {
+			e.printStackTrace();
+		}
+		
+		return users;
 	}
 }

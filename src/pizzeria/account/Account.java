@@ -20,7 +20,7 @@ public abstract class Account {
 	private static final int SESSION_KEY_LENGTH = 50;
 	private static final String SESSION_KEY_CHARACTERS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
 	
-	private long id;
+	private int id;
 	private String username;
 	private String password;
 	private String email;
@@ -62,6 +62,10 @@ public abstract class Account {
 
 		return sessionKey.toString();
 	}
+	
+	public int getId() {
+		return this.id;
+	} 
 	
 	public String getSessionKey() {
 		return sessionKey;

@@ -2,11 +2,9 @@ package pizzeria.account;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import pizzeria.Shop;
-import pizzeria.menu.Ingredient;
-import pizzeria.menu.Pizza;
+import pizzeria.menu.IProduct;
 import exceptions.InvalidArgumentValueException;
 
 public class User extends Account {
@@ -39,7 +37,14 @@ public class User extends Account {
 		Order order = null;
 		
 		try {
-			order = new Order(this, this.shoppingCart.getProducts(), this.shoppingCart.getSum(), shop);
+			order = new Order();
+			order.setClient(this);
+			order.setShop(shop);
+			
+			for (IProduct product : this.shoppingCart.getProducts()) {
+				order.addProduct(product);
+			}
+			
 			this.orders.add(order);
 			this.shoppingCart.empty();
 		} catch (InvalidArgumentValueException e) {

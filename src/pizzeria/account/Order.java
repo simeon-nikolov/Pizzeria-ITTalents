@@ -8,10 +8,9 @@ import pizzeria.menu.IProduct;
 import exceptions.InvalidArgumentValueException;
 
 public class Order {
-	private long id;
+	private int id;
 	private User client;
 	private List<IProduct> products;
-	private double sum;
 	private boolean isReady;
 	private boolean isReceived;
 	private Shop shop;
@@ -20,53 +19,61 @@ public class Order {
 		
 	}
 	
-	public Order(User client, ArrayList<IProduct> produts, double sum, Shop shop) 
+	public Order(int id, User client, Shop shop) 
 			throws InvalidArgumentValueException {
+		this.setShop(shop);
+		this.setClient(client);
+		this.products = new ArrayList<IProduct>();
+	}
+	
+	public void addProduct(IProduct product) throws InvalidArgumentValueException {
+		if (product == null) {
+			throw new InvalidArgumentValueException("Product is null!");
+		}
+		
+		this.products.add(product);
+	}
+	
+	public double getSum() {
+		double sum = 0;
+		
+		for (IProduct product : this.products) {
+			sum += product.getPrice();
+		}
+		
+		return sum;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public void setClient(User client) throws InvalidArgumentValueException {
 		if (client == null) {
 			throw new InvalidArgumentValueException("Client is null!");
 		}
 		
-		if (produts == null) {
-			throw new InvalidArgumentValueException("Products is null!");
-		}
-		
-		if (produts.size() == 0) {
-			throw new InvalidArgumentValueException("There are no products to be ordered!");
-		}
-		
-		if (sum < 0.0) {
-			throw new InvalidArgumentValueException("Sum can't be negative value!");
-		}
-		
-		if (shop == null) {
-			throw new InvalidArgumentValueException("Shop is null!");
-		}
-		
 		this.client = client;
-		this.products = new ArrayList<IProduct>();
-		this.products.addAll(produts);	
-		this.sum = sum;
-		this.shop = shop;
-	}
-	
-	public long getId() {
-		return this.id;
 	}
 	
 	public User getClient() {
 		return this.client;
 	}
 	
-	public void setReady() {
-		this.isReady = true;
+	public void setReady(boolean isReady) {
+		this.isReady = isReady;
 	}
 	
 	public boolean isReady() {
 		return this.isReady;
 	}
 	
-	public void setReceived() {
-		this.isReceived = true;
+	public void setReceived(boolean isReceived) {
+		this.isReceived = isReceived;
 	}
 
 	public boolean isReceived() {
@@ -75,6 +82,14 @@ public class Order {
 	
 	public Shop getShop() {
 		return this.shop;
+	}
+	
+	public void setShop(Shop shop) throws InvalidArgumentValueException {
+		if (shop == null) {
+			throw new InvalidArgumentValueException("Shop is null!");
+		}
+		
+		this.shop = shop;
 	}
 	
 	public List<IProduct> getProducts() {
