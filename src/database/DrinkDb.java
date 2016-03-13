@@ -112,7 +112,7 @@ public class DrinkDb extends DataAccessObject {
 			connection.commit();
 			rs.next();
 			drink = new Drink(rs.getInt("idProduct"), rs.getDouble("price"), (short) rs.getInt("quantity"),
-					rs.getString("name"), rs.getInt("litres"));
+					rs.getString("name"), rs.getDouble("litres"));
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
@@ -128,15 +128,16 @@ public class DrinkDb extends DataAccessObject {
 		return drink;
 	}
 
-	public List<Drink> getAllDrinks(){
+	public List<Drink> getAllDrinks() {
 		List<Drink> drinks = new ArrayList<Drink>();
 		String sql = "select p.idProduct, p.name , p.price, p.quantity, d.litres,  from pizzeria.product p "
 				+ "join pizzeria.drink d on p.idProduct = f.Product_idProduct;";
 		try {
 			PreparedStatement ptmt = connection.prepareStatement(sql);
 			ResultSet rs = ptmt.executeQuery();
-			while(rs.next()){
-				Drink d = new Drink(rs.getInt("idProduct"), rs.getDouble("price"), (short) rs.getInt("quantity"), rs.getString("name"), rs.getInt("litres"));
+			while (rs.next()) {
+				Drink d = new Drink(rs.getInt("idProduct"), rs.getDouble("price"), (short) rs.getInt("quantity"),
+						rs.getString("name"), rs.getDouble("litres"));
 				drinks.add(d);
 			}
 			System.out.println("Success!");
@@ -150,8 +151,8 @@ public class DrinkDb extends DataAccessObject {
 			e.printStackTrace();
 		} catch (InvalidArgumentValueException e) {
 			e.printStackTrace();
-		}	
+		}
 		return drinks;
 	}
-	
+
 }
