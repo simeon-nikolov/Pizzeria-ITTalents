@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
@@ -13,7 +14,7 @@ import exceptions.InvalidArgumentValueException;
 public class PizzaDb extends DataAccessObject {
 	private Connection connection = super.getConnection();
 
-	public void addPizza(Pizza pizza) {
+	public int addPizza(Pizza pizza) {
 		String sql = "INSERT INTO `pizzeria`.`product` ( `name`, `price`, `quantity`) VALUES " + "(?, ?, ?);";
 		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
 		String st = "INSERT INTO `pizzeria`.`food` (`grammage`, `Product_idProduct`) VALUES " + "(?,?);";
@@ -22,15 +23,20 @@ public class PizzaDb extends DataAccessObject {
 		String sqlFoodIngredient = " INSERT INTO pizzeria.food_has_ingredient (Ingredient_idIngredient,Food_idFood) "
 				+ "VALUES " + "(?,?);";
 		String sqlIngredientSelect = "SELECT idIngredient FROM pizzeria.ingredient WHERE name = ?;";
+		int pizzaId = 0;
+		
 		try {
-			PreparedStatement stt = connection.prepareStatement(sql);
+			PreparedStatement stt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			stt.setString(1, pizza.getName());
 			stt.setDouble(2, pizza.getPrice());
 			stt.setInt(3, pizza.getQuantity());
 			stt.executeUpdate();
+			ResultSet rs = stt.getGeneratedKeys();
+			rs.next();
+			pizzaId = rs.getInt(1);
 			PreparedStatement sttSel = connection.prepareStatement(sqlSelect);
 			sttSel.setString(1, pizza.getName());
-			ResultSet rs = sttSel.executeQuery();
+			rs = sttSel.executeQuery();
 			rs.next();
 			int idProduct = rs.getInt("idProduct");
 			PreparedStatement stt2 = connection.prepareStatement(st);
@@ -70,6 +76,8 @@ public class PizzaDb extends DataAccessObject {
 			}
 			e.printStackTrace();
 		}
+		
+		return pizzaId;
 	}
 
 	public void editPizza(int idProduct, Pizza pizza) {

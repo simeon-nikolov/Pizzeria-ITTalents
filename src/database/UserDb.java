@@ -15,12 +15,13 @@ public class UserDb extends DataAccessObject {
 	
 	private Connection connection = super.getConnection();
 	
-	public void addUser(User user) {
+	public int addUser(User user) {
 		String sqlAccountInsert = "INSERT INTO `pizzeria`.`account` (`username`, `password`, `email`, `isAdmin`) VALUES "
 				+ "(?, ?, ?, ?);";
 		String sqlSelectAccId = "SELECT `idAccount` FROM `pizzeria`.`account` WHERE `username` = ?;";
 		String sqlUserInsert = "INSERT INTO `pizzeria`.`user` (`first_name`, `last_name`, `address`, `phone_number`, `idAccount`) VALUES "
 				+ "(?, ?, ?, ?, ?);";
+		int userId = 0;
 		
 		try {
 			PreparedStatement stmtAcc = connection.prepareStatement(sqlAccountInsert);
@@ -34,13 +35,16 @@ public class UserDb extends DataAccessObject {
 			ResultSet rs = stmtAccId.executeQuery();
 			rs.next();
 			int idAccount = rs.getInt("idAccount");
-			PreparedStatement stmtUser = connection.prepareStatement(sqlUserInsert);
+			PreparedStatement stmtUser = connection.prepareStatement(sqlUserInsert, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmtUser.setString(1, user.getFirstName());
 			stmtUser.setString(2, user.getLastName());
 			stmtUser.setString(3, user.getAddress());
 			stmtUser.setString(4, user.getPhoneNumber());
 			stmtUser.setInt(5, idAccount);
 			stmtUser.executeUpdate();
+			rs = stmtUser.getGeneratedKeys();
+			rs.next();
+			userId = rs.getInt(1);
 			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {	
@@ -52,6 +56,8 @@ public class UserDb extends DataAccessObject {
 			}
 			e.printStackTrace();
 		}
+		
+		return userId;
 	}
 	
 	public void editUser(int idUser, User user) {
