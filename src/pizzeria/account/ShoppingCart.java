@@ -1,70 +1,60 @@
 package pizzeria.account;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import pizzeria.menu.IProduct;
+import database.ShoppingCartDb;
 import exceptions.InvalidArgumentValueException;
 
 public class ShoppingCart {
+	private static final String QUANTITY_ERROR_MESSAGE = "Quantity must be a positive number!";
 	private static final String PRODUCT_IS_NULL_ERROR_MESSAGE = "Product is null!";
 	private static final String OWNER_IS_NULL_ERROR_MESSAGE = "Owner is null!";
 	
-	private long id;
+	private int id;
 	private User owner;
-	private ArrayList<IProduct> products;
-	private double sum;
-	private static long count = 0;
+	private ShoppingCartDb cartDao = new ShoppingCartDb();
 	
 	public ShoppingCart(User owner) throws InvalidArgumentValueException {
-		super();
-		
 		if (owner == null) {
 			throw new InvalidArgumentValueException(OWNER_IS_NULL_ERROR_MESSAGE);
 		}
 		
 		this.owner = owner;
-		this.products = new ArrayList<IProduct>();
-		this.sum = 0.0;
-		ShoppingCart.count++;
-		this.id = ShoppingCart.count;
 	}
 	
-	public void addProduct(IProduct product) throws InvalidArgumentValueException {
+	public void addProduct(IProduct product, int quantity) throws InvalidArgumentValueException {
 		this.validateProduct(product);
-		this.sum += product.getPrice();
-		this.products.add(product);
+		
+		if (quantity <= 0) {
+			throw new InvalidArgumentValueException(QUANTITY_ERROR_MESSAGE);
+		}
+		
+		this.cartDao.addProductToShoppingCart(owner.getId(), product.getId(), quantity);
 	}
 	
 	public void removeProduct(IProduct product) throws InvalidArgumentValueException {
 		this.validateProduct(product);
-		
-		for (int index = 0; index < this.products.size(); index++) {
-			IProduct currentProduct = this.products.get(index);
-			if (product.getId() == currentProduct.getId()) {
-				this.sum -= currentProduct.getPrice();
-				this.products.remove(index);
-				break;
-			}
-		}
+		this.cartDao.removeProductFromShoppingCart(this.owner.getId(), product.getId());
 	}
 	
-	public ArrayList<IProduct> getProducts() {
-		ArrayList<IProduct> result = new ArrayList<IProduct>();
-		
-		if (this.products != null && this.products.size() > 0) {
-			result.addAll(this.products);
-		}
-		
-		return result;
+	public List<IProduct> getProducts() {
+		return this.cartDao.getProducts(owner.getId());
 	}
 	
 	public double getSum() {
-		return this.sum;
+		double sum = 0.0;
+		
+		List<IProduct> products = this.getProducts();
+		for (IProduct product : products) {
+			sum += product.getPrice();
+		}
+		
+		return sum;
 	}
 	
 	public void empty() {
-		this.products.clear();
-		this.sum = 0.0;
+		cartDao.emptyShoppingCart(this.owner.getId());
 	}
 
 	private void validateProduct(IProduct product) throws InvalidArgumentValueException {

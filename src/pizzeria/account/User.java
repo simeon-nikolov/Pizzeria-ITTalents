@@ -1,10 +1,13 @@
 package pizzeria.account;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import pizzeria.Shop;
 import pizzeria.menu.IProduct;
+import pizzeria.menu.Ingredient;
+import pizzeria.menu.Pizza;
+import database.OrderDb;
+import database.ShoppingCartDb;
 import exceptions.InvalidArgumentValueException;
 
 public class User extends Account {
@@ -20,7 +23,6 @@ public class User extends Account {
 	private String address;
 	private String phoneNumber;
 	private ShoppingCart shoppingCart;
-	private List<Order> orders;
 	
 	public User() {
 		try {
@@ -28,8 +30,6 @@ public class User extends Account {
 		} catch (InvalidArgumentValueException e) {
 			e.printStackTrace();
 		}
-		
-		this.orders = new ArrayList<Order>();
 	}
 
 	public User(int id, String username, String password, String email, String firstName,
@@ -40,7 +40,6 @@ public class User extends Account {
 		this.setAddress(address);
 		this.setPhoneNumber(phoneNumber);
 		this.shoppingCart = new ShoppingCart(this);
-		this.orders = new ArrayList<Order>();
 	}
 	
 	public Order makeOrder(Shop shop) {
@@ -55,8 +54,10 @@ public class User extends Account {
 				order.addProduct(product);
 			}
 			
-			this.orders.add(order);
-			this.shoppingCart.empty();
+			OrderDb orderDao = new OrderDb();
+			orderDao.addOrder(order);
+			ShoppingCartDb cartDao = new ShoppingCartDb();
+			cartDao.emptyShoppingCart(super.getId());
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());
 		}
@@ -64,25 +65,28 @@ public class User extends Account {
 		return order;
 	}
 	
-//	public Pizza makePizzaByChoice(Set<Ingredient> ingredeients, short quantity, String name) throws InvalidArgumentValueException {
-//		Pizza pizza = null;
-//		
-//		if (ingredeients == null) {
-//			throw new InvalidArgumentValueException(INGREDIENTS_NULL_ERROR_MESSAGE);
-//		}
-//		
-//		if (ingredeients.size() > 10) {
-//			throw new InvalidArgumentValueException(INGREDIENTS_COUNT_ERROR_MESSAGE);
-//		}
-//		
-//		pizza = new Pizza(5, quantity, name, 500, 2);
-//		
-//		for (Ingredient ingredient : ingredeients) {
-//			pizza.addIngredients(ingredient);
-//		}
-//		
-//		return pizza;
-//	}
+	public Pizza makePizzaByChoice(Set<Ingredient> ingredeients, short quantity, String name, int size) throws InvalidArgumentValueException {
+		Pizza pizza = null;
+		
+		if (ingredeients == null) {
+			throw new InvalidArgumentValueException(INGREDIENTS_NULL_ERROR_MESSAGE);
+		}
+		
+		if (ingredeients.size() > 10) {
+			throw new InvalidArgumentValueException(INGREDIENTS_COUNT_ERROR_MESSAGE);
+		}
+		
+		pizza = new Pizza();
+		pizza.setName(name);
+		pizza.setQuantity(quantity);
+		pizza.setSize(size);
+		
+		for (Ingredient ingredient : ingredeients) {
+			pizza.addIngredients(ingredient);
+		}
+		
+		return pizza;
+	}
 
 	public ShoppingCart getShoppingCart() {
 		return shoppingCart;
