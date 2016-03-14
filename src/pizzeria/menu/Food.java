@@ -2,6 +2,7 @@ package pizzeria.menu;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import exceptions.InvalidArgumentValueException;
 
 public abstract class Food extends Product {
@@ -14,13 +15,7 @@ public abstract class Food extends Product {
 	private short numberOfIngredients = 0;
 	
 	public Food(){
-		super();
-	}
-	
-	public Food(double price, short quantity, String name, int grammage) throws InvalidArgumentValueException {
-		super(price, quantity, name);
-		setGrammage(grammage);
-		this.ingredients = new ArrayList<Ingredient>();
+		
 	}
 
 	public Food(int id,double price, short quantity, String name, int grammage) throws InvalidArgumentValueException {
@@ -59,11 +54,6 @@ public abstract class Food extends Product {
 	private void validateGrammage(int grammage) throws InvalidArgumentValueException {
 		if (grammage < MIN_GRAMMAGE)
 			throw new InvalidArgumentValueException(GRAMMAGE_MESSAGE_ERROR);
-	}
-	
-	@Override
-	public int getId() {
-		return id;
 	}
 
 	@Override

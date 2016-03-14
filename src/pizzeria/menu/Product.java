@@ -20,22 +20,21 @@ public abstract class Product implements IProduct {
 
 	}
 
-	public Product(double price, short quantity, String name) throws InvalidArgumentValueException {
-		setName(name);
-		setPrice(price);
-		setQuantity(quantity);
-	}
-
 	public Product(int id, double price, short quantity, String name) throws InvalidArgumentValueException {
+		this.id = id;
 		setName(name);
 		setPrice(price);
 		setQuantity(quantity);
-		this.id = id;
 	}
 
 	@Override
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	@Override
+	public int getId() {
+		return this.id;
 	}
 
 	@Override
@@ -43,6 +42,7 @@ public abstract class Product implements IProduct {
 		return price;
 	}
 
+	@Override
 	public void setPrice(double price) throws InvalidArgumentValueException {
 		this.validatePrice(price);
 		this.price = price;
@@ -54,10 +54,12 @@ public abstract class Product implements IProduct {
 		}
 	}
 
+	@Override
 	public int getQuantity() {
 		return quantity;
 	}
 
+	@Override
 	public void setQuantity(int i) throws InvalidArgumentValueException {
 		this.validateQuantity(i);
 		this.quantity = i;
@@ -75,10 +77,6 @@ public abstract class Product implements IProduct {
 	}
 
 	@Override
-	public int getId() {
-		return this.id;
-	}
-
 	public void setName(String name) throws InvalidArgumentValueException {
 		this.validateName(name);
 		this.name = name;

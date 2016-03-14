@@ -16,14 +16,14 @@ public class Order {
 	private Shop shop;
 	
 	public Order() {
-		
+		this.products = new ArrayList<IProduct>();
 	}
 	
 	public Order(int id, User client, Shop shop) 
 			throws InvalidArgumentValueException {
+		this();
 		this.setShop(shop);
 		this.setClient(client);
-		this.products = new ArrayList<IProduct>();
 	}
 	
 	public void addProduct(IProduct product) throws InvalidArgumentValueException {

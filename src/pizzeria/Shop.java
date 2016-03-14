@@ -10,10 +10,22 @@ public class Shop {
 	private String name;
 	private String address;
 	
+	public Shop() {
+		
+	}
+	
 	public Shop(int id, String name, String address) throws InvalidArgumentValueException {
 		this.id = id;
 		this.setName(name);
 		this.setAddress(address);
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
