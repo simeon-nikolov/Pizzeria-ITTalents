@@ -1,7 +1,6 @@
 package pizzeria;
 
 import java.util.List;
-import java.util.Set;
 
 import pizzeria.account.Administrator;
 import pizzeria.menu.Ingredient;
@@ -52,7 +51,7 @@ public class Demo {
 			// for (String string : ingredients) {
 			// kalcone.addIngredients(new Ingredient(string));
 			// }
-			Pizza margarita = new Pizza("Margarita", 5.99, (short) 1, 450, 25);
+			Pizza margarita = new Pizza(0, "Margarita", 5.99, (short) 1, 450, 25);
 			PizzaDb pizzaDao = new PizzaDb();
 			// Pizza margarita = new Pizza();
 			// margarita.setName("Margarita");
@@ -86,11 +85,11 @@ public class Demo {
 			// ingDao.addIngredient(new Ingredient("Shunka"));
 			// ingDao.addIngredient(new Ingredient("Peperoni"));
 			String[] ingredients = { "Parmezan", "Gybi", "Peperoni", "Maslini" };
-			Pizza peperoni = new Pizza("Peperoni", 8.50, (short) 1, 600, 30);
+			Pizza peperoni = new Pizza(0, "Peperoni", 8.50, (short) 1, 600, 30);
 			for (String string : ingredients) {
 				peperoni.addIngredients(new Ingredient(string));
 			}
-			Pizza kalcone = new Pizza("Kalcone", 8.99, (short) 2, 550, 30);
+			Pizza kalcone = new Pizza(0, "Kalcone", 8.99, (short) 2, 550, 30);
 			// kalcone.setName("Kalcone");
 			// kalcone.setPrice(8.99);
 			// kalcone.setQuantity(2);

@@ -10,8 +10,6 @@ import java.util.List;
 import pizzeria.menu.IProduct;
 
 public class ShoppingCartDb extends DataAccessObject {
-	private static final String DB_CONNECTION_ERROR_MESSAGE = "Database connection is null!";
-
 	private Connection connection = super.getConnection();
 	
 	public void addProductToShoppingCart(int userId, int productId, int quantity) {
