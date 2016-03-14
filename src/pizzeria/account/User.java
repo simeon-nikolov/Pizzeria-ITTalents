@@ -23,12 +23,22 @@ public class User extends Account {
 	private List<Order> orders;
 	
 	public User() {
-		super();
+		try {
+			this.shoppingCart = new ShoppingCart(this);
+		} catch (InvalidArgumentValueException e) {
+			e.printStackTrace();
+		}
+		
+		this.orders = new ArrayList<Order>();
 	}
 
 	public User(int id, String username, String password, String email, String firstName,
 			String lastName, String address, String phoneNumber) throws InvalidArgumentValueException {
 		super(id, username, password, email);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setAddress(address);
+		this.setPhoneNumber(phoneNumber);
 		this.shoppingCart = new ShoppingCart(this);
 		this.orders = new ArrayList<Order>();
 	}
