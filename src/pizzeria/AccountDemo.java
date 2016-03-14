@@ -16,38 +16,38 @@ public class AccountDemo {
 
 		try {
 			User user = addUser();
-			addSomePizzasToDb();
-			
 			Order order = new Order();
 			order.setClient(user);
-			Shop shop = new Shop(1, "София - Борово", "ул. Ген. Стефан Тошев 8");
-			ShopDb shopDao = new ShopDb();
-			int shopId = shopDao.addShop(shop);
-			shop.setId(shopId);
+			Shop shop = addShop();
 			order.setShop(shop);
-			Pizza kalcone = new Pizza(0, "Kalcone", 6.20, (short)10, 1000, 3);
-			PizzaDb pizzaDao = new PizzaDb();
-			int pizzaId = pizzaDao.addPizza(kalcone);
-			System.out.println(pizzaId);
-			kalcone.setId(pizzaId);
-			System.out.println(kalcone.getId());
+			Pizza kalcone = addPizza();
 			order.addProduct(kalcone);
 			OrderDb orderDao = new OrderDb();
 			int orderId = orderDao.addOrder(order);
 			order.setId(orderId);
 			Order order2 = orderDao.getOrderById(1);
-			System.out.println(order2.getProducts().get(0).getName());
+			System.out.println(order2.getClient().getEmail() + " " + order2.getProducts().get(0).getName());
+			orderDao.removeOrder(order2.getId());
+			orderDao.removeOrder(1);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	private static void addSomePizzasToDb() {
+	private static Pizza addPizza() throws InvalidArgumentValueException {
+		Pizza kalcone = new Pizza(0, "Kalcone", 6.20, (short)10, 1000, 3);
 		PizzaDb pizzaDao = new PizzaDb();
-		
-		for (int pizzaIndex = 1; pizzaIndex <= 5; pizzaIndex++) {
-			
-		}
+		int pizzaId = pizzaDao.addPizza(kalcone);
+		kalcone.setId(pizzaId);
+		return kalcone;
+	}
+
+	private static Shop addShop() throws InvalidArgumentValueException {
+		Shop shop = new Shop(1, "София - Борово", "ул. Ген. Стефан Тошев 8");
+		ShopDb shopDao = new ShopDb();
+		int shopId = shopDao.addShop(shop);
+		shop.setId(shopId);
+		return shop;
 	}
 
 	private static User addUser() throws InvalidArgumentValueException {

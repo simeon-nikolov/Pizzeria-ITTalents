@@ -49,7 +49,6 @@ public class OrderDb extends DataAccessObject {
 
 			for (IProduct product : order.getProducts()) {
 				stmtInsertProductId.setInt(1, product.getId());
-				System.out.println(product.getId());
 				stmtInsertProductId.setInt(2, product.getQuantity());
 				stmtInsertProductId.setInt(3, orderId);
 				stmtInsertProductId.executeUpdate();

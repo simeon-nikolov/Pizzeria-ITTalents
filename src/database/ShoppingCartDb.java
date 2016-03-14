@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pizzeria.menu.IProduct;
+import pizzeria.menu.Ingredient;
+import pizzeria.menu.Pizza;
+import exceptions.InvalidArgumentValueException;
 
 public class ShoppingCartDb extends DataAccessObject {
 	private Connection connection = super.getConnection();
@@ -80,22 +83,15 @@ public class ShoppingCartDb extends DataAccessObject {
 	}
 	
 	public List<IProduct> getProducts(int userId) {
-		String sqlSelectProducts = "SELECT * FROM `pizzeria`.`Product` p "
-				+ "JOIN `pizzeria`.`Products_In_Carts` s ON (p.`idProduct` = s.`idProduct`) "
-				+ "WHERE s.`User_idUser` = ?;";
 		List<IProduct> products = new ArrayList<IProduct>();
 		
 		try {
-			PreparedStatement  stmtSelectProducts = connection.prepareStatement(sqlSelectProducts);
-			stmtSelectProducts.setInt(1, userId);
-			ResultSet rs = stmtSelectProducts.executeQuery();
+			List<Pizza> pizzas = this.getPizzasByCartId(userId);
 			
-			while (rs.next()) {
-				// TO DO - get product by product type
-				// add product in List products
+			for (Pizza pizza : pizzas) {
+				products.add(pizza);
 			}
 			
-			connection.commit();
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
@@ -105,8 +101,43 @@ public class ShoppingCartDb extends DataAccessObject {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
+		} catch (InvalidArgumentValueException e) {
+			e.printStackTrace();
 		}
 		
 		return products;
+	}
+	
+	private List<Pizza> getPizzasByCartId(int id) throws SQLException, InvalidArgumentValueException {
+		String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
+				+ "JOIN `pizzeria`.`Products_In_Carts` c ON (pr.`idProduct` = c.`idProduct`) "
+				+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
+				+ "JOIN `pizzeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
+				+ "WHERE c.`User_idUser` = ?;";
+		PreparedStatement stmtSelectPizzas = connection.prepareStatement(sqlSelectPizzas);
+		stmtSelectPizzas.setInt(1, id);
+		ResultSet rs = stmtSelectPizzas.executeQuery();
+		List<Pizza> pizzas = new ArrayList<Pizza>(); 
+		
+		while(rs.next()) {
+			Pizza pizza = new Pizza(
+					rs.getInt("idProduct"),
+					rs.getString("name"),
+					rs.getDouble("price"),
+					rs.getShort("quantity"),
+					rs.getInt("grammage"),
+					rs.getInt("size")
+				);
+			
+			List<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
+			
+			for (Ingredient ingredient : ingredients) {
+				pizza.addIngredients(ingredient);
+			}
+			
+			pizzas.add(pizza);
+		}
+		
+		return pizzas;
 	}
 }
