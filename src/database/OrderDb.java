@@ -19,15 +19,14 @@ import com.mysql.jdbc.Statement;
 import exceptions.InvalidArgumentValueException;
 
 public class OrderDb extends DataAccessObject {
-	private static final String DB_CONNECTION_ERROR_MESSAGE = "Database connection is null!";
-
 	private Connection connection = super.getConnection();
 
-	public void addOrder(Order order) {
-		String sqlInserOrder = "INSERT INTO `pizzeria`.`Order` (`sum`, `is_ready`, `is_received`, `User_idUser`) VALUES "
-				+ "(?, ?, ?, ?);";
+	public int addOrder(Order order) {
+		String sqlInserOrder = "INSERT INTO `pizzeria`.`Order` (`sum`, `is_ready`, `is_received`, `User_idUser`, `Shop_idShop`) VALUES "
+				+ "(?, ?, ?, ?, ?);";
 		String sqlInserProductId = "INSERT INTO `pizzeria`.`Products_In_Orders` (`idProduct`, `quantity`, `Order_idOrder`) VALUES "
 				+ "(?, ?, ?);";
+		int orderId = 0;
 
 		try {
 			PreparedStatement stmtInsertOrder = connection.prepareStatement(sqlInserOrder, Statement.RETURN_GENERATED_KEYS);
@@ -35,9 +34,9 @@ public class OrderDb extends DataAccessObject {
 			stmtInsertOrder.setBoolean(2, false);
 			stmtInsertOrder.setBoolean(3, false);
 			stmtInsertOrder.setInt(4, order.getClient().getId());
+			stmtInsertOrder.setInt(5, order.getShop().getId());
 			stmtInsertOrder.executeUpdate();
 
-			int orderId = 0;
 			try (ResultSet generatedKeys = stmtInsertOrder.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					orderId = generatedKeys.getInt(1);
@@ -50,8 +49,10 @@ public class OrderDb extends DataAccessObject {
 
 			for (IProduct product : order.getProducts()) {
 				stmtInsertProductId.setInt(1, product.getId());
+				System.out.println(product.getId());
 				stmtInsertProductId.setInt(2, product.getQuantity());
 				stmtInsertProductId.setInt(3, orderId);
+				stmtInsertProductId.executeUpdate();
 			}
 
 			connection.commit();
@@ -65,6 +66,8 @@ public class OrderDb extends DataAccessObject {
 			}
 			e.printStackTrace();
 		}
+		
+		return orderId;
 	}
 
 	public void editOrder(int idOrder, Order order) {
@@ -126,7 +129,7 @@ public class OrderDb extends DataAccessObject {
 
 	public Order getOrderById(int idOrder) {
 		String sqlSelectOrder = "SELECT * FROM `pizzeria`.`Order` WHERE `idOrder`=?;";
-		String sqlSelectShop = "SELECT * FROM `pizzeria`.`Shop` WHERE `pizzeria`.`Order_idOrder` = ?";
+		String sqlSelectShop = "SELECT * FROM `pizzeria`.`Shop` WHERE `idShop` = ?";
 		
 		Order order = null;
 		
@@ -142,7 +145,7 @@ public class OrderDb extends DataAccessObject {
 			User client = new UserDb().getUserById(userId);
 			order.setClient(client);
 			PreparedStatement stmtSelectShop = connection.prepareStatement(sqlSelectShop);
-			stmtSelectShop.setInt(1, idOrder);
+			stmtSelectShop.setInt(1, rs.getInt("Shop_idShop"));
 			rs = stmtSelectShop.executeQuery();
 			rs.next();
 			Shop shop = new Shop(
@@ -176,9 +179,9 @@ public class OrderDb extends DataAccessObject {
 
 	private List<Pizza> getPizzasByOrderId(int idOrder) throws SQLException, InvalidArgumentValueException {
 		String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
-				+ "JOIN `pizzeria`.`Products_In_Order` po ON (pr.`idProduct` = po.`idProduct`) "
+				+ "JOIN `pizzeria`.`Products_In_Orders` po ON (pr.`idProduct` = po.`idProduct`) "
 				+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
-				+ "JOIN `pizeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
+				+ "JOIN `pizzeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
 				+ "WHERE po.`Order_idOrder` = ?;";
 		PreparedStatement stmtSelectPizzas = connection.prepareStatement(sqlSelectPizzas);
 		stmtSelectPizzas.setInt(1, idOrder);
