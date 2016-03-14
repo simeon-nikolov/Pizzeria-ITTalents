@@ -23,9 +23,9 @@ public class DatabaseConnection {
 					Class.forName(JDBC_DRIVER);
 					instance = DriverManager.getConnection(DB_URL, USER, PASS);
 					instance.setAutoCommit(false);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
 				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				}
 			}	

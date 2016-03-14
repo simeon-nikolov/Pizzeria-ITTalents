@@ -63,7 +63,7 @@ public class Demo {
 			for (String string : ingredients2) {
 				margarita.addIngredients(new Ingredient(string));
 			}
-			// pizzaDao.addProduct(margarita);
+//			 pizzaDao.addPizza(margarita);
 			// pizzaDao.editPizza(5, margarita);
 			// Set<Pizza> pizzas = pizzaDao.getAllPizza();
 			// for (Pizza pizza : pizzas) {
@@ -73,23 +73,24 @@ public class Demo {
 			// System.out.println(a);
 
 			IngredientDb ingDao = new IngredientDb();
-			// ingDao.addIngredient(new Ingredient("Parmezan"));
-			// ingDao.addIngredient(new Ingredient("Brokoli"));
-			// ingDao.addIngredient(new Ingredient("Mocarela"));
-			// ingDao.addIngredient(new Ingredient("Maslini"));
-			// ingDao.addIngredient(new Ingredient("Bekon"));
-			// ingDao.addIngredient(new Ingredient("Gybi"));
-			// ingDao.addIngredient(new Ingredient("Topeno sirene"));
-			// ingDao.addIngredient(new Ingredient("Carevica"));
-			// ingDao.addIngredient(new Ingredient("Luk"));
-			// ingDao.addIngredient(new Ingredient("Shunka"));
-			// ingDao.addIngredient(new Ingredient("Peperoni"));
+//			 ingDao.addIngredient(new Ingredient("Parmezan"));
+//			 ingDao.addIngredient(new Ingredient("Brokoli"));
+//			 ingDao.addIngredient(new Ingredient("Mocarela"));
+//			 ingDao.addIngredient(new Ingredient("Maslini"));
+//			 ingDao.addIngredient(new Ingredient("Bekon"));
+//			 ingDao.addIngredient(new Ingredient("Gybi"));
+//			 ingDao.addIngredient(new Ingredient("Topeno sirene"));
+//			 ingDao.addIngredient(new Ingredient("Carevica"));
+//			 ingDao.addIngredient(new Ingredient("Luk"));
+//			 ingDao.addIngredient(new Ingredient("Shunka"));
+//			 ingDao.addIngredient(new Ingredient("Peperoni"));
 			String[] ingredients = { "Parmezan", "Gybi", "Peperoni", "Maslini" };
 			Pizza peperoni = new Pizza(0, "Peperoni", 8.50, (short) 1, 600, 30);
 			for (String string : ingredients) {
 				peperoni.addIngredients(new Ingredient(string));
 			}
 			Pizza kalcone = new Pizza(0, "Kalcone", 8.99, (short) 2, 550, 30);
+//			pizzaDao.addPizza(peperoni);
 			// kalcone.setName("Kalcone");
 			// kalcone.setPrice(8.99);
 			// kalcone.setQuantity(2);
@@ -109,15 +110,16 @@ public class Demo {
 			System.out.println();
 			List<Pizza> pizzas = pizzaDao.getAllPizza();
 			for (Pizza pizza : pizzas) {
-				System.out.println(pizza);
+				System.out.println(pizza.getName());
+				System.out.println(pizza.getPrice());
 			}
 			// pizzaDao.removePizza(5); // Iztri margaritata
 			
-			List<Ingredient> in2 = pizzaDao.getAllPizzaIngredients(kalcone);
-			System.out.println("Systavki na : " + kalcone.getName());
-			for (Ingredient ingredient : in2) {
-				System.out.print(ingredient.getName() + " ");
-			}
+//			List<Ingredient> in2 = pizzaDao.getAllPizzaIngredients(kalcone);
+//			System.out.println("Systavki na : " + kalcone.getName());
+//			for (Ingredient ingredient : in2) {
+//				System.out.print(ingredient.getName() + " ");
+//			}
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());
 		}
