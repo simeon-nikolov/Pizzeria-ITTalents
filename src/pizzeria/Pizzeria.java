@@ -35,7 +35,7 @@ public class Pizzeria {
 		User user = this.userDao.getUserByUsername(username);
 		
 		if (user != null) {
-			loginSuccessful = user.getPassword().equals(password);
+			loginSuccessful = user.login(password);
 		}
 		
 		return loginSuccessful;
