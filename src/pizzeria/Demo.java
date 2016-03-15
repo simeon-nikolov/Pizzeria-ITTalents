@@ -51,7 +51,7 @@ public class Demo {
 			// for (String string : ingredients) {
 			// kalcone.addIngredients(new Ingredient(string));
 			// }
-			Pizza margarita = new Pizza(0, "Margarita", 5.99, (short) 1, 450, 25);
+			Pizza margarita = new Pizza(0, "Margarita", 5.99, "images\\pizza\\Ultimate_Cheese_Lovers_Pizza.png", 450, 25);
 			PizzaDb pizzaDao = new PizzaDb();
 			// Pizza margarita = new Pizza();
 			// margarita.setName("Margarita");
@@ -63,7 +63,7 @@ public class Demo {
 			for (String string : ingredients2) {
 				margarita.addIngredients(new Ingredient(string));
 			}
-//			 pizzaDao.addPizza(margarita);
+			 pizzaDao.addPizza(margarita);
 			// pizzaDao.editPizza(5, margarita);
 			// Set<Pizza> pizzas = pizzaDao.getAllPizza();
 			// for (Pizza pizza : pizzas) {
@@ -74,33 +74,33 @@ public class Demo {
 
 			IngredientDb ingDao = new IngredientDb();
 //			 ingDao.addIngredient(new Ingredient("Parmezan"));
-//			 ingDao.addIngredient(new Ingredient("Brokoli"));
-//			 ingDao.addIngredient(new Ingredient("Mocarela"));
-//			 ingDao.addIngredient(new Ingredient("Maslini"));
-//			 ingDao.addIngredient(new Ingredient("Bekon"));
-//			 ingDao.addIngredient(new Ingredient("Gybi"));
-//			 ingDao.addIngredient(new Ingredient("Topeno sirene"));
-//			 ingDao.addIngredient(new Ingredient("Carevica"));
-//			 ingDao.addIngredient(new Ingredient("Luk"));
-//			 ingDao.addIngredient(new Ingredient("Shunka"));
-//			 ingDao.addIngredient(new Ingredient("Peperoni"));
+//			ingDao.addIngredient(new Ingredient("Brokoli"));
+//			ingDao.addIngredient(new Ingredient("Mocarela"));
+//			ingDao.addIngredient(new Ingredient("Maslini"));
+//			ingDao.addIngredient(new Ingredient("Bekon"));
+//			ingDao.addIngredient(new Ingredient("Gybi"));
+//			ingDao.addIngredient(new Ingredient("Topeno sirene"));
+//			ingDao.addIngredient(new Ingredient("Carevica"));
+//			ingDao.addIngredient(new Ingredient("Luk"));
+//			ingDao.addIngredient(new Ingredient("Shunka"));
+//			ingDao.addIngredient(new Ingredient("Peperoni"));
 			String[] ingredients = { "Parmezan", "Gybi", "Peperoni", "Maslini" };
-			Pizza peperoni = new Pizza(0, "Peperoni", 8.50, (short) 1, 600, 30);
+			Pizza peperoni = new Pizza(0, "Peperoni", 8.50, "images/pizza/Pepperoni_Lovers_Pizza.png", 600, 30);
 			for (String string : ingredients) {
 				peperoni.addIngredients(new Ingredient(string));
 			}
-			Pizza kalcone = new Pizza(0, "Kalcone", 8.99, (short) 2, 550, 30);
-//			pizzaDao.addPizza(peperoni);
+			Pizza kalcone = new Pizza(0, "Kalcone", 8.99, "images/pizza/Classic_Supreme_Pizza.png", 550, 30);
+			pizzaDao.addPizza(peperoni);
 			// kalcone.setName("Kalcone");
 			// kalcone.setPrice(8.99);
 			// kalcone.setQuantity(2);
 			// kalcone.setGrammage(550);
 			// kalcone.setSize(30);
 //			String[] ingredients2 = { "Mocarela", "Bekon", "Luk", "Carevica" };
-//			for (String string : ingredients2) {
-//				kalcone.addIngredients(new Ingredient(string));
-//			}
-			// pizzaDao.addProduct(kalcone);
+			for (String string : ingredients2) {
+				kalcone.addIngredients(new Ingredient(string));
+			}
+			 pizzaDao.addPizza(kalcone);
 			// pizzaDao.addProduct(peperoni);
 			List<Ingredient> in = pizzaDao.getAllPizzaIngredients(peperoni);
 			System.out.println("Systavki na : " + peperoni.getName());
