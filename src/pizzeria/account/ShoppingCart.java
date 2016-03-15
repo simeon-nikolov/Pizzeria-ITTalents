@@ -54,7 +54,7 @@ public class ShoppingCart {
 	}
 	
 	public void empty() {
-		cartDao.emptyShoppingCart(this.owner.getId());
+		this.cartDao.emptyShoppingCart(this.owner.getId());
 	}
 
 	private void validateProduct(IProduct product) throws InvalidArgumentValueException {

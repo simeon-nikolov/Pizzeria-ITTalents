@@ -5,7 +5,7 @@ import java.util.Random;
 import exceptions.InvalidArgumentValueException;
 
 public abstract class Account {
-	private static final String PASSWORD_MATCH_ERROR_MESSAGE = "Password doesn't match!";
+	private static final String PASSWORD_ERROR_MESSAGE = "Password parameter is null!";
 	private static final String EMAIL_IS_NULL_ERROR_MESSAGE = "E-mail is null!";
 	private static final String PASSWORD_LENGTH_ERROR_MESSAGE = "Password must be at least %1$1s characters long!";
 	private static final String PASSWORD_IS_NULL_ERROR_MESSAGE = "Password is null!";
@@ -24,7 +24,6 @@ public abstract class Account {
 	private String username;
 	private String password;
 	private String email;
-	private String sessionKey;
 	private static Random randomGenerator = new Random();
 	
 	public Account() {
@@ -38,29 +37,12 @@ public abstract class Account {
 		this.setEmail(email);
 	}
 	
-	public void login(String password) throws InvalidArgumentValueException {
-		if (!this.password.equals(password)) {
-			throw new InvalidArgumentValueException(PASSWORD_MATCH_ERROR_MESSAGE);
+	public boolean login(String password) throws InvalidArgumentValueException {
+		if (password == null) {
+			throw new InvalidArgumentValueException(PASSWORD_ERROR_MESSAGE);
 		}
 		
-		this.sessionKey = this.generateSessionKey();
-	}
-	
-	public void logout() {
-		this.sessionKey = null;
-	}
-	
-	private String generateSessionKey() {
-		StringBuilder sessionKey = new StringBuilder();
-		sessionKey.append(this.id);
-		
-		while (sessionKey.length() < SESSION_KEY_LENGTH) {
-			int index = randomGenerator
-					.nextInt(SESSION_KEY_CHARACTERS.length());
-			sessionKey.append(SESSION_KEY_CHARACTERS.charAt(index));
-		}
-
-		return sessionKey.toString();
+		return this.password.equals(password);
 	}
 	
 	public int getId() {
@@ -69,10 +51,6 @@ public abstract class Account {
 	
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getSessionKey() {
-		return sessionKey;
 	}
 	
 	public String getUsername() {
