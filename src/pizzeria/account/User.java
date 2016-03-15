@@ -7,7 +7,6 @@ import pizzeria.menu.IProduct;
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import database.OrderDb;
-import database.ShoppingCartDb;
 import exceptions.InvalidArgumentValueException;
 
 public class User extends Account {
@@ -56,8 +55,7 @@ public class User extends Account {
 			
 			OrderDb orderDao = new OrderDb();
 			orderDao.addOrder(order);
-			ShoppingCartDb cartDao = new ShoppingCartDb();
-			cartDao.emptyShoppingCart(super.getId());
+			this.shoppingCart.empty();
 		} catch (InvalidArgumentValueException e) {
 			System.out.println(e.getMessage());
 		}
