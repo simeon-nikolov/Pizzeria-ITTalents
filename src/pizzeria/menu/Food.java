@@ -18,8 +18,8 @@ public abstract class Food extends Product {
 		
 	}
 
-	public Food(int id,double price, short quantity, String name, int grammage) throws InvalidArgumentValueException {
-		super(id, price, quantity, name);
+	public Food(int id,double price, String image, String name, int grammage) throws InvalidArgumentValueException {
+		super(id, price, image, name);
 		setGrammage(grammage);
 		this.ingredients = new ArrayList<Ingredient>();
 	}

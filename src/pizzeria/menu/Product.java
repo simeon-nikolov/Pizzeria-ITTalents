@@ -13,18 +13,18 @@ public abstract class Product implements IProduct {
 	private static final int MIN_QUANTITY = 0;
 	private int id;
 	private double price;
-	private int quantity;
+	private String image;
 	private String name;
 
 	public Product() {
 
 	}
 
-	public Product(int id, double price, short quantity, String name) throws InvalidArgumentValueException {
+	public Product(int id, double price, String image, String name) throws InvalidArgumentValueException {
 		this.id = id;
 		setName(name);
 		setPrice(price);
-		setQuantity(quantity);
+		setImage(image);
 	}
 
 	@Override
@@ -54,21 +54,15 @@ public abstract class Product implements IProduct {
 		}
 	}
 
-	@Override
-	public int getQuantity() {
-		return quantity;
-	}
+	
 
-	@Override
-	public void setQuantity(int i) throws InvalidArgumentValueException {
-		this.validateQuantity(i);
-		this.quantity = i;
+	public String getImage() {
+		return image;
 	}
-
-	private void validateQuantity(int quantity) throws InvalidArgumentValueException {
-		if (quantity < MIN_QUANTITY && quantity > MAX_QUANTITY) {
-			throw new InvalidArgumentValueException(GRAMMAGE_IS_MESSAGE_ERROR);
-		}
+	@Override
+	public void setImage(String image) throws InvalidArgumentValueException {
+		validateName(image);
+		this.image = image;
 	}
 
 	@Override
@@ -94,6 +88,6 @@ public abstract class Product implements IProduct {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", price=" + price + ", quantity=" + quantity + ", name=" + name + "]";
+		return "Product [id=" + id + ", price=" + price + ", image=" + image + ", name=" + name + "]";
 	}
 }

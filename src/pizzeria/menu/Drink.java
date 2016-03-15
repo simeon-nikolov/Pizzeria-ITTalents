@@ -7,8 +7,8 @@ public class Drink extends Product {
 	private static final int MIN_SIZE_DRINK = 0;
 	private double size;
 
-	public Drink(int id,double price, short quantity, String name, double litres) throws InvalidArgumentValueException {
-		super(id,price, quantity, name);
+	public Drink(int id,double price, String image, String name, double litres) throws InvalidArgumentValueException {
+		super(id,price, image, name);
 		this.setSize(litres);
 	}
 

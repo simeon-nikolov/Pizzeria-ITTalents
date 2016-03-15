@@ -14,14 +14,14 @@ public class DrinkDb extends DataAccessObject {
 	private Connection connection = super.getConnection();
 
 	public void addDrink(Drink drink) {
-		String sqlInsertInProduct = "INSERT INTO pizzeria.product ( name, price, quantity) VALUES (?, ?, ?);";
+		String sqlInsertInProduct = "INSERT INTO pizzeria.product ( name, price, image) VALUES (?, ?, ?);";
 		String sqlSelectProductId = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
 		String insertDrink = "INSERT INTO pizzeria.drink (litres, Product_idProduct) VALUES (?,?);";
 		try {
 			PreparedStatement stmtProduct = connection.prepareStatement(sqlInsertInProduct);
 			stmtProduct.setString(1, drink.getName());
 			stmtProduct.setDouble(2, drink.getPrice());
-			stmtProduct.setInt(3, drink.getQuantity());
+			stmtProduct.setString(3, drink.getImage());
 			stmtProduct.executeUpdate();
 
 			PreparedStatement stmtSelect = connection.prepareStatement(sqlSelectProductId);
@@ -48,13 +48,13 @@ public class DrinkDb extends DataAccessObject {
 	}
 
 	public void editDrink(int id, Drink drink) {
-		String sqlProductUpdate = "UPDATE pizzeria.product SET name=?, price=?, quantity=? WHERE idProduct=?;";
+		String sqlProductUpdate = "UPDATE pizzeria.product SET name=?, price=?, image=? WHERE idProduct=?;";
 		String sqlDrinkUpdate = "UPDATE pizzeria.drink SET litres = ?  WHERE Product_idProduct = ? ;";
 		try {
 			PreparedStatement stmtProduct = connection.prepareStatement(sqlProductUpdate);
 			stmtProduct.setString(1, drink.getName());
 			stmtProduct.setDouble(2, drink.getPrice());
-			stmtProduct.setInt(3, drink.getQuantity());
+			stmtProduct.setString(3, drink.getImage());
 			stmtProduct.setInt(4, id);
 			stmtProduct.executeUpdate();
 
@@ -103,7 +103,7 @@ public class DrinkDb extends DataAccessObject {
 
 	public Drink getDrinkById(int id) {
 		Drink drink = null;
-		String sql = "select p.idProduct, p.name , p.price, p.quantity, d.litres from pizzeria.product p "
+		String sql = "select p.idProduct, p.name , p.price, p.image, d.litres from pizzeria.product p "
 				+ "join pizzeria.drink d on p.idProduct = d.Product_idProduct " + "where p.idProduct =  ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -111,7 +111,7 @@ public class DrinkDb extends DataAccessObject {
 			ResultSet rs = stmt.executeQuery();
 			connection.commit();
 			rs.next();
-			drink = new Drink(rs.getInt("idProduct"), rs.getDouble("price"), (short) rs.getInt("quantity"),
+			drink = new Drink(rs.getInt("idProduct"), rs.getDouble("price"), rs.getString("image"),
 					rs.getString("name"), rs.getDouble("litres"));
 			System.out.println("Success!");
 		} catch (SQLException e) {
@@ -130,13 +130,13 @@ public class DrinkDb extends DataAccessObject {
 
 	public List<Drink> getAllDrinks() {
 		List<Drink> drinks = new ArrayList<Drink>();
-		String sql = "select p.idProduct, p.name , p.price, p.quantity, d.litres,  from pizzeria.product p "
+		String sql = "select p.idProduct, p.name , p.price, p.image, d.litres,  from pizzeria.product p "
 				+ "join pizzeria.drink d on p.idProduct = f.Product_idProduct;";
 		try {
 			PreparedStatement ptmt = connection.prepareStatement(sql);
 			ResultSet rs = ptmt.executeQuery();
 			while (rs.next()) {
-				Drink d = new Drink(rs.getInt("idProduct"), rs.getDouble("price"), (short) rs.getInt("quantity"),
+				Drink d = new Drink(rs.getInt("idProduct"), rs.getDouble("price"), rs.getString("image"),
 						rs.getString("name"), rs.getDouble("litres"));
 				drinks.add(d);
 			}

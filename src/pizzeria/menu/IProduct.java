@@ -11,11 +11,11 @@ public interface IProduct {
 
 	double getPrice();
 
-	int getQuantity();
+	String getImage();
 
 	void setName(String name) throws InvalidArgumentValueException;
 
 	void setPrice(double price) throws InvalidArgumentValueException;
 
-	void setQuantity(int quantity) throws InvalidArgumentValueException;
+	void setImage(String image) throws InvalidArgumentValueException;
 }

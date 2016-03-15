@@ -63,7 +63,7 @@ public class User extends Account {
 		return order;
 	}
 	
-	public Pizza makePizzaByChoice(Set<Ingredient> ingredeients, short quantity, String name, int size) throws InvalidArgumentValueException {
+	public Pizza makePizzaByChoice(Set<Ingredient> ingredeients, String name, int size) throws InvalidArgumentValueException {
 		Pizza pizza = null;
 		
 		if (ingredeients == null) {
@@ -76,7 +76,6 @@ public class User extends Account {
 		
 		pizza = new Pizza();
 		pizza.setName(name);
-		pizza.setQuantity(quantity);
 		pizza.setSize(size);
 		
 		for (Ingredient ingredient : ingredeients) {

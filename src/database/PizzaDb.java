@@ -15,7 +15,7 @@ public class PizzaDb extends DataAccessObject {
 	private Connection connection = super.getConnection();
 
 	public int addPizza(Pizza pizza) {
-		String sql = "INSERT INTO `pizzeria`.`product` ( `name`, `price`, `quantity`) VALUES " + "(?, ?, ?);";
+		String sql = "INSERT INTO `pizzeria`.`product` ( `name`, `price`, `image`) VALUES " + "(?, ?, ?);";
 		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
 		String st = "INSERT INTO `pizzeria`.`food` (`grammage`, `Product_idProduct`) VALUES " + "(?,?);";
 		String stSelect = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
@@ -29,7 +29,7 @@ public class PizzaDb extends DataAccessObject {
 			PreparedStatement stt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			stt.setString(1, pizza.getName());
 			stt.setDouble(2, pizza.getPrice());
-			stt.setInt(3, pizza.getQuantity());
+			stt.setString(3, pizza.getImage());
 			stt.executeUpdate();
 			ResultSet rs = stt.getGeneratedKeys();
 			rs.next();
@@ -81,7 +81,7 @@ public class PizzaDb extends DataAccessObject {
 	}
 
 	public void editPizza(int idProduct, Pizza pizza) {
-		String sqlProductUpdate = "UPDATE pizzeria.product SET name=?, price=?, quantity=? WHERE idProduct=?;";
+		String sqlProductUpdate = "UPDATE pizzeria.product SET name=?, price=?, image=? WHERE idProduct=?;";
 		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
 		String sqlFoodUpdate = "UPDATE pizzeria.food SET grammage = ?  WHERE idFood = ? ;";
 		String sqlPizzaUpdate = "UPDATE pizzeria.pizza SET size = ? WHERE Food_idFood = ?;";
@@ -92,7 +92,7 @@ public class PizzaDb extends DataAccessObject {
 			PreparedStatement stmtPro = connection.prepareStatement(sqlProductUpdate);
 			stmtPro.setString(1, pizza.getName());
 			stmtPro.setDouble(2, pizza.getPrice());
-			stmtPro.setInt(3, pizza.getQuantity());
+			stmtPro.setString(3, pizza.getImage());
 			stmtPro.setInt(4, idProduct);
 			stmtPro.executeUpdate();
 
@@ -174,7 +174,7 @@ public class PizzaDb extends DataAccessObject {
 
 	public Pizza getPizzaById(int id) {
 		Pizza pizza = null;
-		String sql = "select p.idProduct, p.name , p.price, p.quantity, f.grammage, pi.size from pizzeria.product p "
+		String sql = "select p.idProduct, p.name , p.price, p.image, f.grammage, pi.size from pizzeria.product p "
 				+ "join pizzeria.food f on p.idProduct = f.Product_idProduct join pizzeria.pizza pi on f.idFood = pi.Food_idFood "
 				+ "where p.idProduct =  ?";
 		try {
@@ -184,7 +184,7 @@ public class PizzaDb extends DataAccessObject {
 			connection.commit();
 			rs.next();
 			pizza = new Pizza(rs.getInt("idProduct"), rs.getString("name"), rs.getDouble("price"),
-					(short) rs.getInt("quantity"), rs.getInt("grammage"), rs.getInt("size"));
+					rs.getString("image"), rs.getInt("grammage"), rs.getInt("size"));
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
@@ -202,7 +202,7 @@ public class PizzaDb extends DataAccessObject {
 
 	public List<Pizza> getAllPizza() {
 		List<Pizza> pizzas = new ArrayList<Pizza>();
-		String sql = "select p.idProduct, p.name , p.price, p.quantity, f.grammage, pi.size from pizzeria.product p "
+		String sql = "select p.idProduct, p.name , p.price, p.image, f.grammage, pi.size from pizzeria.product p "
 				+ "join pizzeria.food f on p.idProduct = f.Product_idProduct join pizzeria.pizza pi on f.idFood = pi.Food_idFood;";
 
 		try {
@@ -212,7 +212,7 @@ public class PizzaDb extends DataAccessObject {
 
 			while (rs.next()) {
 				Pizza pizza = new Pizza(rs.getInt("idProduct"), rs.getString("name"), rs.getDouble("price"),
-						(short) rs.getInt("quantity"), rs.getInt("grammage"), rs.getInt("size"));
+						rs.getString("image"), rs.getInt("grammage"), rs.getInt("size"));
 				pizzas.add(pizza);
 			}
 
