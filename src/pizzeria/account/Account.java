@@ -24,7 +24,6 @@ public abstract class Account {
 	private String username;
 	private String password;
 	private String email;
-	private String sessionKey;
 	private static Random randomGenerator = new Random();
 	
 	public Account() {
@@ -42,25 +41,6 @@ public abstract class Account {
 		if (!this.password.equals(password)) {
 			throw new InvalidArgumentValueException(PASSWORD_MATCH_ERROR_MESSAGE);
 		}
-		
-		this.sessionKey = this.generateSessionKey();
-	}
-	
-	public void logout() {
-		this.sessionKey = null;
-	}
-	
-	private String generateSessionKey() {
-		StringBuilder sessionKey = new StringBuilder();
-		sessionKey.append(this.id);
-		
-		while (sessionKey.length() < SESSION_KEY_LENGTH) {
-			int index = randomGenerator
-					.nextInt(SESSION_KEY_CHARACTERS.length());
-			sessionKey.append(SESSION_KEY_CHARACTERS.charAt(index));
-		}
-
-		return sessionKey.toString();
 	}
 	
 	public int getId() {
@@ -69,10 +49,6 @@ public abstract class Account {
 	
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getSessionKey() {
-		return sessionKey;
 	}
 	
 	public String getUsername() {

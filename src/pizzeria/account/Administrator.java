@@ -5,7 +5,7 @@ import exceptions.InvalidArgumentValueException;
 public class Administrator extends Account {
 	
 	public Administrator() {
-		super();
+		
 	}
 
 	public Administrator(int id, String username, String password, String email) 
