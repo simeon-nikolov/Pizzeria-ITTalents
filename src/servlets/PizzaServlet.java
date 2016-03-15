@@ -18,7 +18,7 @@ import pizzeria.menu.Pizza;
  * Servlet implementation class pizza
  */
 @WebServlet({ "/pizza", "/menu" })
-public class pizza extends HttpServlet {
+public class PizzaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,9 +30,10 @@ public class pizza extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter pw = response.getWriter();
 		pw.println("<!DOCTYPE HTML >");
+		pw.println("<html>");
 		pw.println("<title>Pizza-Bug | Пица Бъг</title>");
 		pw.println("<head>");
-		pw.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");
+		pw.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>");
 		pw.println("<link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />");
 		pw.println("<link href=\"bootstrap-3.3.6-dist/css/bootstrap.css\" "
 				+ "rel=\"stylesheet\" type=\"text/css\" media=\"all\" />");
@@ -74,20 +75,18 @@ public class pizza extends HttpServlet {
 				ing += ingredient.getName();
 				ing += ", ";
 			}
-			pw.println("<div class=\"pizza_details\">"
-					+ "<img src=\"images\\pizza\\Pepperoni_Lovers_Pizza.png\" alt=\"\" />"
-					+ "<div class=\"desc\">	<ul>");
-			pw.println("<li><span>" + "Име" + "</span> : " + pizza.getName() + "</li>");
-			pw.println("<li><span>Цена</span> : " + pizza.getPrice() + "</li>");
+			ing = ing.substring(0, ing.length() - 2);
+			pw.println("<div class=\"pizza_details\">" + "<img src=\"images/pizza/Pepperoni_Lovers_Pizza.png\" alt=\"\" />"
+							+ "<div class=\"desc\">	<ul>");
+			pw.println("<li><span>Име: </span> : " + pizza.getName() + "</li>");
+			pw.println("<li><span>Грамаж: </span> : " + pizza.getGrammage() + "</li>");
+			pw.println("<li><span>Цена: </span> : " + pizza.getPrice() + "</li>");
 			pw.println("<li><span>Съставки</span> : " + ing + "</li>");
 			pw.println("<li><button type=\"button\" class=\"btn btn-sm btn-success\">Добави</button>"
 					+ "</li></ul></div><div class=\"clear\"></div></div>");
 		}
-		pw.println("<div class=\"clear\"></div></div></div><div class=\"footer\"><div class=\"copy_right\"><p>2016 rights Reserved"
-				+ "</p></div></div></div>"
-				+ "</div>"
-				+ "</body>"
-				+ "</html>");
+		pw.println("<div class=\"clear\"></div></div></div><div class=\"footer\"><div class=\"copy_right\">"
+				+ "<p>2016 rights Reserved</p>" + "</div>" + "</div>" + "</div>" + "</div>" + "</body>" + "</html>");
 	}
 
 }
