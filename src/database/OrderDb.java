@@ -49,7 +49,7 @@ public class OrderDb extends DataAccessObject {
 
 			for (IProduct product : order.getProducts()) {
 				stmtInsertProductId.setInt(1, product.getId());
-				stmtInsertProductId.setInt(2, product.getQuantity());
+				stmtInsertProductId.setInt(2, 1);
 				stmtInsertProductId.setInt(3, orderId);
 				stmtInsertProductId.executeUpdate();
 			}
@@ -84,7 +84,7 @@ public class OrderDb extends DataAccessObject {
 
 			for (IProduct product : order.getProducts()) {
 				stmtInsertProductId.setInt(1, product.getId());
-				stmtInsertProductId.setInt(2, product.getQuantity());
+				stmtInsertProductId.setInt(2, 1);
 				stmtInsertProductId.setInt(3, idOrder);
 				stmtInsertProductId.executeUpdate();
 			}
@@ -192,7 +192,7 @@ public class OrderDb extends DataAccessObject {
 					rs.getInt("idProduct"),
 					rs.getString("name"),
 					rs.getDouble("price"),
-					rs.getShort("quantity"),
+					rs.getString("image"),
 					rs.getInt("grammage"),
 					rs.getInt("size")
 				);
