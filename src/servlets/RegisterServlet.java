@@ -16,7 +16,7 @@ import pizzeria.account.User;
 /**
  * Servlet implementation class RegisterServlet
  */
-@WebServlet({ "/RegisterServlet", "/Register" })
+@WebServlet({ "/RegisterServlet" })
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -55,11 +55,10 @@ public class RegisterServlet extends HttpServlet {
 			}
 			userDAO.addUser(new User(listUsers.size() + 1, userName, password, email, firstName, lastName, address,
 					phoneNumber));
-			response.sendRedirect("./");
+			response.sendRedirect("./home");
 		} catch (InvalidArgumentValueException e) {
 			e.getMessage();
 		}
-
 	}
 
 	private void validateString(String str) throws InvalidArgumentValueException {
