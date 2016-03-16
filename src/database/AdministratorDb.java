@@ -208,7 +208,7 @@ public class AdministratorDb extends DataAccessObject {
 	}
 	
 	public boolean isAdmin(String username) {
-		String sql = "SELECT `is_admin` FROM `pizzeria`.`account` WHERE `username` = ?;";
+		String sql = "SELECT `isAdmin` FROM `pizzeria`.`account` WHERE `username` = ?;";
 		boolean isAdmin = false;
 		
 		if (username != null) {
