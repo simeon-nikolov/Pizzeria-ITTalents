@@ -175,33 +175,35 @@ public class UserDb extends DataAccessObject {
 				+ "JOIN `pizzeria`.`account` a ON u.idAccount = a.idAccount "
 				+ "WHERE a.`username` = ?;";
 		
-		try {
-			PreparedStatement stmt = connection.prepareStatement(sqlSelectUser);
-			stmt.setString(1, username);
-			ResultSet rs = stmt.executeQuery();
-			connection.commit();
-			rs.next();
-			user = new User(
-					rs.getInt("idUser"),
-					rs.getString("username"),
-					rs.getString("password"),
-					rs.getString("email"),
-					rs.getString("first_name"),
-					rs.getString("last_name"),
-					rs.getString("address"),
-					rs.getString("phone_number")
-				);
-			System.out.println("Success!");
-		} catch (SQLException e) {	
+		if (username != null) {
 			try {
-				connection.rollback();
-				System.out.println("Transaction ROLLBACK");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+				PreparedStatement stmt = connection.prepareStatement(sqlSelectUser);
+				stmt.setString(1, username);
+				ResultSet rs = stmt.executeQuery();
+				connection.commit();
+				rs.next();
+				user = new User(
+						rs.getInt("idUser"),
+						rs.getString("username"),
+						rs.getString("password"),
+						rs.getString("email"),
+						rs.getString("first_name"),
+						rs.getString("last_name"),
+						rs.getString("address"),
+						rs.getString("phone_number")
+					);
+				System.out.println("Success!");
+			} catch (SQLException e) {	
+				try {
+					connection.rollback();
+					System.out.println("Transaction ROLLBACK");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			} catch (InvalidArgumentValueException e) {
+				e.printStackTrace();
 			}
-			e.printStackTrace();
-		} catch (InvalidArgumentValueException e) {
-			e.printStackTrace();
 		}
 		
 		return user;

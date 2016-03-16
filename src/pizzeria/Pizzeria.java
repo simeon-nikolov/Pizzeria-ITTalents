@@ -2,11 +2,13 @@ package pizzeria;
 
 import java.util.List;
 
+import pizzeria.account.Account;
 import pizzeria.account.Order;
 import pizzeria.account.User;
 import pizzeria.menu.IProduct;
 import pizzeria.menu.Menu;
 import pizzeria.menu.Pizza;
+import database.AdministratorDb;
 import database.OrderDb;
 import database.PizzaDb;
 import database.ShopDb;
@@ -18,6 +20,7 @@ public class Pizzeria {
 	private ShopDb shopDao = new ShopDb();
 	private OrderDb orderDao = new OrderDb();
 	private UserDb userDao = new UserDb();
+	private AdministratorDb adminDao = new AdministratorDb();
 	
 	public Pizzeria() {
 		this.menu = Menu.getInstance();
@@ -32,10 +35,16 @@ public class Pizzeria {
 	public boolean login(String username, String password) 
 			throws InvalidArgumentValueException {
 		boolean loginSuccessful = false;
-		User user = this.userDao.getUserByUsername(username);
+		Account acc = null;
 		
-		if (user != null) {
-			loginSuccessful = user.login(password);
+		if (this.adminDao.isAdmin(username)) {
+			acc = this.adminDao.getAdministratorByUsername(username);
+		} else {
+			acc = this.userDao.getUserByUsername(username);	
+		}
+		
+		if (acc != null) {
+			loginSuccessful = acc.login(password);
 		}
 		
 		return loginSuccessful;
