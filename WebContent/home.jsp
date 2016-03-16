@@ -10,11 +10,7 @@
 <link href="resources/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
 <script src="resources/js/jquery-2.2.0.min.js"></script>
-<<<<<<< HEAD:WebContent/index.jsp
-<script href="resources/js/custom.js"></script>
-=======
 <script src="resources/js/custom.js"></script>
->>>>>>> 4bc2b99d3a64c676718f0940b69c7535e5b8ad05:WebContent/home.jsp
 </head>
 <body>
 	<div id="left_side_content">
