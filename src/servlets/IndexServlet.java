@@ -22,7 +22,7 @@ public class IndexServlet extends BaseHttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("auth", this);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/home.jsp");
 		dispatcher.forward(request, response);
 	}
 
