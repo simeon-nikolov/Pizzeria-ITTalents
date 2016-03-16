@@ -12,7 +12,6 @@
 <script href="resources/js/custom.js"></script>
 </head>
 <body>
-	${isAuthenticated}
 	<div id="left_side_content">
 		<div id="login" class="login">
 			<form name="login">
