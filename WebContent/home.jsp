@@ -1,3 +1,4 @@
+<%@page import="servlets.BaseHttpServlet"%>
 <%@ page language="java" contentType="text/html; utf-8"
     pageEncoding="utf-8" %>
 <!DOCTYPE html">
@@ -13,18 +14,12 @@
 </head>
 <body>
 	<div id="left_side_content">
-		<div id="login" class="login">
-			<form name="login">
-				<label for="email">E-mail:</label>
-				<input id="email" type="text" placeholder="E-mail" value="">
-				<label for="password">Парола:</label>
-				<input id="password" type="password" placeholder="Password" value="">
-				<div>
-					<button class="btn btn-success">Вход</button>
-					<a class="btn btn-danger" href="resources/register.html">Регистрация</a>
-				</div>
-			</form>
-		</div>
+	<% BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth"); %>
+	<% if (!auth.isAuthenticated(request)) { %>
+		<jsp:include page="partials/LoginForm.jsp" />
+	<% } else { %>
+		&nbsp;
+	<% } %>
 	</div>
 	<div class="wrap">
 		<div class="wrapper">

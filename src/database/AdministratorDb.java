@@ -18,7 +18,7 @@ public class AdministratorDb extends DataAccessObject {
 				+ "(?, ?, ?, ?);";
 		
 		try {
-			PreparedStatement stmt = connecion.prepareStatement(sql);
+			PreparedStatement stmt = this.connecion.prepareStatement(sql);
 			stmt.setString(1, admin.getUsername());
 			stmt.setString(2, admin.getPassword());
 			stmt.setString(3, admin.getEmail());
@@ -41,7 +41,7 @@ public class AdministratorDb extends DataAccessObject {
 		String sql = "UPDATE `pizzeria`.`account` SET `username`=?, `password`=?, `email`=? WHERE `idAccount`=?;";
 		
 		try {
-			PreparedStatement stmt = connecion.prepareStatement(sql);
+			PreparedStatement stmt = this.connecion.prepareStatement(sql);
 			stmt.setString(1, admin.getUsername());
 			stmt.setString(2, admin.getPassword());
 			stmt.setString(3, admin.getEmail());
@@ -64,7 +64,7 @@ public class AdministratorDb extends DataAccessObject {
 		String sql = "DELETE FROM `pizzeria`.`account` WHERE `idAccount`=?;";
 		
 		try {
-			PreparedStatement stmt = connecion.prepareStatement(sql);
+			PreparedStatement stmt = this.connecion.prepareStatement(sql);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			connecion.commit();
@@ -85,7 +85,7 @@ public class AdministratorDb extends DataAccessObject {
 		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `idAccount`=?";
 		
 		try {
-			PreparedStatement stmt = connecion.prepareStatement(sql);
+			PreparedStatement stmt = this.connecion.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			connecion.commit();
@@ -116,7 +116,7 @@ public class AdministratorDb extends DataAccessObject {
 		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `username`=?;";
 		
 		try {
-			PreparedStatement stmt = connecion.prepareStatement(sql);
+			PreparedStatement stmt = this.connecion.prepareStatement(sql);
 			stmt.setString(1, username);
 			ResultSet rs = stmt.executeQuery();
 			connecion.commit();
@@ -147,7 +147,7 @@ public class AdministratorDb extends DataAccessObject {
 		String sql = "SELECT * FROM `pizzeria`.`account` WHERE `email`=?;";
 		
 		try {
-			PreparedStatement stmt = connecion.prepareStatement(sql);
+			PreparedStatement stmt = this.connecion.prepareStatement(sql);
 			stmt.setString(1, email);
 			ResultSet rs = stmt.executeQuery();
 			connecion.commit();
@@ -178,7 +178,7 @@ public class AdministratorDb extends DataAccessObject {
 		String sql = "SELECT * FROM `pizzeria`.`account`;";
 		
 		try {
-			PreparedStatement stmt = connecion.prepareStatement(sql);
+			PreparedStatement stmt = this.connecion.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			connecion.commit();
 			
@@ -213,7 +213,7 @@ public class AdministratorDb extends DataAccessObject {
 		
 		if (username != null) {
 			try {
-				PreparedStatement ps = connecion.prepareStatement(sql);
+				PreparedStatement ps = this.connecion.prepareStatement(sql);
 				ps.setString(1, username);
 				ResultSet rs = ps.executeQuery();
 				connecion.commit();

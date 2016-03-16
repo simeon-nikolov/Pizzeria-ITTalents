@@ -7,21 +7,21 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(description = "Base (abstract) Servlet that will have common methods")
 public abstract class BaseHttpServlet extends HttpServlet {
+	public static final String LOGGED_USER_ATTRIBUTE_NAME = "loggedUser";
 	private static final long serialVersionUID = 1L;
 
     public BaseHttpServlet() {
         super();
     }
 
-	protected boolean isAuthenticated(HttpServletRequest request) {
+	public boolean isAuthenticated(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		
 		if (session == null || session.isNew()) {
 			return false;
 		}
 		
-		if (session.getAttribute("loggedUser") != null &&
-				!session.getAttribute("loggedUser").equals("")) {
+		if (session.getAttribute(LOGGED_USER_ATTRIBUTE_NAME) != null) {
 			return true;
 		}
 		
