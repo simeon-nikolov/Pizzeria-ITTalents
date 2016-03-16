@@ -11,8 +11,6 @@ import pizzeria.account.User;
 import exceptions.InvalidArgumentValueException;
 
 public class UserDb extends DataAccessObject {
-	private static final String DB_CONNECTION_ERROR_MESSAGE = "Database connection is null!";
-	
 	private Connection connection = super.getConnection();
 	
 	public int addUser(User user) {
