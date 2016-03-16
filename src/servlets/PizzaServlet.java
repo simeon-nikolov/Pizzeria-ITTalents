@@ -76,8 +76,8 @@ public class PizzaServlet extends HttpServlet {
 				ing += ", ";
 			}
 			ing = ing.substring(0, ing.length() - 2);
-			pw.println("<div class=\"pizza_details\">" + "<img src="+ pizza.getImage() +" alt=\"\" />"
-							+ "<div class=\"desc\">	<ul>");
+			pw.println("<div class=\"pizza_details\">" + "<img src=" + pizza.getImage() + " alt=\"\" />"
+					+ "<div class=\"desc\">	<ul>");
 			pw.println("<li><span>Име: </span> : " + pizza.getName() + "</li>");
 			pw.println("<li><span>Грамаж: </span> : " + pizza.getGrammage() + "</li>");
 			pw.println("<li><span>Цена: </span> : " + pizza.getPrice() + "</li>");
