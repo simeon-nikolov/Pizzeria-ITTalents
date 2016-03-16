@@ -8,7 +8,7 @@
 		<input id="password" name="password" type="password" placeholder="Password" value="">
 		<div>
 			<button class="btn btn-success">Вход</button>
-			<a class="btn btn-danger" href="resources/register.html">Регистрация</a>
+			<a class="btn btn-danger" href="./register">Регистрация</a>
 		</div>
 	</form>
 </div>

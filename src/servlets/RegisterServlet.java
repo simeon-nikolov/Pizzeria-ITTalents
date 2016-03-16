@@ -16,7 +16,7 @@ import pizzeria.account.User;
 /**
  * Servlet implementation class RegisterServlet
  */
-@WebServlet({ "/RegisterServlet" })
+@WebServlet({ "/RegisterServlet", "/Register" })
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
