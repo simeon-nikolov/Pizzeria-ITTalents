@@ -5,12 +5,9 @@ import exceptions.InvalidArgumentValueException;
 public abstract class Product implements IProduct {
 
 	private static final String PRICE_MESSAGE_ERROR = "Price is not correct";
-	private static final String GRAMMAGE_IS_MESSAGE_ERROR = "Grammage is not correct";
 	private static final String NAME_IS_EMPTY_ERROR_MESSAGE = "Name is empty!";
 	private static final String NAME_IS_NULL_ERROR_MESSAGE = "Name is null!";
 	private static final int MIN_PRICE = 0;
-	private static final int MAX_QUANTITY = 100;
-	private static final int MIN_QUANTITY = 0;
 	private int id;
 	private double price;
 	private String image;
