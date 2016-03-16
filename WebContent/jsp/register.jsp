@@ -1,11 +1,15 @@
+<%@ page language="java" contentType="text/html; utf-8"
+    pageEncoding="utf-8" %>
 <!DOCTYPE HTML>
 <html>
 <head>
 <title>Pizza-Bug | Начало</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet"
+<link href="resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="resources/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
+<script src="resources/js/jquery-2.2.0.min.js"></script>
+<script src="resources/js/custom.js"></script>
 </head>
 <body>
 	<div id="left_side_content">&nbsp;</div>
@@ -14,22 +18,14 @@
 			<div class="header">
 				<div class="header_top">
 					<div class="logo">
-						<a href="#"><img src="images/pizza/logo1.png" alt="" /></a>
+						<a href="resources/#"><img src="resources/images/pizza/logo1.png" alt="" /></a>
 					</div>
 					<div class="clear"></div>
 				</div>
 				<div class="header_bottom">
-					<div class="menu">
-						<ul>
-							<li><a href="index.html"><img src="images/list_img.png"
-									alt="" />Начало</a></li>
-							<li><a href="menu.html"><img src="images/list_img.png"
-									alt="" />Меню</a></li>
-							<li><a href="about.html"><img src="images/list_img.png"
-									alt="" />За нас</a></li>
-							<li><a href="shops.html"><img src="images/list_img.png"
-									alt="" />Магазини</a></li>
-						</ul>
+					<jsp:include page="partials/Menu.jsp" />
+					<div class="header_img">
+						<img src="resources/images/header_img.jpg" alt="" />
 					</div>
 				</div>
 			</div>
@@ -42,36 +38,39 @@
 					<form name="login" action="Register" method="post">
 						<div>
 							<label for="first_name">Име: *</label> <input id="first_name"
-								name = "firstName" type="text" placeholder="First name" value="">
+								name="firstName" type="text" placeholder="First name" value="">
 						</div>
 						<div>
 							<label for="last_name">Фамилно име: *</label> <input
-								id="last_name" name = "lastName" type="text" placeholder="Last name" value="">
+								id="last_name" name="lastName" type="text"
+								placeholder="Last name" value="">
 						</div>
 						<div>
 							<label for="user_name">Потребителско име: *</label> <input
-								id="user_name" name = "username" type="text" placeholder="User name" value="">
+								id="user_name" name="username" type="text"
+								placeholder="User name" value="">
 						</div>
 						<div>
 							<label for="email">E-mail: *</label> <input id="email"
-								type="text" name = "e-mail" placeholder="E-mail" value="">
+								type="text" name="e-mail" placeholder="E-mail" value="">
 						</div>
 						<div>
 							<label for="password">Парола: *</label> <input id="password"
-								type="password" name = "first_password" placeholder="Password" value="">
-						</div>
-						<div>
-							<label for="password2">Потвърди паролата: *</label> <input
-								id="password2" name = "second_password" type="password" placeholder="Confirm Password"
+								type="password" name="first_password" placeholder="Password"
 								value="">
 						</div>
 						<div>
+							<label for="password2">Потвърди паролата: *</label> <input
+								id="password2" name="second_password" type="password"
+								placeholder="Confirm Password" value="">
+						</div>
+						<div>
 							<label for="address">Адрес: *</label> <input id="address"
-								type="text" name = "addres" placeholder="Address" value="">
+								type="text" name="addres" placeholder="Address" value="">
 						</div>
 						<div>
 							<label for="phone">Телефон: *</label> <input id="Phone"
-								type="text" name = "phoneto" placeholder="Phone" value="">
+								type="text" name="phoneto" placeholder="Phone" value="">
 						</div>
 						<div>
 							<input type="submit" value="Регистрирай се"

@@ -10,7 +10,10 @@
 <link href="resources/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
 <script src="resources/js/jquery-2.2.0.min.js"></script>
+<<<<<<< HEAD
 <script src="resources/js/custom.js"></script>
+=======
+>>>>>>> 5e0bfe227e53404ce5372bd343cb75a4772bf1d3
 </head>
 <body>
 	<div id="left_side_content">

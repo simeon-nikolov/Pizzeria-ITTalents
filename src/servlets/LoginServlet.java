@@ -19,7 +19,7 @@ public class LoginServlet extends BaseHttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (super.isAuthenticated(request)) {
-			response.sendRedirect("./");
+			response.sendRedirect("./home");
 			return;
 		}
 		
@@ -32,13 +32,12 @@ public class LoginServlet extends BaseHttpServlet {
 				HttpSession session = request.getSession(true);
 				Account acc = pizzeria.getAccountByUsername(username);
 				session.setAttribute(super.LOGGED_USER_ATTRIBUTE_NAME, acc);
-				response.sendRedirect("./");
 			}
 		} catch (InvalidArgumentValueException e) {
 			// TO DO: add response message for user
 		}
 		
-		response.sendRedirect("./");
+		response.sendRedirect("./home");
 	}
 
 }
