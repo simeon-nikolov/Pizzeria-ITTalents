@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class IndexServlet
  */
-@WebServlet("/")
+@WebServlet("/home")
 public class IndexServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -35,8 +35,10 @@ public class LoginServlet extends BaseHttpServlet {
 				response.sendRedirect("./");
 			}
 		} catch (InvalidArgumentValueException e) {
-			response.sendRedirect("./");
+			// TO DO: add response message for user
 		}
+		
+		response.sendRedirect("./");
 	}
 
 }
