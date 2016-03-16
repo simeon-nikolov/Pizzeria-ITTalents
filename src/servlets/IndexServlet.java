@@ -21,9 +21,8 @@ public class IndexServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean isAthenticated = super.isAuthenticated(request);
-		request.setAttribute("isAuthenticated", isAthenticated);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+		request.setAttribute("auth", this);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
 		dispatcher.forward(request, response);
 	}
 

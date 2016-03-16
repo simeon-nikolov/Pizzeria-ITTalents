@@ -1,3 +1,4 @@
+<%@page import="servlets.BaseHttpServlet"%>
 <%@ page language="java" contentType="text/html; utf-8"
     pageEncoding="utf-8" %>
 <!DOCTYPE html">
@@ -9,23 +10,20 @@
 <link href="resources/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
 <script src="resources/js/jquery-2.2.0.min.js"></script>
+<<<<<<< HEAD:WebContent/index.jsp
 <script href="resources/js/custom.js"></script>
+=======
+<script src="resources/js/custom.js"></script>
+>>>>>>> 4bc2b99d3a64c676718f0940b69c7535e5b8ad05:WebContent/home.jsp
 </head>
 <body>
-	${isAuthenticated}
 	<div id="left_side_content">
-		<div id="login" class="login">
-			<form name="login">
-				<label for="email">E-mail:</label>
-				<input id="email" type="text" placeholder="E-mail" value="">
-				<label for="password">Парола:</label>
-				<input id="password" type="password" placeholder="Password" value="">
-				<div>
-					<button class="btn btn-success">Вход</button>
-					<a class="btn btn-danger" href="resources/register.html">Регистрация</a>
-				</div>
-			</form>
-		</div>
+	<% BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth"); %>
+	<% if (!auth.isAuthenticated(request)) { %>
+		<jsp:include page="partials/LoginForm.jsp" />
+	<% } else { %>
+		&nbsp;
+	<% } %>
 	</div>
 	<div class="wrap">
 		<div class="wrapper">

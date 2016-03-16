@@ -35,6 +35,16 @@ public class Pizzeria {
 	public boolean login(String username, String password) 
 			throws InvalidArgumentValueException {
 		boolean loginSuccessful = false;
+		Account acc = this.getAccountByUsername(username);
+		
+		if (acc != null) {
+			loginSuccessful = acc.login(password);
+		}
+		
+		return loginSuccessful;
+	}
+	
+	public Account getAccountByUsername(String username) {
 		Account acc = null;
 		
 		if (this.adminDao.isAdmin(username)) {
@@ -43,11 +53,7 @@ public class Pizzeria {
 			acc = this.userDao.getUserByUsername(username);	
 		}
 		
-		if (acc != null) {
-			loginSuccessful = acc.login(password);
-		}
-		
-		return loginSuccessful;
+		return acc;
 	}
 	
 	public void addShop(Shop shop) {
