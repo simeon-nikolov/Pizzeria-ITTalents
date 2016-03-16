@@ -206,4 +206,31 @@ public class AdministratorDb extends DataAccessObject {
 		
 		return admins;
 	}
+	
+	public boolean isAdmin(String username) {
+		String sql = "SELECT `is_admin` FROM `pizzeria`.`account` WHERE `username` = ?;";
+		boolean isAdmin = false;
+		
+		if (username != null) {
+			try {
+				PreparedStatement ps = connecion.prepareStatement(sql);
+				ps.setString(1, username);
+				ResultSet rs = ps.executeQuery();
+				connecion.commit();
+				rs.next();
+				isAdmin = rs.getBoolean("is_admin");
+				System.out.println("Success!");
+			} catch (SQLException e) {	
+				try {
+					connecion.rollback();
+					System.out.println("Transaction ROLLBACK");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+		}
+		
+		return isAdmin;
+	}
 }

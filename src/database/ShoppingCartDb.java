@@ -124,7 +124,7 @@ public class ShoppingCartDb extends DataAccessObject {
 					rs.getInt("idProduct"),
 					rs.getString("name"),
 					rs.getDouble("price"),
-					rs.getShort("quantity"),
+					rs.getString("image"),
 					rs.getInt("grammage"),
 					rs.getInt("size")
 				);

@@ -8,6 +8,9 @@ import pizzeria.menu.IProduct;
 import exceptions.InvalidArgumentValueException;
 
 public class Order {
+	private static final String SHOP_IS_NULL_ERROR_MESSAGE = "Shop is null!";
+	private static final String CLIENT_IS_NULL_ERROR_MESSAGE = "Client is null!";
+	private static final String PRODUCT_IS_NULL_ERROR_MESSAGE = "Product is null!";
 	private int id;
 	private User client;
 	private List<IProduct> products;
@@ -28,7 +31,7 @@ public class Order {
 	
 	public void addProduct(IProduct product) throws InvalidArgumentValueException {
 		if (product == null) {
-			throw new InvalidArgumentValueException("Product is null!");
+			throw new InvalidArgumentValueException(PRODUCT_IS_NULL_ERROR_MESSAGE);
 		}
 		
 		this.products.add(product);
@@ -54,7 +57,7 @@ public class Order {
 	
 	public void setClient(User client) throws InvalidArgumentValueException {
 		if (client == null) {
-			throw new InvalidArgumentValueException("Client is null!");
+			throw new InvalidArgumentValueException(CLIENT_IS_NULL_ERROR_MESSAGE);
 		}
 		
 		this.client = client;
@@ -86,7 +89,7 @@ public class Order {
 	
 	public void setShop(Shop shop) throws InvalidArgumentValueException {
 		if (shop == null) {
-			throw new InvalidArgumentValueException("Shop is null!");
+			throw new InvalidArgumentValueException(SHOP_IS_NULL_ERROR_MESSAGE);
 		}
 		
 		this.shop = shop;
