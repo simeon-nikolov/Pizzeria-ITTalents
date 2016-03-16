@@ -31,18 +31,7 @@
 					<div class="clear"></div>
 				</div>
 				<div class="header_bottom">
-					<div class="menu">
-						<ul>
-							<li><a href=""><img src="resources/images/list_img.png"
-									alt="" />Начало</a></li>
-							<li><a href="resources/menu.html"><img src="resources/images/list_img.png"
-									alt="" />Меню</a></li>
-							<li><a href="resources/about.html"><img src="resources/images/list_img.png"
-									alt="" />За нас</a></li>
-							<li><a href="resources/shops.html"><img src="resources/images/list_img.png"
-									alt="" />Магазини</a></li>
-						</ul>
-					</div>
+					<jsp:include page="partials/Menu.jsp" />
 					<div class="header_img">
 						<img src="resources/images/header_img.jpg" alt="" />
 					</div>
