@@ -5,16 +5,11 @@
 <html>
 <head>
 <title>Pizza-Bug | Начало</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="resources/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet"
-	type="text/css" media="all" />
-<script src="resources/js/jquery-2.2.0.min.js"></script>
-<script src="resources/js/custom.js"></script>
+<jsp:include page="partials/HeaderResources.jsp" />
 </head>
 <body>
-	<div id="left_side_content">
 	<% BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth"); %>
+ 	<div id="left_side_content">
 	<% if (!auth.isAuthenticated(request)) { %>
 		<jsp:include page="partials/LoginForm.jsp" />
 	<% } else { %>
@@ -27,6 +22,9 @@
 				<div class="header_top">
 					<div class="logo">
 						<a href="resources/#"><img src="resources/images/pizza/logo1.png" alt="" /></a>
+						<% if (auth.isAuthenticated(request)) { %>
+							<span style="float:right;" id="logout"><a href="./logout" class="btn btn-danger">Logout</a></span>
+						<% } %>
 					</div>
 					<div class="clear"></div>
 				</div>
