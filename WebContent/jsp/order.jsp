@@ -66,7 +66,8 @@
 				</div>
 				<div class="register_form" class="table">
 					<form method="POST" action="./order">
-						<input type="submit" value="Поръчай" class="btn btn-success" />
+						<input type="submit" value="Поръчай"
+							class="btn btn-success" />
 					</form>
 				</div>
 			</div>
