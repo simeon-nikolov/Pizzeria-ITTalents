@@ -32,7 +32,7 @@ public class EditProfileServlet extends BaseHttpServlet {
 			String password = request.getParameter("first_password");
 			String secondPassword = request.getParameter("second_password");
 			String address = request.getParameter("addres");
-			String phoneNumber = request.getParameter("phoneto");
+			String phoneNumber = request.getParameter("phone");
 			
 			if (!password.equals(secondPassword)) {
 				throw new InvalidArgumentValueException("Vyvedenite paroli sa razlichni!!");

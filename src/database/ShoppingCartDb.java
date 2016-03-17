@@ -110,7 +110,7 @@ public class ShoppingCartDb extends DataAccessObject {
 	
 	private List<Pizza> getPizzasByCartId(int id) throws SQLException, InvalidArgumentValueException {
 		String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
-				+ "JOIN `pizzeria`.`Products_In_Carts` c ON (pr.`idProduct` = c.`idProduct`) "
+				+ "JOIN `pizzeria`.`Products_In_Carts` c ON (pr.`idProduct` = c.`Product_idProduct`) "
 				+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
 				+ "JOIN `pizzeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
 				+ "WHERE c.`User_idUser` = ?;";

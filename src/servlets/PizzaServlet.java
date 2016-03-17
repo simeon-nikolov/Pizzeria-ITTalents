@@ -8,7 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import pizzeria.account.User;
+import pizzeria.menu.IProduct;
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import database.PizzaDb;
@@ -17,23 +20,29 @@ import database.PizzaDb;
 public class PizzaServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public PizzaServlet() {
-		super();
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PizzaDb pizzaDao = new PizzaDb();
 		List<Pizza> list = pizzaDao.getAllPizza();
+		
 		for (Pizza pizza : list) {
 			List<Ingredient> ingredients = pizzaDao.getAllPizzaIngredients(pizza);
 			for (Ingredient ingredient : ingredients) {
 				pizza.addIngredients(ingredient);
 			}
 		}
+		
 		request.setAttribute("pizza", list);
 		request.setAttribute("auth", super.isAuthenticated(request));
+		
+		if (super.isAuthenticated(request)) {
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute(super.LOGGED_USER_ATTRIBUTE_NAME);
+			List<IProduct> productsInShoppingCart = user.getShoppingCart().getProducts();
+			request.setAttribute("cartProducts", productsInShoppingCart);
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/pizza.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -58,7 +58,7 @@
 						</div>
 						<div>
 							<label for="phone">Телефон: *</label> <input id="Phone"
-								type="text" name="phoneto" placeholder="Phone" value="">
+								type="text" name="phone" placeholder="Phone number" value="">
 						</div>
 						<div>
 							<input type="submit" value="Промени" class="btn btn-success" />

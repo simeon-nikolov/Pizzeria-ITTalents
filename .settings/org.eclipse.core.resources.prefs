@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//WebContent/jsp/index.jsp=UTF-8
 encoding//WebContent/jsp/partials/LoginForm.jsp=UTF-8
 encoding//WebContent/jsp/partials/Menu.jsp=UTF-8
+encoding//WebContent/jsp/partials/ShoppingCart.jsp=UTF-8
 encoding/<project>=UTF-8

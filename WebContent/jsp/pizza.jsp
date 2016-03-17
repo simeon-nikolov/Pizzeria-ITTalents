@@ -22,6 +22,7 @@
 			} else {
 		%>
 		<jsp:include page="partials/LoggedIn.jsp" />
+		<jsp:include page="partials/ShoppingCart.jsp" />
 		<%
 			}
 		%>
@@ -65,7 +66,11 @@
 								<li><span>Цена: </span> <%= pizza.getPrice() %></li>
 								<li><span>Съставки: </span> <%= ing %></li>
 								<% if ((Boolean)request.getAttribute("auth")) { %>
-								<li><a href="./ProductToCart?id=<%= pizza.getId() %>" class="btn btn-success" />Добави</a>
+								<li>
+									<form method="POST" action="./cart">
+										<input type="hidden" name="id" value="<%= pizza.getId() %>" />
+										<input type="submit" class="btn btn-success" value="Добави" />
+									</form>
 								<% } %>
 								<li>
 							</ul>
