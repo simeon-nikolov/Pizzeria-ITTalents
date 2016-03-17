@@ -28,7 +28,12 @@
 				</div>
 				<div class="admin_panel">
 					<h4>Потребители</h4>
-					<div class="search_field"><input type="text" value="" placeholder="Search" /><button class="btn btn-sm btn-primary">Търси</button></div>
+					<div class="search_field">
+						<form method="GET" action="../admin/users">
+							<input type="text" name="username" value="" placeholder="Search" />
+							<input type="submit" class="btn btn-sm btn-primary" value="Търси" />
+						</form>
+					</div>
 					<table class="container table table-bordered">
 					<thead>
 						<tr class="row table_head">
@@ -74,7 +79,7 @@
 									</td>
 									<td class="col-sm-4">
 										<a href="../admin/user?id=<%= user.getId() %>" class="btn btn-xs btn-success">Прегледай</a>
-										<a class="btn btn-xs btn-warning">Промени</a>
+										<a href="../admin/editUser?id=<%= user.getId() %>" class="btn btn-xs btn-warning">Промени</a>
 										<a class="btn btn-xs btn-danger">Изтрий</a>
 									</td>
 								</tr>
