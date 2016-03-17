@@ -26,9 +26,6 @@
 				</div>
 				<div class="header_bottom">
 					<jsp:include page="partials/Menu.jsp" />
-					<div class="header_img">
-						<img src="resources/images/header_img.jpg" alt="" />
-					</div>
 				</div>
 			</div>
 			<div class="main">

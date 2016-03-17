@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,13 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.PizzaDb;
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
+import database.PizzaDb;
 
-/**
- * Servlet implementation class pizza
- */
 @WebServlet({ "/pizza", "/menu" })
 public class PizzaServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,6 +21,7 @@ public class PizzaServlet extends BaseHttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PizzaDb pizzaDao = new PizzaDb();

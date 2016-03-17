@@ -5,7 +5,7 @@
 <html>
 <head>
 <title>Pizza-Bug | Начало</title>
-<jsp:include page="partials/HeaderResources.jsp" />
+<jsp:include page="partials/HeadResources.jsp" />
 </head>
 <body>
 	<% BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth"); %>
@@ -19,15 +19,7 @@
 	<div class="wrap">
 		<div class="wrapper">
 			<div class="header">
-				<div class="header_top">
-					<div class="logo">
-						<a href="resources/#"><img src="resources/images/pizza/logo1.png" alt="" /></a>
-						<% if (auth.isAuthenticated(request)) { %>
-							<span style="float:right;" id="logout"><a href="./logout" class="btn btn-danger">Logout</a></span>
-						<% } %>
-					</div>
-					<div class="clear"></div>
-				</div>
+				<jsp:include page="partials/HeaderTop.jsp" />
 				<div class="header_bottom">
 					<jsp:include page="partials/Menu.jsp" />
 					<div class="header_img">
