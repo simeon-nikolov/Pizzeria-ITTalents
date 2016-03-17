@@ -30,7 +30,7 @@ public class PizzaServlet extends BaseHttpServlet {
 		for (Pizza pizza : list) {
 			List<Ingredient> ingredients = pizzaDao.getAllPizzaIngredients(pizza);
 			for (Ingredient ingredient : ingredients) {
-				pizza.addIngredients(ingredient);
+				pizza.addIngredient(ingredient);
 			}
 		}
 		

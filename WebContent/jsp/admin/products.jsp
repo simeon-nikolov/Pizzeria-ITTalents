@@ -11,6 +11,11 @@
 <head>
 <title>Pizza-Bug | Admin Panel</title>
 <jsp:include page="./partials/HeadResources.jsp" />
+<style>
+	.admin_panel table > tbody > tr > td {
+		vertical-align: middle;
+	}
+</style>
 </head>
 <body>
  	<div id="left_side_content">
@@ -37,11 +42,13 @@
 							<input type="submit" class="btn btn-sm btn-primary" value="Търси" />
 						</form>
 					</div>
+					<div style="padding: 10px; text-align:right;">
+						<a class="btn btn-sm btn-success" href="../admin/addPizza">Добави пица</a>
+					</div>
 					<table class="container table table-bordered">
 					<thead>
 						<tr class="row table_head">
 							<th class="col-sm-1">
-								&nbsp;
 							</th>
 							<th class="col-sm-1">
 								Продукт:
@@ -69,7 +76,7 @@
 							<% for (IProduct product : products) { %>
 								<tr class="row">
 									<td class="col-sm-1">
-										<img src="<%= product.getImage() %>" alt="<%= product.getName() %>" />
+										<img src="../<%= product.getImage() %>" alt="<%= product.getName() %>" />
 									</td>
 									<td class="col-sm-3">
 										<%= product.getName() %>
@@ -82,13 +89,18 @@
 										<%= ((Pizza)product).getGrammage() %>
 										<% } %>
 									</td>
+									<td class="col-sm-1">
+										<% if (product instanceof Pizza) { %>
+										<%= ((Pizza)product).getSize() %>
+										<% } %>
+									</td>
 									<td class="col-sm-2">
 										<% if (product instanceof Pizza) { 
 											Pizza pizza = (Pizza) product;
 											
 											for (Ingredient ing : pizza.getIngredients()) { %>
 												<%= ing.getName() %>,
-											<% } 
+											<% }
 										} %>
 									</td>
 									<td class="col-sm-4">
@@ -100,7 +112,7 @@
 							<% } %>
 						<% } %>
 						<tr class="row">
-							<td class="col-lg-12" colspan="6">
+							<td class="col-lg-12" colspan="7">
 								Page: <a>1 2 3 ... 10</a>
 							</td>
 						</tr>

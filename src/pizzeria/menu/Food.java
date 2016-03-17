@@ -24,11 +24,11 @@ public abstract class Food extends Product {
 		this.ingredients = new ArrayList<Ingredient>();
 	}
 
-	public void addIngredients(Ingredient ingredient) {
-		if (numberOfIngredients < MAX_NUMBER_OF_INGREDIENTS) {
+	public void addIngredient(Ingredient ingredient) {
+		if (this.numberOfIngredients < MAX_NUMBER_OF_INGREDIENTS) {
 			if (ingredient != null) {
 				ingredients.add(ingredient);
-				numberOfIngredients++;
+				this.numberOfIngredients++;
 			}
 		} else {
 			System.out.println("Maximum limit of ingredients is 10");

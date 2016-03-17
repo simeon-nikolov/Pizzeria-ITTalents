@@ -185,6 +185,10 @@ public class PizzaDb extends DataAccessObject {
 			rs.next();
 			pizza = new Pizza(rs.getInt("idProduct"), rs.getString("name"), rs.getDouble("price"),
 					rs.getString("image"), rs.getInt("grammage"), rs.getInt("size"));
+			List<Ingredient> ingredients = this.getAllPizzaIngredients(pizza);
+			for (Ingredient ingredient : ingredients) {
+				pizza.addIngredient(ingredient);
+			}
 			System.out.println("Success!");
 		} catch (SQLException e) {
 			try {
@@ -213,6 +217,10 @@ public class PizzaDb extends DataAccessObject {
 			while (rs.next()) {
 				Pizza pizza = new Pizza(rs.getInt("idProduct"), rs.getString("name"), rs.getDouble("price"),
 						rs.getString("image"), rs.getInt("grammage"), rs.getInt("size"));
+				List<Ingredient> ingredients = this.getAllPizzaIngredients(pizza);
+				for (Ingredient ingredient : ingredients) {
+					pizza.addIngredient(ingredient);
+				}
 				pizzas.add(pizza);
 			}
 

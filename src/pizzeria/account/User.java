@@ -92,7 +92,7 @@ public class User extends Account {
 		pizza.setSize(size);
 		
 		for (Ingredient ingredient : ingredeients) {
-			pizza.addIngredients(ingredient);
+			pizza.addIngredient(ingredient);
 		}
 		
 		return pizza;

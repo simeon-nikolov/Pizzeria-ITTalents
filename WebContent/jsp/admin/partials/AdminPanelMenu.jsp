@@ -2,7 +2,7 @@
     pageEncoding="utf-8" %>
 <p>
 	<a href="../admin/users" class="btn btn btn-warning">Потребители</a>
-	<button type="button" class="btn btn btn-warning">Поръчки</button>
-	<button type="button" class="btn btn btn-warning">Продукти</button>
+	<a href="../admin/" class="btn btn btn-warning">Поръчки</a>
+	<a href="../admin/products" class="btn btn btn-warning">Продукти</a>
 	<button type="button" class="btn btn btn-warning">Съставки</button>
 </p>

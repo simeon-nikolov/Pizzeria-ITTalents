@@ -23,7 +23,7 @@ public class ProductsServlet extends BaseHttpServlet {
 			Pizzeria pizzeria = new Pizzeria();
 			List<IProduct> products = pizzeria.showMenu();
 			request.setAttribute("products", products);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../admin/products.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../jsp/admin/products.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			response.sendRedirect("../");

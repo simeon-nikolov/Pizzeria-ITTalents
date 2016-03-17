@@ -132,7 +132,7 @@ public class ShoppingCartDb extends DataAccessObject {
 			List<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
 			
 			for (Ingredient ingredient : ingredients) {
-				pizza.addIngredients(ingredient);
+				pizza.addIngredient(ingredient);
 			}
 			
 			pizzas.add(pizza);
