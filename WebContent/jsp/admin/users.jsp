@@ -60,7 +60,8 @@
 					<tbody>
 						<% List<User> users = (List<User>) request.getAttribute("users"); %>
 						<% if (users != null) { %>
-							<% for (User user : users) { %>
+							<% for (User user : users) { 
+									if (user != null) { %>
 								<tr class="row">
 									<td class="col-sm-1">
 										<%= user.getUsername() %>
@@ -83,6 +84,7 @@
 										<a href="../admin/deleteUser?id=<%= user.getId() %>" class="btn btn-xs btn-danger">Изтрий</a>
 									</td>
 								</tr>
+								<% } %>
 							<% } %>
 						<% } %>
 						<tr class="row">
