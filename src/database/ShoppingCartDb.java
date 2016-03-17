@@ -62,7 +62,7 @@ public class ShoppingCartDb extends DataAccessObject {
 	}
 	
 	public void emptyShoppingCart(int userId) {
-		String sqlEmptyShoppingCart = "DELETE FROM `pizzeria`.`Products_In_Carts` WHERE `pizzeria`.`User_idUser`=?;";
+		String sqlEmptyShoppingCart = "DELETE FROM `pizzeria`.`Products_In_Carts` WHERE `User_idUser`=?;";
 
 		try {
 			PreparedStatement stmtDelete = connection.prepareStatement(sqlEmptyShoppingCart);

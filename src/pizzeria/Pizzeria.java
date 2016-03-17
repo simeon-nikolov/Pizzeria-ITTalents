@@ -1,5 +1,6 @@
 package pizzeria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pizzeria.account.Account;
@@ -75,8 +76,10 @@ public class Pizzeria {
 		}
 	}
 	
-	public List<? extends IProduct> showMenu() {
-		List<Pizza> products = new PizzaDb().getAllPizza();
+	public List<IProduct> showMenu() {
+		List<Pizza> pizzas = new PizzaDb().getAllPizza();
+		List<IProduct> products = new ArrayList<IProduct>(pizzas.size());
+		products.addAll(pizzas);
 		return products;
 	}
 	
