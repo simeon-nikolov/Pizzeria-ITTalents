@@ -62,11 +62,11 @@
 				<div class="contact_top">
 					<div class="contact_address">
 						<h4>Адрес за връзка:</h4>
-						<p>500 Lorem Ipsum Dolor Sit,</p>
-						<p>22-56-2-9 Sit Amet, Lorem</p>
+						<p>Черни връх 55,</p>
+						<p>ет.10 ап 50</p>
 						<div class="address_data">
-							<p>Phone:(00) 222 666 444</p>
-							<p>Fax: (000) 000 00 00 0</p>
+							<p>Phone:(02) 936 82 01</p>
+							<p>Fax: (007) 003 20 33 0</p>
 						</div>
 					</div>
 					<div class="clear"></div>

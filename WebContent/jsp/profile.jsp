@@ -31,12 +31,12 @@
 					<% if (acc instanceof User) { %>
 					<%User user = (User) acc; %>
 					<ul>
-						<li><span><%=user.getFirstName() %></span>
-						<li><span><%=user.getLastName() %></span>
-						<li><span><%=user.getUsername() %></span>
-						<li><span><%=user.getEmail() %></span>
-						<li><span><%=user.getAddress() %></span>
-						<li><span><%=user.getPhoneNumber() %></span>
+						<li><span>Име: <%=user.getFirstName() %></span>
+						<li><span>Фамилия: <%=user.getLastName() %></span>
+						<li><span>Username: <%=user.getUsername() %></span>
+						<li><span>E-mail: <%=user.getEmail() %></span>
+						<li><span>Адрес: <%=user.getAddress() %></span>
+						<li><span>Номер: <%=user.getPhoneNumber() %></span>
 					</ul>
 					<div class="clear"></div>
 					<span style="float: center;" id="edit"><a href="./edit" class="btn btn-info">Редактиране</a></span>

@@ -307,6 +307,7 @@ body {
 }
 
 .box1_img {
+	size: 50%;
 	float: left;
 	display: block;
 }
