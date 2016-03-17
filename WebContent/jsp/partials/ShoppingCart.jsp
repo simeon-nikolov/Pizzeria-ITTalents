@@ -15,7 +15,10 @@
 			<div class="desc">
 				<span><%= product.getName() %><br />
 				Цена : <%= product.getPrice() %>лв</span><br />
-				<a href="javascript:;">Премахни</a>
+				<form method="POST" action="./remove">
+					<input type="hidden" name="id" value="<%= product.getId() %>" />
+					<input type="submit" value="Премахни" class="btn btn-danger" />
+				</form>
 			</div>
 		</div>
 		<% } %>

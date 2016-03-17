@@ -33,9 +33,8 @@ public class ShoppingCart {
 		this.cartDao.addProductToShoppingCart(owner.getId(), product.getId(), quantity);
 	}
 	
-	public void removeProduct(IProduct product) throws InvalidArgumentValueException {
-		this.validateProduct(product);
-		this.cartDao.removeProductFromShoppingCart(this.owner.getId(), product.getId());
+	public void removeProduct(int productId) {
+		this.cartDao.removeProductFromShoppingCart(this.owner.getId(), productId);
 	}
 	
 	public List<IProduct> getProducts() {
