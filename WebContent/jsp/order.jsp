@@ -10,7 +10,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Pizza-Bug | Количка</title>
+<title>Pizza-Bug | Кошница</title>
 <jsp:include page="partials/HeadResources.jsp" />
 <script type="text/javascript">
 	function myFunction() {
@@ -34,7 +34,7 @@
 			</div>
 			<div class="main">
 				<div class="main_top">
-					<h1>Количка:</h1>
+					<h1>Кошница: </h1>
 					<div class="clear"></div>
 				</div>
 
