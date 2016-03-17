@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pizzeria.account.User;
 import database.UserDb;
 import exceptions.InvalidArgumentValueException;
-import pizzeria.account.User;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -24,6 +24,7 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -55,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
 			}
 			userDAO.addUser(new User(listUsers.size() + 1, userName, password, email, firstName, lastName, address,
 					phoneNumber));
-			response.sendRedirect("./home");
+			response.sendRedirect("./");
 		} catch (InvalidArgumentValueException e) {
 			e.getMessage();
 		}

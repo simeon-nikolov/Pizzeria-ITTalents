@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class IndexServlet
  */
-@WebServlet("/home")
+@WebServlet("/")
 public class IndexServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,7 +22,7 @@ public class IndexServlet extends BaseHttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("auth", this);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/index.jsp");
 		dispatcher.forward(request, response);
 	}
 

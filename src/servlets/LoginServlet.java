@@ -19,7 +19,7 @@ public class LoginServlet extends BaseHttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (super.isAuthenticated(request)) {
-			response.sendRedirect("./home");
+			response.sendRedirect("./");
 			return;
 		}
 		

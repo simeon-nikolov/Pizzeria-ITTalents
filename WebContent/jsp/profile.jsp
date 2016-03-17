@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>Pizza-Bug | Профил</title>
-<jsp:include page="partials/HeaderResources.jsp" />
+<jsp:include page="partials/HeadResources.jsp" />
 </head>
 <body>
 	<div id="left_side_content">
@@ -24,9 +24,6 @@
 				</div>
 				<div class="header_bottom">
 					<jsp:include page="partials/Menu.jsp" />
-					<div class="header_img">
-						<img src="resources/images/header_img.jpg" alt="" />
-					</div>
 				</div>
 			</div>
 			<div class="main">

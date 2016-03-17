@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>Pizza-Bug | Регистрация</title>
-<jsp:include page="partials/HeaderResources.jsp" />
+<jsp:include page="partials/HeadResources.jsp" />
 </head>
 <body>
 	<div id="left_side_content">&nbsp;</div>

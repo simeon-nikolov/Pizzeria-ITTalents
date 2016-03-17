@@ -9,7 +9,7 @@
 <html>
 <head>
 <title>Pizza-Bug | Меню</title>
-<jsp:include page="partials/HeaderResources.jsp" />
+<jsp:include page="partials/HeadResources.jsp" />
 </head>
 <body>
 	<%
@@ -33,15 +33,12 @@
 			<div class="header">
 				<div class="header_top">
 					<div class="logo">
-						<a href="index.html"><img src="images/pizza/logo1.png" alt="" /></a>
+						<a href="./"><img src="resources/images/pizza/logo1.png" alt="" /></a>
 					</div>
 					<div class="clear"></div>
 				</div>
 				<div class="header_bottom">
 					<jsp:include page="partials/Menu.jsp" />
-					<div class="header_img">
-						<img src="resources/images/header_img.jpg" alt="" />
-					</div>
 				</div>
 			</div>
 			<div class="main">
@@ -67,18 +64,15 @@
 							}
 					%>
 					<div class="pizza_details">
-						<img src="<%=pizza.getImage()%>" alt="" />
+						<img src="<%= pizza.getImage() %>" alt="" />
 						<div class="desc">
 							<ul>
-								<li><span>Име: </span> <%=pizza.getName()%></li>
-								<li><span>Грамаж: </span> <%=pizza.getGrammage()%></li>
-								<li><span>Цена: </span> <%=pizza.getPrice()%></li>
-								<li><span>Съставки: </span> <%=ing%></li>
-								<li><form name="addToCart" action="./ProductToCart"
-										method="get">
-										<input type="submit" name = <%=pizza.getId() %> value="Добави"
-											class="btn btn-success" />
-									</form>
+								<li><span>Име: </span> <%= pizza.getName() %></li>
+								<li><span>Грамаж: </span> <%= pizza.getGrammage() %></li>
+								<li><span>Цена: </span> <%= pizza.getPrice() %></li>
+								<li><span>Съставки: </span> <%= ing %></li>
+								<li><a href="./ProductToCart?id=<%= pizza.getId() %>" value="Добави"
+										class="btn btn-success" />
 								<li>
 							</ul>
 						</div>

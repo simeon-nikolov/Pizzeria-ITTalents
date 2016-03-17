@@ -13,7 +13,7 @@
 	<% if (!auth.isAuthenticated(request)) { %>
 		<jsp:include page="partials/LoginForm.jsp" />
 	<% } else { %>
-		&nbsp;
+		<jsp:include page="partials/LoggedIn.jsp" />
 	<% } %>
 	</div>
 	<div class="wrap">
