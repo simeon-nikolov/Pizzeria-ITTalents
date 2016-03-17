@@ -19,14 +19,11 @@ public class EditProfileServlet extends BaseHttpServlet {
 		super();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (!super.isAuthenticated(request)) {
-			response.sendRedirect("./home");
+			response.sendRedirect("./");
 			return;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/edit.jsp");

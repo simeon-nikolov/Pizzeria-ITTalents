@@ -13,12 +13,9 @@
 <jsp:include page="partials/HeadResources.jsp" />
 </head>
 <body>
-	<%
-		BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth");
-	%>
 	<div id="left_side_content">
 		<%
-			if (!auth.isAuthenticated(request)) {
+			if (!(Boolean)request.getAttribute("auth")) {
 		%>
 		<jsp:include page="partials/LoginForm.jsp" />
 		<%
@@ -72,8 +69,7 @@
 								<li><span>Грамаж: </span> <%= pizza.getGrammage() %></li>
 								<li><span>Цена: </span> <%= pizza.getPrice() %></li>
 								<li><span>Съставки: </span> <%= ing %></li>
-								<li><a href="./ProductToCart?id=<%= pizza.getId() %>" value="Добави"
-										class="btn btn-success" />
+								<li><a href="./ProductToCart?id=<%= pizza.getId() %>" class="btn btn-success" />Добави</a>
 								<li>
 							</ul>
 						</div>

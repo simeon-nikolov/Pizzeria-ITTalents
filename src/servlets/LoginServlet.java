@@ -37,7 +37,7 @@ public class LoginServlet extends BaseHttpServlet {
 			// TO DO: add response message for user
 		}
 		
-		response.sendRedirect("./home");
+		response.sendRedirect("./");
 	}
 
 }

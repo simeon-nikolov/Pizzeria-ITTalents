@@ -33,7 +33,7 @@ public class PizzaServlet extends BaseHttpServlet {
 			}
 		}
 		request.setAttribute("pizza", list);
-		request.setAttribute("auth", this);
+		request.setAttribute("auth", super.isAuthenticated(request));
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/pizza.jsp");
 		dispatcher.forward(request, response);
 	}

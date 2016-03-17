@@ -8,9 +8,8 @@
 <jsp:include page="partials/HeadResources.jsp" />
 </head>
 <body>
-	<% BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth"); %>
  	<div id="left_side_content">
-	<% if (!auth.isAuthenticated(request)) { %>
+	<% if (!(Boolean)request.getAttribute("auth")) { %>
 		<jsp:include page="partials/LoginForm.jsp" />
 	<% } else { %>
 		<jsp:include page="partials/LoggedIn.jsp" />

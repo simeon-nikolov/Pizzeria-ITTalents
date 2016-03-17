@@ -16,14 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 public class Profile extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	public Profile() {
-		super();
-	}
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!super.isAuthenticated(request)) {
-			response.sendRedirect("./home");
+			response.sendRedirect("./");
 			return;
 		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/profile.jsp");
 		dispatcher.forward(request, response);
 	}

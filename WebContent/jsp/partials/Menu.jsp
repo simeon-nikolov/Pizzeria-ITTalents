@@ -8,7 +8,7 @@
 				alt="" />Меню</a></li>
 		<li><a href="./about"><img src="resources/images/list_img.png"
 				alt="" />За нас</a></li>
-		<li><a href="./Shops"><img src="resources/images/list_img.png"
+		<li><a href="./shops"><img src="resources/images/list_img.png"
 				alt="" />Магазини</a></li>
 	</ul>
 </div>

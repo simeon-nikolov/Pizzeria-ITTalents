@@ -14,12 +14,9 @@
 <script src="js/shops.js"></script>
 </head>
 <body>
-	<%
-		BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth");
-	%>
 	<div id="left_side_content">
 		<%
-			if (!auth.isAuthenticated(request)) {
+			if (!(Boolean)request.getAttribute("auth")) {
 		%>
 		<jsp:include page="partials/LoginForm.jsp" />
 		<%
@@ -35,15 +32,12 @@
 			<div class="header">
 				<div class="header_top">
 					<div class="logo">
-						<a href="index.html"><img src="images/pizza/logo1.png" alt="" /></a>
+						<a href="./"><img src="resources/images/pizza/logo1.png" alt="" /></a>
 					</div>
 					<div class="clear"></div>
 				</div>
 				<div class="header_bottom">
 					<jsp:include page="partials/Menu.jsp" />
-					<div class="header_img">
-						<img src="resources/images/header_img.jpg" alt="" />
-					</div>
 				</div>
 			</div>
 			<div class="main">
