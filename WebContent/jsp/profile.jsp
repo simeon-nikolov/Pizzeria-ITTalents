@@ -1,3 +1,4 @@
+<%@page import="pizzeria.account.Account"%>
 <%@page import="pizzeria.account.User"%>
 <%@page import="servlets.BaseHttpServlet"%>
 <%@ page language="java" contentType="text/html; utf-8"
@@ -26,7 +27,9 @@
 					<div class="clear"></div>
 				</div>
 				<div class="register_form" class="table">
-					<%User user = (User) session.getAttribute(BaseHttpServlet.LOGGED_USER_ATTRIBUTE_NAME); %>
+					<% Account acc = (Account) session.getAttribute(BaseHttpServlet.LOGGED_USER_ATTRIBUTE_NAME); %>
+					<% if (acc instanceof User) { %>
+					<%User user = (User) acc; %>
 					<ul>
 						<li><span><%=user.getFirstName() %></span>
 						<li><span><%=user.getLastName() %></span>
@@ -37,6 +40,7 @@
 					</ul>
 					<div class="clear"></div>
 					<span style="float: center;" id="edit"><a href="./edit" class="btn btn-info">Редактиране</a></span>
+					<% } %>
 				</div>
 			</div>
 			<div class="footer">
