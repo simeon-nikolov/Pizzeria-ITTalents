@@ -9,6 +9,7 @@ import pizzeria.menu.Pizza;
 import database.AdministratorDb;
 import database.IngredientDb;
 import database.PizzaDb;
+import database.ShopDb;
 import database.UserDb;
 import exceptions.InvalidArgumentValueException;
 
@@ -17,6 +18,10 @@ public class Demo {
 	public static void main(String[] args) {
 		Pizzeria dominos = new Pizzeria();
 		try {
+			ShopDb shopDao = new ShopDb();
+			Shop shop = new Shop(0, "Люлин", "ул.Черни вит");
+			
+			shopDao.addShop(shop);
 			PizzaDb pizzaDao = new PizzaDb();
 			// Pizza kalcone = new Pizza();
 			// kalcone.setName("Kalcone");

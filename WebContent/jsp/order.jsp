@@ -1,3 +1,5 @@
+<%@page import="java.math.RoundingMode"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="pizzeria.menu.IProduct"%>
 <%@page import="java.util.List"%>
 <%@page import="pizzeria.account.Account"%>
@@ -10,6 +12,13 @@
 <head>
 <title>Pizza-Bug | Количка</title>
 <jsp:include page="partials/HeadResources.jsp" />
+<script type="text/javascript">
+	function myFunction() {
+		var d = new Date();
+		d.setMinutes(d.getMinutes() + 20);
+		alert("Поръчката ще пристигне след: " + d);
+	}
+</script>
 </head>
 <body>
 	<div id="left_side_content">
@@ -32,6 +41,9 @@
 				<div class="about_data">
 					<%
 						Account acc = (Account) session.getAttribute(BaseHttpServlet.LOGGED_USER_ATTRIBUTE_NAME);
+						DecimalFormat df = new DecimalFormat("#.##");
+						df.setRoundingMode(RoundingMode.FLOOR);
+						double sum = 0;
 					%>
 					<%
 						if (acc instanceof User) {
@@ -40,6 +52,7 @@
 						User user = (User) acc;
 							List<IProduct> products = user.getShoppingCart().getProducts();
 							for (IProduct product : products) {
+								sum += product.getPrice();
 					%>
 					<div class="pizza_details">
 						<img src=<%=product.getImage()%> alt="" />
@@ -60,14 +73,17 @@
 					</div>
 					<%
 						}
+
 						}
 					%>
 					<div class="clear"></div>
 				</div>
 				<div class="register_form" class="table">
-					<form method="POST" action="./order">
-						<input type="submit" value="Поръчай"
-							class="btn btn-success" />
+					<span style="font-family: 16px"> Дължите <%= df.format(sum) %>
+						лв.
+					</span>
+					<form onclick="myFunction()" method="POST" action="./order">
+						<input type="submit" value="Поръчай" class="btn btn-success" />
 					</form>
 				</div>
 			</div>

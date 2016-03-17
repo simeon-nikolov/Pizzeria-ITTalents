@@ -38,9 +38,8 @@
 						<li><span>Адрес: <%=user.getAddress() %></span>
 						<li><span>Номер: <%=user.getPhoneNumber() %></span>
 					</ul>
-					<div class="clear"></div>
+					<div class="clear"></div><% } %>
 					<span style="float: center;" id="edit"><a href="./edit" class="btn btn-info">Редактиране</a></span>
-					<% } %>
 				</div>
 			</div>
 			<div class="footer">
