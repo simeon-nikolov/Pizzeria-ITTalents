@@ -87,11 +87,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="footer">
-				<div class="copy_right">
-					<p>©2016 rights Reserved</p>
-				</div>
-			</div>
+			<jsp:include page="partials/Footer.jsp" />
 		</div>
 	</div>
 </body>

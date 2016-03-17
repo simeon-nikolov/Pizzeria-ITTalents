@@ -39,16 +39,6 @@
 			<input type="submit" value="Поръчай" class="btn btn-success" />
 		</form>
 	</div>
-	<script>
-		function myFunction() {
-			var string = '< %=prod%>';
-			var date = new Date();
-			alert("Вашата доставка е:\n Ще пристигне при вас: "
-					+ date.getHours() + ":" + (date.getMinutes() + 10) + ":"
-					+ date.getDate() + ":" + (date.getMonth() + 1) + ":"
-					+ date.getFullYear() + "\n" + string);
-		}
-	</script>
 </div>
 <%
 	}
