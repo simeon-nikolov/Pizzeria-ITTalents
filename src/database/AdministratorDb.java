@@ -218,7 +218,7 @@ public class AdministratorDb extends DataAccessObject {
 				ResultSet rs = ps.executeQuery();
 				connecion.commit();
 				rs.next();
-				isAdmin = rs.getBoolean("is_admin");
+				isAdmin = rs.getBoolean("isAdmin");
 				System.out.println("Success!");
 			} catch (SQLException e) {	
 				try {

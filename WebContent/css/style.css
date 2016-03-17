@@ -118,7 +118,7 @@ body {
 }
 
 .logo {
-	text-align:center;
+	text-align: center;
 	padding-left: 15px;
 }
 
@@ -419,7 +419,7 @@ body {
 }
 
 .desc {
-	position:relative;
+	position: relative;
 	float: left;
 	width: 180px;
 	padding-left: 10px;
@@ -498,12 +498,12 @@ body {
 }
 
 #map_wrapper {
-    height: 400px;
+	height: 400px;
 }
 
 #map_canvas {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 #store_names {
@@ -611,7 +611,6 @@ form label {
 }
 
 /* Custom made css */
-
 .wrap {
 	float: left;
 }
@@ -660,6 +659,22 @@ form label {
 	border-radius: 0.6em;
 }
 
+.logged {
+	margin: 30px 20px;
+	padding: 20px 15px;
+	border: 5px solid #FFCC00;
+	border-radius: 0.6em;
+}
+
+.logged div {
+	color: black;
+	margin-top: 5px;
+}
+
+.logged a {
+	size: 16;
+}
+
 .login div {
 	margin-top: 5px;
 }
@@ -691,32 +706,36 @@ form label {
 }
 
 .register_form form {
-    width: 80%;
-    margin: 0 auto;
+	width: 80%;
+	margin: 0 auto;
 }
 
 .register_form label, input {
-    /* in order to define widths */
-    display: inline-block;
+	/* in order to define widths */
+	display: inline-block;
 }
 
 .register_form label {
-    width: 30%;
-    /* positions the label text beside the input */
-    text-align: right;
+	width: 30%;
+	/* positions the label text beside the input */
+	text-align: right;
 }
 
-.register_form label + input {
-    width: 30%;
-    /* large margin-right to force the next element to the new-line
+.register_form label+input {
+	width: 30%;
+	/* large margin-right to force the next element to the new-line
        and margin-left to create a gutter between the label and input */
-    margin: 0 30% 0 4%;
+	margin: 0 30% 0 4%;
+}
+.register_form ul span{
+	size: 16;
+	color: yellow;
 }
 
 /* only the submit button is matched by this selector,
    but to be sure you could use an id or class for that button */
-.register_form input + input {
-    float: right;
+.register_form input+input {
+	float: right;
 }
 
 .admin_panel {
@@ -735,8 +754,8 @@ form label {
 
 .container {
 	/*border: solid 1px black; */
-	border-radius: 10px; 
-	max-width: 400px; 
+	border-radius: 10px;
+	max-width: 400px;
 	padding: 0px;
 	padding-bottom: 50px;
 }

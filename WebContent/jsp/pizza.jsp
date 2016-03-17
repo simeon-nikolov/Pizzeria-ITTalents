@@ -7,21 +7,15 @@
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
-<title>Pizza-Bug | Меню</title>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="resources/css/style.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link href="resources/bootstrap-3.3.6-dist/css/bootstrap.css"
-	rel="stylesheet" type="text/css" media="all" />
-<script src="resources/js/jquery-2.2.0.min.js"></script>
-<script src="resources/js/custom.js"></script>
+<title>Pizza-Bug | Меню</title>
+<jsp:include page="partials/HeaderResources.jsp" />
 </head>
 <body>
+	<%
+		BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth");
+	%>
 	<div id="left_side_content">
-		<%
-			BaseHttpServlet auth = (BaseHttpServlet) request.getAttribute("auth");
-		%>
 		<%
 			if (!auth.isAuthenticated(request)) {
 		%>
@@ -29,7 +23,7 @@
 		<%
 			} else {
 		%>
-		&nbsp;
+		<jsp:include page="partials/LoggedIn.jsp" />
 		<%
 			}
 		%>
@@ -80,7 +74,12 @@
 								<li><span>Грамаж: </span> <%=pizza.getGrammage()%></li>
 								<li><span>Цена: </span> <%=pizza.getPrice()%></li>
 								<li><span>Съставки: </span> <%=ing%></li>
-								<li><button type="button" class="btn btn-smbtn-success">Добави</button></li>
+								<li><form name="addToCart" action="./ProductToCart"
+										method="get">
+										<input type="submit" name = <%=pizza.getId() %> value="Добави"
+											class="btn btn-success" />
+									</form>
+								<li>
 							</ul>
 						</div>
 						<div class="clear"></div>
@@ -88,6 +87,7 @@
 					<%
 						}
 					%>
+					<div class="clear"></div>
 				</div>
 			</div>
 			<div class="footer">

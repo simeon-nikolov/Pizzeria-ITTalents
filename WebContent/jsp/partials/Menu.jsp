@@ -2,7 +2,7 @@
     pageEncoding="utf-8" %>
 <div class="menu">
 	<ul>
-		<li><a href=""><img src="resources/images/list_img.png"
+		<li><a href="./home"><img src="resources/images/list_img.png"
 				alt="" />Начало</a></li>
 		<li><a href="./menu"><img src="resources/images/list_img.png"
 				alt="" />Меню</a></li>

@@ -3,11 +3,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Pizza-Bug | Регистрация</title>
+<title>Pizza-Bug | Редактиране на профил</title>
 <jsp:include page="partials/HeaderResources.jsp" />
 </head>
 <body>
-	<div id="left_side_content">&nbsp;</div>
+	<div id="left_side_content">
+		<jsp:include page="partials/LoggedIn.jsp" /></div>
 	<div class="wrap">
 		<div class="wrapper">
 			<div class="header">
@@ -20,15 +21,18 @@
 				</div>
 				<div class="header_bottom">
 					<jsp:include page="partials/Menu.jsp" />
+					<div class="header_img">
+						<img src="resources/images/header_img.jpg" alt="" />
+					</div>
 				</div>
 			</div>
 			<div class="main">
 				<div class="main_top">
-					<h1>Регистрация :</h1>
+					<h1>Редактиране :</h1>
 					<div class="clear"></div>
 				</div>
 				<div class="register_form" class="table">
-					<form name="login" action="Register" method="post">
+					<form name="login" action="EditServlet" method="post">
 						<div>
 							<label for="first_name">Име: *</label> <input id="first_name"
 								name="firstName" type="text" placeholder="First name" value="">
@@ -66,8 +70,7 @@
 								type="text" name="phoneto" placeholder="Phone" value="">
 						</div>
 						<div>
-							<input type="submit" value="Регистрирай се"
-								class="btn btn-success" />
+							<input type="submit" value="Промени" class="btn btn-success" />
 						</div>
 					</form>
 					<div class="clear"></div>
