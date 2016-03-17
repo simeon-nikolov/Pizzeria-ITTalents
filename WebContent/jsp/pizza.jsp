@@ -63,7 +63,7 @@
 							<ul>
 								<li><span>Име: </span> <%= pizza.getName() %></li>
 								<li><span>Грамаж: </span> <%= pizza.getGrammage() %></li>
-								<li><span>Цена: </span> <%= pizza.getPrice() %></li>
+								<li><span>Цена: </span> <%= pizza.getPrice() %>  лв.</li>
 								<li><span>Съставки: </span> <%= ing %></li>
 								<% if ((Boolean)request.getAttribute("auth")) { %>
 								<li>

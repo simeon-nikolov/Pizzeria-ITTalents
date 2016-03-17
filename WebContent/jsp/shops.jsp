@@ -11,7 +11,7 @@
 <head>
 <title>Pizza-Bug | Меню</title>
 <jsp:include page="partials/HeadResources.jsp" />
-<script src="js/shops.js"></script>
+<script src="resources/js/shops.js"></script>
 </head>
 <body>
 	<div id="left_side_content">
@@ -85,7 +85,7 @@
 							<input type="submit" value="Изпрати">
 						</form>
 						<div class="contact_img">
-							<img src="images/contact_img.jpg" alt="" />
+							<img src="resources/images/contact_img.jpg" alt="" />
 						</div>
 						<div class="clear"></div>
 					</div>

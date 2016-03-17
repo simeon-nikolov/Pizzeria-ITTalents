@@ -10,11 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import pizzeria.account.User;
 
-/**
- * Servlet implementation class RemoveProductServlet
- */
-@WebServlet("/remove")
-public class RemoveProductServlet extends BaseHttpServlet {
+@WebServlet("/cart/remove")
+public class RemoveCartProductServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -28,7 +25,7 @@ public class RemoveProductServlet extends BaseHttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(BaseHttpServlet.LOGGED_USER_ATTRIBUTE_NAME);
 		user.getShoppingCart().removeProduct(productId);
-		response.sendRedirect("./menu");
+		response.sendRedirect("../menu");
 	}
 
 }

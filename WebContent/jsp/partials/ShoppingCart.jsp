@@ -15,10 +15,10 @@
 			<img src="<%= product.getImage() %>" alt="<%= product.getName() %>" width="75px" height="75px" />
 			<div class="desc">
 				<span><%= product.getName() %><br />
-				Цена : <%= product.getPrice() %>лв</span><br />
-				<form method="POST" action="./remove">
+				Цена : <%= product.getPrice() %> лв.</span><br />
+				<form method="POST" action="./cart/remove">
 					<input type="hidden" name="id" value="<%= product.getId() %>" />
-					<input type="submit" value="Премахни" class="btn btn-danger" />
+					<input type="submit" value="Премахни" class="btn btn-xs btn-danger" />
 				</form>
 			</div>
 		</div>
