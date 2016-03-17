@@ -19,5 +19,10 @@ public class Administrator extends Account {
 	public void register() {
 		this.adminDao.addAdministrator(this);
 	}
+	
+	@Override
+	public boolean isAdmin() {
+		return true;
+	}
 
 }

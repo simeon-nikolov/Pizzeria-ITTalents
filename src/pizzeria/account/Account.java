@@ -81,6 +81,8 @@ public abstract class Account {
 		this.validateEmail(email);
 		this.email = email;
 	}
+	
+	public abstract boolean isAdmin();
 
 	private void validateUsername(String username) throws InvalidArgumentValueException {
 		if (username == null) {

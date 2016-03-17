@@ -131,6 +131,11 @@ public class User extends Account {
 		this.validatePhoneNumber(phoneNumber);
 		this.phoneNumber = phoneNumber;
 	}
+	
+	@Override
+	public boolean isAdmin() {
+		return false;
+	}
 
 	private void validateName(String name) throws InvalidArgumentValueException {
 		if (name == null) {

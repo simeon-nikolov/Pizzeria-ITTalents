@@ -10,10 +10,6 @@ public abstract class BaseHttpServlet extends HttpServlet {
 	public static final String LOGGED_USER_ATTRIBUTE_NAME = "loggedUser";
 	private static final long serialVersionUID = 1L;
 
-    public BaseHttpServlet() {
-        super();
-    }
-
 	public boolean isAuthenticated(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		

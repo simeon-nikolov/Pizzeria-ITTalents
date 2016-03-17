@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import pizzeria.account.Account;
 import pizzeria.account.User;
 import pizzeria.menu.IProduct;
 import pizzeria.menu.Ingredient;
@@ -33,14 +34,19 @@ public class PizzaServlet extends BaseHttpServlet {
 			}
 		}
 		
+		Boolean isAuthenticated = super.isAuthenticated(request);
 		request.setAttribute("pizza", list);
-		request.setAttribute("auth", super.isAuthenticated(request));
+		request.setAttribute("auth", isAuthenticated);
 		
-		if (super.isAuthenticated(request)) {
+		if (isAuthenticated) {
 			HttpSession session = request.getSession();
-			User user = (User) session.getAttribute(super.LOGGED_USER_ATTRIBUTE_NAME);
-			List<IProduct> productsInShoppingCart = user.getShoppingCart().getProducts();
-			request.setAttribute("cartProducts", productsInShoppingCart);
+			Account acc = (Account) session.getAttribute(super.LOGGED_USER_ATTRIBUTE_NAME);
+			
+			if (!acc.isAdmin()) {
+				User user = (User) acc;
+				List<IProduct> productsInShoppingCart = user.getShoppingCart().getProducts();
+				request.setAttribute("cartProducts", productsInShoppingCart);
+			}
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/pizza.jsp");

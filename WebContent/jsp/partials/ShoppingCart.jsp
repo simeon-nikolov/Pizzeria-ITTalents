@@ -3,13 +3,14 @@
 <%@page import="javax.swing.text.StyledEditorKit.ForegroundAction"%>
 <%@ page language="java" contentType="text/html; utf-8"
 	pageEncoding="utf-8"%>
+<% List<IProduct> products = (List<IProduct>) request.getAttribute("cartProducts"); %>
+<% if (products != null) { %>
 <div id="shopping_cart">
 	<div class="heading">
 		<h4>Кошница</h4>
 	</div>
-	<% List<IProduct> pizzas = (List<IProduct>) request.getAttribute("cartProducts"); %>
 	<div id="shopping_cart_container">
-		<% for (IProduct product : pizzas) { %>
+		<% for (IProduct product : products) { %>
 		<div class="product">
 			<img src="<%= product.getImage() %>" alt="<%= product.getName() %>" width="75px" height="75px" />
 			<div class="desc">
@@ -27,3 +28,4 @@
 		<a class="btn btn-success">Поръчай</a>
 	</div>
 </div>
+<% } %>
