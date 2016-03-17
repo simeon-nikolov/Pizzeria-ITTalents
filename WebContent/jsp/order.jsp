@@ -42,7 +42,7 @@
 							for (IProduct product : products) {
 					%>
 					<div class="pizza_details">
-						<img src="/resources/+ <%=product.getImage()%> +" alt="" />
+						<img src=<%=product.getImage()%> alt="" />
 						<div class="desc">
 							<ul>
 								<li><span>Име: </span> <%=product.getName()%></li>
