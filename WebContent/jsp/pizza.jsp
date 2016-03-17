@@ -1,3 +1,4 @@
+<%@page import="java.nio.channels.SeekableByteChannel"%>
 <%@page import="pizzeria.menu.Ingredient"%>
 <%@page import="pizzeria.menu.Pizza"%>
 <%@page import="servlets.PizzaServlet"%>
@@ -76,6 +77,7 @@
 								<li><span>Съставки: </span> <%=ing%></li>
 								<li><form name="addToCart" action="./ProductToCart"
 										method="get">
+										<% session.setAttribute(Integer.toString(pizza.getId()),((Object) pizza)); %>
 										<input type="submit" name = <%=pizza.getId() %> value="Добави"
 											class="btn btn-success" />
 									</form>
