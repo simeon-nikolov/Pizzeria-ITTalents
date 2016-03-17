@@ -48,6 +48,12 @@ public class User extends Account {
 		this.userDao.addUser(this);
 	}
 	
+	public void updateUser(User user) {
+		if (user != null) {
+			this.userDao.editUser(this.getId(), user);
+		}
+	}
+	
 	public Order makeOrder(Shop shop) {
 		Order order = null;
 		

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import pizzeria.account.User;
-import database.PizzaDb;
 
 /**
  * Servlet implementation class RemoveProductServlet
@@ -25,10 +24,9 @@ public class RemoveProductServlet extends BaseHttpServlet {
 			return;
 		}
 		
-		PizzaDb pizzaDao = new PizzaDb();
 		int productId = Integer.parseInt(request.getParameter("id"));
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute(super.LOGGED_USER_ATTRIBUTE_NAME);
+		User user = (User) session.getAttribute(BaseHttpServlet.LOGGED_USER_ATTRIBUTE_NAME);
 		user.getShoppingCart().removeProduct(productId);
 		response.sendRedirect("./menu");
 	}

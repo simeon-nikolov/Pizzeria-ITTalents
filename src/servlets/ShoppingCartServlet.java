@@ -32,7 +32,7 @@ public class ShoppingCartServlet extends BaseHttpServlet {
 		int pizzaId = Integer.parseInt(request.getParameter("id"));
 		Pizza pizza = pizzaDao.getPizzaById(pizzaId);
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute(super.LOGGED_USER_ATTRIBUTE_NAME);
+		User user = (User) session.getAttribute(BaseHttpServlet.LOGGED_USER_ATTRIBUTE_NAME);
 		
 		try {
 			user.getShoppingCart().addProduct(pizza, 1);

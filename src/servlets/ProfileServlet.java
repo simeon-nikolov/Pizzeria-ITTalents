@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Profile
  */
 @WebServlet("/profile")
-public class Profile extends BaseHttpServlet {
+public class ProfileServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@Override

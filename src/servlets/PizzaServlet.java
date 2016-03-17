@@ -40,7 +40,7 @@ public class PizzaServlet extends BaseHttpServlet {
 		
 		if (isAuthenticated) {
 			HttpSession session = request.getSession();
-			Account acc = (Account) session.getAttribute(super.LOGGED_USER_ATTRIBUTE_NAME);
+			Account acc = (Account) session.getAttribute(BaseHttpServlet.LOGGED_USER_ATTRIBUTE_NAME);
 			
 			if (!acc.isAdmin()) {
 				User user = (User) acc;

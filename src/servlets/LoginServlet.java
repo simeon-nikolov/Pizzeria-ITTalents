@@ -31,7 +31,7 @@ public class LoginServlet extends BaseHttpServlet {
 			if (pizzeria.login(username, password)) {
 				HttpSession session = request.getSession(true);
 				Account acc = pizzeria.getAccountByUsername(username);
-				session.setAttribute(super.LOGGED_USER_ATTRIBUTE_NAME, acc);
+				session.setAttribute(BaseHttpServlet.LOGGED_USER_ATTRIBUTE_NAME, acc);
 			}
 		} catch (InvalidArgumentValueException e) {
 			// TO DO: add response message for user

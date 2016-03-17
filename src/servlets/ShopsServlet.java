@@ -21,5 +21,4 @@ public class ShopsServlet extends BaseHttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/shops.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }
