@@ -19,7 +19,7 @@
 			</div>
 			<div class="main">
 				<div class="main_top">
-					<h1>Количка :</h1>
+					<h1>Кошница :</h1>
 					<div class="clear"></div>
 				</div>
 				<div class="register_form" class="table">

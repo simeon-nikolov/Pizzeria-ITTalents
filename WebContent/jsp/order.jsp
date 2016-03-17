@@ -16,7 +16,7 @@
 	function myFunction() {
 		var d = new Date();
 		d.setMinutes(d.getMinutes() + 20);
-		alert("Поръчката ще пристигне след: " + d);
+		alert("Поръчката ще пристигне след: " + d.toLocaleTimeString()+ " " + d.toDateString() );
 	}
 </script>
 </head>
