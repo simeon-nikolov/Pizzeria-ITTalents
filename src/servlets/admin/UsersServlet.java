@@ -1,6 +1,7 @@
 package servlets.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -25,7 +26,16 @@ public class UsersServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (BaseHttpServlet.isAdmin(request)) {
 			UserDb userDao = new UserDb();
-			List<User> users = userDao.getAllUsers();
+			List<User> users = new ArrayList<User>();
+			String username = request.getParameter("username");
+			
+			if (username != null) {
+				User user = userDao.getUserByUsername(username);
+				users.add(user);
+			} else {
+				users = userDao.getAllUsers();
+			}
+			
 			request.setAttribute("users", users);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../jsp/admin/users.jsp");
 			dispatcher.forward(request, response);

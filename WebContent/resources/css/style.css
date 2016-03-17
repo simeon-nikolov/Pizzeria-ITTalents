@@ -738,6 +738,9 @@ div.admin_panel table {
 	text-decoration: underline;
 }
 
+.admin_panel input {
+	color: #000;
+}
 
 .container {
 	/*border: solid 1px black; */
