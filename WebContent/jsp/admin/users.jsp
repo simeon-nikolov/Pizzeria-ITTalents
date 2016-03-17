@@ -80,7 +80,7 @@
 									<td class="col-sm-4">
 										<a href="../admin/user?id=<%= user.getId() %>" class="btn btn-xs btn-success">Прегледай</a>
 										<a href="../admin/editUser?id=<%= user.getId() %>" class="btn btn-xs btn-warning">Промени</a>
-										<a class="btn btn-xs btn-danger">Изтрий</a>
+										<a href="../admin/deleteUser?id=<%= user.getId() %>" class="btn btn-xs btn-danger">Изтрий</a>
 									</td>
 								</tr>
 							<% } %>
