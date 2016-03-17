@@ -750,6 +750,10 @@ div.admin_panel table {
 	padding-bottom: 50px;
 }
 
+.container p {
+	color: #aa0;
+}
+
 .table_head {
 	color: #FFCC00;
 	text-decoration: underline;

@@ -24,6 +24,11 @@
 				<div class="register_form" class="table">
 					<form name="login" action="./register" method="post">
 						<div>
+							<label for="user_name">Потребителско име: *</label> <input
+								id="user_name" name="username" type="text"
+								placeholder="User name" value="">
+						</div>
+						<div>
 							<label for="first_name">Име: *</label> <input id="first_name"
 								name="firstName" type="text" placeholder="First name" value="">
 						</div>
@@ -31,11 +36,6 @@
 							<label for="last_name">Фамилно име: *</label> <input
 								id="last_name" name="lastName" type="text"
 								placeholder="Last name" value="">
-						</div>
-						<div>
-							<label for="user_name">Потребителско име: *</label> <input
-								id="user_name" name="username" type="text"
-								placeholder="User name" value="">
 						</div>
 						<div>
 							<label for="email">E-mail: *</label> <input id="email"
