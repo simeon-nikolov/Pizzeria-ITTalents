@@ -69,7 +69,9 @@
 								<li><span>Грамаж: </span> <%= pizza.getGrammage() %></li>
 								<li><span>Цена: </span> <%= pizza.getPrice() %></li>
 								<li><span>Съставки: </span> <%= ing %></li>
+								<% if ((Boolean)request.getAttribute("auth")) { %>
 								<li><a href="./ProductToCart?id=<%= pizza.getId() %>" class="btn btn-success" />Добави</a>
+								<% } %>
 								<li>
 							</ul>
 						</div>
