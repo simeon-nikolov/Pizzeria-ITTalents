@@ -23,7 +23,7 @@
 		<%
 			} else {
 		%>
-		&nbsp;
+		<jsp:include page="partials/LoggedIn.jsp" />
 		<%
 			}
 		%>
