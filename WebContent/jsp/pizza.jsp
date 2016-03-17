@@ -58,7 +58,7 @@
 							}
 					%>
 					<div class="pizza_details">
-						<img src="<%= pizza.getImage() %>" alt="" />
+						<img src="/resources/+ <%= pizza.getImage() %> +" alt="" />
 						<div class="desc">
 							<ul>
 								<li><span>Име: </span> <%= pizza.getName() %></li>

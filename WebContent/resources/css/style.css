@@ -684,6 +684,10 @@ form label {
 	text-align: center;
 	padding: 20px 20px 45px 20px;
 }
+.register_form span {
+	font-size: 20px;
+	color: yellow;
+}
 
 .register_form label {
 	display: inline-block;
