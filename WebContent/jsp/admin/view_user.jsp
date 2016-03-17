@@ -30,7 +30,7 @@
 					<h4>Потребител:</h4>
 					<% User user = (User) request.getAttribute("user"); %>
 					<% if (user != null) { %>
-						<table>
+						<table class="table table-bordered">
 							<tr>
 								<td>ID: </td>
 								<td><%= user.getId() %></td>
@@ -57,6 +57,7 @@
 							</tr>
 						</table>
 					<% } %>
+					&nbsp;
 					<div class="clear"></div>
 				</div>
 			</div>
