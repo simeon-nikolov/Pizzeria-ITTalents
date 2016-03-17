@@ -23,7 +23,7 @@
 					<div class="clear"></div>
 				</div>
 				<div class="register_form" class="table">
-					<form name="login" action="EditServlet" method="post">
+					<form name="login" action="./edit" method="post">
 						<div>
 							<label for="first_name">Име: *</label> <input id="first_name"
 								name="firstName" type="text" placeholder="First name" value="">
