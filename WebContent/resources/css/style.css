@@ -720,8 +720,12 @@ form label {
 }
 
 .admin_panel {
-	color: #D2B48C;
-	margin-left: 100px;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+div.admin_panel table {
+	color: #ffff80;
 }
 
 .admin_panel h4 {
@@ -729,9 +733,6 @@ form label {
 	text-decoration: underline;
 }
 
-.container div {
-	padding-top: 10px;
-}
 
 .container {
 	/*border: solid 1px black; */
@@ -744,6 +745,7 @@ form label {
 .table_head {
 	color: #FFCC00;
 	text-decoration: underline;
+	text-align: center;
 }
 
 #shopping_cart_page {
