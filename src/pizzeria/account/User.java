@@ -7,6 +7,7 @@ import pizzeria.menu.IProduct;
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import database.OrderDb;
+import database.UserDb;
 import exceptions.InvalidArgumentValueException;
 
 public class User extends Account {
@@ -22,6 +23,7 @@ public class User extends Account {
 	private String address;
 	private String phoneNumber;
 	private ShoppingCart shoppingCart;
+	private UserDb userDao = new UserDb();
 	
 	public User() {
 		try {
@@ -39,6 +41,11 @@ public class User extends Account {
 		this.setAddress(address);
 		this.setPhoneNumber(phoneNumber);
 		this.shoppingCart = new ShoppingCart(this);
+	}
+	
+	@Override
+	public void register() {
+		this.userDao.addUser(this);
 	}
 	
 	public Order makeOrder(Shop shop) {

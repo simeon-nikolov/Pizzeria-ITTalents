@@ -45,6 +45,8 @@ public abstract class Account {
 		return this.password.equals(password);
 	}
 	
+	public abstract void register();
+	
 	public int getId() {
 		return this.id;
 	} 

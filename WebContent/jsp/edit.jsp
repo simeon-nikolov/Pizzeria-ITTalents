@@ -12,13 +12,7 @@
 	<div class="wrap">
 		<div class="wrapper">
 			<div class="header">
-				<div class="header_top">
-					<div class="logo">
-						<a href="resources/#"><img
-							src="resources/images/pizza/logo1.png" alt="" /></a>
-					</div>
-					<div class="clear"></div>
-				</div>
+				<jsp:include page="partials/HeaderTop.jsp" />
 				<div class="header_bottom">
 					<jsp:include page="partials/Menu.jsp" />
 				</div>

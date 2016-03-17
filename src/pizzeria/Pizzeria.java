@@ -26,9 +26,9 @@ public class Pizzeria {
 		this.menu = Menu.getInstance();
 	}
 	
-	public void register(User user) {
-		if (user != null) {
-			userDao.addUser(user);
+	public void register(Account acc) {
+		if (acc != null) {
+			acc.register();
 		}
 	}
 	

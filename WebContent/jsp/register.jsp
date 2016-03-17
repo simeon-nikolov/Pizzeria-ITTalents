@@ -11,13 +11,7 @@
 	<div class="wrap">
 		<div class="wrapper">
 			<div class="header">
-				<div class="header_top">
-					<div class="logo">
-						<a href="resources/#"><img
-							src="resources/images/pizza/logo1.png" alt="" /></a>
-					</div>
-					<div class="clear"></div>
-				</div>
+				<jsp:include page="partials/HeaderTop.jsp" />
 				<div class="header_bottom">
 					<jsp:include page="partials/Menu.jsp" />
 				</div>
@@ -28,7 +22,7 @@
 					<div class="clear"></div>
 				</div>
 				<div class="register_form" class="table">
-					<form name="login" action="Register" method="post">
+					<form name="login" action="./register" method="post">
 						<div>
 							<label for="first_name">Име: *</label> <input id="first_name"
 								name="firstName" type="text" placeholder="First name" value="">
@@ -62,8 +56,8 @@
 								type="text" name="addres" placeholder="Address" value="">
 						</div>
 						<div>
-							<label for="phone">Телефон: *</label> <input id="Phone"
-								type="text" name="phoneto" placeholder="Phone" value="">
+							<label for="phone">Телефон: *</label> <input id="phone"
+								type="text" name="phone" placeholder="Phone number" value="">
 						</div>
 						<div>
 							<input type="submit" value="Регистрирай се"
