@@ -4,14 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import pizzeria.Shop;
 import pizzeria.account.Order;
 import pizzeria.account.User;
 import pizzeria.menu.IProduct;
-import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 
 import com.mysql.jdbc.Statement;
@@ -157,7 +155,7 @@ public class OrderDb extends DataAccessObject implements IOrderDao {
 					rs.getString("address")
 				);
 			order.setShop(shop);
-			List<Pizza> pizzas = getPizzasByOrderId(idOrder);
+			List<Pizza> pizzas = new PizzaDb().getPizzasByOrderId(idOrder);
 			
 			for (Pizza pizza : pizzas) {
 				order.addProduct(pizza);
@@ -178,38 +176,5 @@ public class OrderDb extends DataAccessObject implements IOrderDao {
 		}
 		
 		return order;
-	}
-
-	private List<Pizza> getPizzasByOrderId(int idOrder) throws SQLException, InvalidArgumentValueException {
-		String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
-				+ "JOIN `pizzeria`.`Products_In_Orders` po ON (pr.`idProduct` = po.`idProduct`) "
-				+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
-				+ "JOIN `pizzeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
-				+ "WHERE po.`Order_idOrder` = ?;";
-		PreparedStatement stmtSelectPizzas = connection.prepareStatement(sqlSelectPizzas);
-		stmtSelectPizzas.setInt(1, idOrder);
-		ResultSet rs = stmtSelectPizzas.executeQuery();
-		List<Pizza> pizzas = new ArrayList<Pizza>(); 
-		
-		while(rs.next()) {
-			Pizza pizza = new Pizza(
-					rs.getInt("idProduct"),
-					rs.getString("name"),
-					rs.getDouble("price"),
-					rs.getString("image"),
-					rs.getInt("grammage"),
-					rs.getInt("size")
-				);
-			
-			List<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
-			
-			for (Ingredient ingredient : ingredients) {
-				pizza.addIngredient(ingredient);
-			}
-			
-			pizzas.add(pizza);
-		}
-		
-		return pizzas;
 	}
 }

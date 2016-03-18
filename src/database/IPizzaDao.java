@@ -1,9 +1,11 @@
 package database;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
+import exceptions.InvalidArgumentValueException;
 
 public interface IPizzaDao {
 
@@ -18,5 +20,9 @@ public interface IPizzaDao {
 	List<Pizza> getAllPizza();
 
 	List<Ingredient> getAllPizzaIngredients(Pizza pizza);
+	
+	List<Pizza> getPizzasByOrderId(int idOrder) throws SQLException, InvalidArgumentValueException;
+	
+	List<Pizza> getPizzasByCartId(int id) throws SQLException, InvalidArgumentValueException;
 
 }

@@ -282,4 +282,71 @@ public class PizzaDb extends DataAccessObject implements IPizzaDao {
 		}
 		return ing;
 	}
+	
+	@Override
+	public List<Pizza> getPizzasByOrderId(int idOrder) throws SQLException, InvalidArgumentValueException {
+		String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
+				+ "JOIN `pizzeria`.`Products_In_Orders` po ON (pr.`idProduct` = po.`idProduct`) "
+				+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
+				+ "JOIN `pizzeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
+				+ "WHERE po.`Order_idOrder` = ?;";
+		PreparedStatement stmtSelectPizzas = connection.prepareStatement(sqlSelectPizzas);
+		stmtSelectPizzas.setInt(1, idOrder);
+		ResultSet rs = stmtSelectPizzas.executeQuery();
+		List<Pizza> pizzas = new ArrayList<Pizza>(); 
+		
+		while(rs.next()) {
+			Pizza pizza = new Pizza(
+					rs.getInt("idProduct"),
+					rs.getString("name"),
+					rs.getDouble("price"),
+					rs.getString("image"),
+					rs.getInt("grammage"),
+					rs.getInt("size")
+				);
+			
+			List<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
+			
+			for (Ingredient ingredient : ingredients) {
+				pizza.addIngredient(ingredient);
+			}
+			
+			pizzas.add(pizza);
+		}
+		
+		return pizzas;
+	}
+	
+	public List<Pizza> getPizzasByCartId(int id) throws SQLException, InvalidArgumentValueException {
+		String sqlSelectPizzas = "SELECT * FROM `pizzeria`.`Product` pr "
+				+ "JOIN `pizzeria`.`Products_In_Carts` c ON (pr.`idProduct` = c.`Product_idProduct`) "
+				+ "JOIN `pizzeria`.`Food` f ON (f.`Product_idProduct` = pr.`idProduct`) "
+				+ "JOIN `pizzeria`.`Pizza` pi ON (pi.`Food_idFood` = f.`idFood`) "
+				+ "WHERE c.`User_idUser` = ?;";
+		PreparedStatement stmtSelectPizzas = connection.prepareStatement(sqlSelectPizzas);
+		stmtSelectPizzas.setInt(1, id);
+		ResultSet rs = stmtSelectPizzas.executeQuery();
+		List<Pizza> pizzas = new ArrayList<Pizza>(); 
+		
+		while(rs.next()) {
+			Pizza pizza = new Pizza(
+					rs.getInt("idProduct"),
+					rs.getString("name"),
+					rs.getDouble("price"),
+					rs.getString("image"),
+					rs.getInt("grammage"),
+					rs.getInt("size")
+				);
+			
+			List<Ingredient> ingredients = new PizzaDb().getAllPizzaIngredients(pizza);
+			
+			for (Ingredient ingredient : ingredients) {
+				pizza.addIngredient(ingredient);
+			}
+			
+			pizzas.add(pizza);
+		}
+		
+		return pizzas;
+	}
 }
