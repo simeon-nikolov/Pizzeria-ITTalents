@@ -15,9 +15,6 @@ import pizzeria.account.User;
 import servlets.BaseHttpServlet;
 import database.UserDb;
 
-/**
- * Servlet implementation class UsersServlet
- */
 @WebServlet("/admin/users")
 public class UsersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

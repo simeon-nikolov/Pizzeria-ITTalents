@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import servlets.BaseHttpServlet;
 
-/**
- * Servlet implementation class AdminPanel
- */
 @WebServlet("/admin/")
 public class AdminPanel extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;

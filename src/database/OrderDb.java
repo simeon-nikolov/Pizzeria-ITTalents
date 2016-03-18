@@ -11,9 +11,6 @@ import pizzeria.account.Order;
 import pizzeria.account.User;
 import pizzeria.menu.IProduct;
 import pizzeria.menu.Pizza;
-
-import com.mysql.jdbc.Statement;
-
 import exceptions.InvalidArgumentValueException;
 
 public class OrderDb extends DataAccessObject implements IOrderDao {
@@ -28,7 +25,7 @@ public class OrderDb extends DataAccessObject implements IOrderDao {
 		int orderId = 0;
 
 		try {
-			PreparedStatement stmtInsertOrder = connection.prepareStatement(sqlInserOrder, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmtInsertOrder = connection.prepareStatement(sqlInserOrder, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmtInsertOrder.setDouble(1, order.getSum());
 			stmtInsertOrder.setBoolean(2, false);
 			stmtInsertOrder.setBoolean(3, false);

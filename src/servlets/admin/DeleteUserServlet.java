@@ -13,9 +13,6 @@ import servlets.BaseHttpServlet;
 import database.OrderDb;
 import database.UserDb;
 
-/**
- * Servlet implementation class DeleteUserServlet
- */
 @WebServlet("/admin/deleteUser")
 public class DeleteUserServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;

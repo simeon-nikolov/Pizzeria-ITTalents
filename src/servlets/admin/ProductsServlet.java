@@ -29,10 +29,4 @@ public class ProductsServlet extends BaseHttpServlet {
 			response.sendRedirect("../");
 		}
 	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
 }
