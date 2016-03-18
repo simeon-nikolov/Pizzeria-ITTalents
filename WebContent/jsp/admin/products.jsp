@@ -74,6 +74,7 @@
 						<% List<IProduct> products = (List<IProduct>) request.getAttribute("products"); %>
 						<% if (products != null) { %>
 							<% for (IProduct product : products) { %>
+								<% if (product != null) { %>
 								<tr class="row">
 									<td class="col-sm-1">
 										<img src="../<%= product.getImage() %>" alt="<%= product.getName() %>" />
@@ -109,6 +110,7 @@
 										<a href="../admin/deleteProduct?id=<%= product.getId() %>" class="btn btn-xs btn-danger">Изтрий</a>
 									</td>
 								</tr>
+								<% } %>
 							<% } %>
 						<% } %>
 						<tr class="row">

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import pizzeria.menu.Ingredient;
 
@@ -97,5 +99,34 @@ public class IngredientDb extends DataAccessObject {
 			e.printStackTrace();
 		}
 		return ingredient;
+	}
+	
+	public List<Ingredient> getAllIngredients() {
+		Ingredient ingredient = null;
+		String sql = "SELECT * FROM pizzeria.ingredient;";
+		List<Ingredient> list = new LinkedList<Ingredient>();
+		
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			connection.commit();
+			while(rs.next()) {
+				ingredient = new Ingredient(
+						rs.getInt("idIngredient"),
+						rs.getString("name"));
+				list.add(ingredient);
+			}
+			System.out.println("Success!");
+		} catch (SQLException e) {	
+			try {
+				connection.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 }

@@ -738,7 +738,7 @@ div.admin_panel table {
 	text-decoration: underline;
 }
 
-.admin_panel input {
+.admin_panel input[type="text"] {
 	color: #000;
 }
 
@@ -758,6 +758,13 @@ div.admin_panel table {
 	color: #FFCC00;
 	text-decoration: underline;
 	text-align: center;
+}
+
+.borderless table {
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
 }
 
 #shopping_cart_page {
