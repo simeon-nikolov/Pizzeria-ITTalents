@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pizzeria.menu.Ingredient;
+import pizzeria.menu.Pizza;
 import servlets.BaseHttpServlet;
 import database.IngredientDb;
+import database.PizzaDb;
+import exceptions.InvalidArgumentValueException;
 
 @WebServlet("/admin/addPizza")
 public class AddPizzaServlet extends HttpServlet {
@@ -34,7 +37,22 @@ public class AddPizzaServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (BaseHttpServlet.isAdmin(request)) {
-			response.getWriter().println("Still under development...");
+			String name = request.getParameter("name");
+			double price = Double.parseDouble(request.getParameter("price"));
+			String imageUrl = "resources/images/pizza/Primo_Meat.png";
+			int grammage = Integer.parseInt(request.getParameter("grammage"));
+			int size = Integer.parseInt(request.getParameter("size"));
+			
+			try {
+				Pizza pizza = new Pizza(0, name, price, imageUrl, grammage, size);
+				PizzaDb pizzaDao = new PizzaDb();
+				pizzaDao.addPizza(pizza);
+			} catch (InvalidArgumentValueException e) {
+				e.printStackTrace();
+			}
+			
+			response.sendRedirect("../admin/products");
+			
 		} else {
 			response.sendRedirect("../");
 		}

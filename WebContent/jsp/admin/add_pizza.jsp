@@ -29,7 +29,7 @@
 				</div>
 				<div class="admin_panel">
 					<h4>Добави пица:</h4>
-					<form method="POST" action="../admin/addPizza" enctype="multipart/form-data">
+					<form method="POST" action="../admin/addPizza">
 						<table class="table borderless">
 							<tr>
 								<td>Име: </td>
