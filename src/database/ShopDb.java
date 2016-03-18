@@ -10,9 +10,10 @@ import java.util.List;
 import pizzeria.Shop;
 import exceptions.InvalidArgumentValueException;
 
-public class ShopDb extends DataAccessObject {	
+public class ShopDb extends DataAccessObject implements IShopDao {	
 	private Connection connection = super.getConnection();
 	
+	@Override
 	public int addShop(Shop shop) {
 		String insertShopSql = "INSERT INTO `pizzeria`.`Shop` (`name`, `address`) VALUES "
 				+ "(?, ?);";
@@ -41,6 +42,7 @@ public class ShopDb extends DataAccessObject {
 		return shopId;
 	}
 	
+	@Override
 	public void updateShop(Shop shop) {
 		String updateShopSql = "UPDATE `pizzeria`.`Shop` SET `name`=?, `address`=? WHERE `idShop`=?;";
 		
@@ -68,6 +70,7 @@ public class ShopDb extends DataAccessObject {
 		}
 	}
 	
+	@Override
 	public void removeShop(Shop shop) {
 		String deleteShopSql = "DELETE FROM `pizzeria`.`Shop` WHERE `idShop`=?;";
 		
@@ -93,6 +96,7 @@ public class ShopDb extends DataAccessObject {
 		}
 	}
 	
+	@Override
 	public Shop getShopById(int shopId) {
 		String selectShopSql = "SELECT * FROM `pizzeria`.`Shop` WHERE `idShop`=?;";
 		Shop shop = new Shop();
@@ -122,6 +126,7 @@ public class ShopDb extends DataAccessObject {
 		return shop;
 	}
 	
+	@Override
 	public List<Shop> getAllShops() {
 		String selectAllShopsSql = "SELECT * FROM `pizzeria`.`Shop`;";
 		List<Shop> shops = new LinkedList<Shop>();

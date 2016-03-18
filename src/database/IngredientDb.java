@@ -9,10 +9,11 @@ import java.util.List;
 
 import pizzeria.menu.Ingredient;
 
-public class IngredientDb extends DataAccessObject {
+public class IngredientDb extends DataAccessObject implements IIngredientDao {
 
 	private Connection connection = super.getConnection();
 	
+	@Override
 	public void addIngredient(Ingredient ing) {
 		String sql = "INSERT INTO pizzeria.ingredient (name) VALUES "
 				+ "(?);";
@@ -34,6 +35,7 @@ public class IngredientDb extends DataAccessObject {
 		}
 	}
 	
+	@Override
 	public void editIngredient(int id, Ingredient ing) {
 		String sql = "UPDATE pizzeria.ingredient SET name = ?, WHERE idIngredient = ?;";
 		
@@ -55,6 +57,7 @@ public class IngredientDb extends DataAccessObject {
 		}
 	}
 	
+	@Override
 	public void removeIngredient(int id) {
 		String sql = "DELETE FROM pizzeria.ingredient WHERE idIngredient = ?;";
 		
@@ -75,6 +78,7 @@ public class IngredientDb extends DataAccessObject {
 		}
 	}
 	
+	@Override
 	public Ingredient getIngredientByname(String name) {
 		Ingredient ingredient = null;
 		String sql = "SELECT * FROM pizzeria.ingredient WHERE name = ?;";
@@ -101,6 +105,7 @@ public class IngredientDb extends DataAccessObject {
 		return ingredient;
 	}
 	
+	@Override
 	public List<Ingredient> getAllIngredients() {
 		Ingredient ingredient = null;
 		String sql = "SELECT * FROM pizzeria.ingredient;";

@@ -11,9 +11,10 @@ import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
 
-public class PizzaDb extends DataAccessObject {
+public class PizzaDb extends DataAccessObject implements IPizzaDao {
 	private Connection connection = super.getConnection();
 
+	@Override
 	public int addPizza(Pizza pizza) {
 		String sql = "INSERT INTO `pizzeria`.`product` ( `name`, `price`, `image`) VALUES " + "(?, ?, ?);";
 		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
@@ -80,6 +81,7 @@ public class PizzaDb extends DataAccessObject {
 		return pizzaId;
 	}
 
+	@Override
 	public void editPizza(int idProduct, Pizza pizza) {
 		String sqlProductUpdate = "UPDATE pizzeria.product SET name=?, price=?, image=? WHERE idProduct=?;";
 		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
@@ -130,6 +132,7 @@ public class PizzaDb extends DataAccessObject {
 		}
 	}
 
+	@Override
 	public void removePizza(int idPizza) {
 		String sqlProductUpdate = "DELETE FROM pizzeria.product WHERE idProduct = ?;";
 		String sqlSelectFoodId = "SELECT idFood FROM pizzeria.food WHERE Product_idProduct = ?;";
@@ -172,6 +175,7 @@ public class PizzaDb extends DataAccessObject {
 		}
 	}
 
+	@Override
 	public Pizza getPizzaById(int id) {
 		Pizza pizza = null;
 		String sql = "select p.idProduct, p.name , p.price, p.image, f.grammage, pi.size from pizzeria.product p "
@@ -204,6 +208,7 @@ public class PizzaDb extends DataAccessObject {
 		return pizza;
 	}
 
+	@Override
 	public List<Pizza> getAllPizza() {
 		List<Pizza> pizzas = new ArrayList<Pizza>();
 		String sql = "select p.idProduct, p.name , p.price, p.image, f.grammage, pi.size from pizzeria.product p "
@@ -239,6 +244,7 @@ public class PizzaDb extends DataAccessObject {
 		return pizzas;
 	}
 
+	@Override
 	public List<Ingredient> getAllPizzaIngredients(Pizza pizza) {
 		List<Ingredient> ing = new ArrayList<Ingredient>();
 		String sqlSelect = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";

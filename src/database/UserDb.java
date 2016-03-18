@@ -10,9 +10,12 @@ import java.util.List;
 import pizzeria.account.User;
 import exceptions.InvalidArgumentValueException;
 
-public class UserDb extends DataAccessObject {
+public class UserDb extends DataAccessObject implements IUserDao {
 	private Connection connection = super.getConnection();
 	
+	/* (non-Javadoc)
+	 * @see database.IUserDao#addUser(pizzeria.account.User)
+	 */
 	public int addUser(User user) {
 		String sqlAccountInsert = "INSERT INTO `pizzeria`.`account` (`username`, `password`, `email`, `isAdmin`) VALUES "
 				+ "(?, ?, ?, ?);";
@@ -58,6 +61,9 @@ public class UserDb extends DataAccessObject {
 		return userId;
 	}
 	
+	/* (non-Javadoc)
+	 * @see database.IUserDao#editUser(int, pizzeria.account.User)
+	 */
 	public void editUser(int idUser, User user) {
 		String sqlSelectAccountId = "SELECT `idAccount` FROM `pizzeria`.`user` WHERE `idUser` = ?;";
 		String sqlAccountUpdate = "UPDATE `pizzeria`.`account` SET `username`=?, `password`=?, `email`=? WHERE `idAccount`=?;";
@@ -97,6 +103,9 @@ public class UserDb extends DataAccessObject {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see database.IUserDao#removeUser(int)
+	 */
 	public void removeUser(int idUser) {
 		String sqlSelectAccountId = "SELECT `idAccount` FROM `pizzeria`.`user` WHERE `idUser` = ?;";
 		String sqlAccountUpdate = "DELETE FROM `pizzeria`.`account` WHERE `idAccount`=?;";
@@ -129,6 +138,9 @@ public class UserDb extends DataAccessObject {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see database.IUserDao#getUserById(int)
+	 */
 	public User getUserById(int idUser) {
 		User user = null;
 		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "
@@ -167,6 +179,9 @@ public class UserDb extends DataAccessObject {
 		return user;
 	}
 	
+	/* (non-Javadoc)
+	 * @see database.IUserDao#getUserByUsername(java.lang.String)
+	 */
 	public User getUserByUsername(String username) {
 		User user = null;
 		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "
@@ -207,6 +222,9 @@ public class UserDb extends DataAccessObject {
 		return user;
 	}
 	
+	/* (non-Javadoc)
+	 * @see database.IUserDao#getUserByEmail(java.lang.String)
+	 */
 	public User getUserByEmail(String email) {
 		User user = null;
 		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "
@@ -245,6 +263,9 @@ public class UserDb extends DataAccessObject {
 		return user;
 	}
 	
+	/* (non-Javadoc)
+	 * @see database.IUserDao#getAllUsers()
+	 */
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<User>();
 		String sqlSelectUser = "SELECT * FROM `pizzeria`.`user` u "

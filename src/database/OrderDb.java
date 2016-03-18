@@ -18,9 +18,10 @@ import com.mysql.jdbc.Statement;
 
 import exceptions.InvalidArgumentValueException;
 
-public class OrderDb extends DataAccessObject {
+public class OrderDb extends DataAccessObject implements IOrderDao {
 	private Connection connection = super.getConnection();
 
+	@Override
 	public int addOrder(Order order) {
 		String sqlInserOrder = "INSERT INTO `pizzeria`.`Order` (`sum`, `is_ready`, `is_received`, `User_idUser`, `Shop_idShop`) VALUES "
 				+ "(?, ?, ?, ?, ?);";
@@ -69,6 +70,7 @@ public class OrderDb extends DataAccessObject {
 		return orderId;
 	}
 
+	@Override
 	public void editOrder(int idOrder, Order order) {
 		String sqlUpdateOrder = "UPDATE `pizzeria`.`Order` SET `sum`=?, `is_ready`=?, `is_received`=?, `User_idUser`=?;";
 		String sqlInserProductId = "UPDATE `pizzeria`.`Products_In_Orders` SET `idProduct`=?, `quantity`=?, `Order_idOrder`=?;";
@@ -102,6 +104,7 @@ public class OrderDb extends DataAccessObject {
 		}
 	}
 
+	@Override
 	public void removeOrder(int idOrder) {
 		String sqlDeleteOrder = "DELETE FROM `pizzeria`.`Order` WHERE `idOrder`=?;";
 		String sqlDeleteProductsFromOrder = "DELETE FROM `pizzeria`.`Products_In_Orders` WHERE `Order_idOrder`=?;";
@@ -126,6 +129,7 @@ public class OrderDb extends DataAccessObject {
 		}
 	}
 
+	@Override
 	public Order getOrderById(int idOrder) {
 		String sqlSelectOrder = "SELECT * FROM `pizzeria`.`Order` WHERE `idOrder`=?;";
 		String sqlSelectShop = "SELECT * FROM `pizzeria`.`Shop` WHERE `idShop` = ?";

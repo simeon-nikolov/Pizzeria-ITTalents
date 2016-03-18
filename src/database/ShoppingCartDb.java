@@ -12,9 +12,10 @@ import pizzeria.menu.Ingredient;
 import pizzeria.menu.Pizza;
 import exceptions.InvalidArgumentValueException;
 
-public class ShoppingCartDb extends DataAccessObject {
+public class ShoppingCartDb extends DataAccessObject implements IShoppingCartDao {
 	private Connection connection = super.getConnection();
 	
+	@Override
 	public void addProductToShoppingCart(int userId, int productId, int quantity) {
 		String sqlInserToShoppingCart = "INSERT INTO `pizzeria`.`Products_In_Carts` (`Product_idProduct`, `User_idUser`, `quantity`) VALUES "
 				+ "(?, ?, ?);";
@@ -39,6 +40,7 @@ public class ShoppingCartDb extends DataAccessObject {
 		}
 	}
 
+	@Override
 	public void removeProductFromShoppingCart(int userId, int productId) {
 		String sqlDeleteInShoppingCart = "DELETE FROM `pizzeria`.`Products_In_Carts` WHERE `Product_idProduct`=? AND `User_idUser`=?;";
 
@@ -61,6 +63,7 @@ public class ShoppingCartDb extends DataAccessObject {
 		}
 	}
 	
+	@Override
 	public void emptyShoppingCart(int userId) {
 		String sqlEmptyShoppingCart = "DELETE FROM `pizzeria`.`Products_In_Carts` WHERE `User_idUser`=?;";
 
@@ -82,6 +85,7 @@ public class ShoppingCartDb extends DataAccessObject {
 		}
 	}
 	
+	@Override
 	public List<IProduct> getProducts(int userId) {
 		List<IProduct> products = new ArrayList<IProduct>();
 		

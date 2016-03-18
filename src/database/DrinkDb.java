@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.InvalidArgumentValueException;
 import pizzeria.menu.Drink;
+import exceptions.InvalidArgumentValueException;
 
-public class DrinkDb extends DataAccessObject {
+public class DrinkDb extends DataAccessObject implements IDrinkDao {
 	private Connection connection = super.getConnection();
 
+	@Override
 	public void addDrink(Drink drink) {
 		String sqlInsertInProduct = "INSERT INTO pizzeria.product ( name, price, image) VALUES (?, ?, ?);";
 		String sqlSelectProductId = "SELECT idProduct FROM pizzeria.product WHERE name = ?; ";
@@ -47,6 +48,7 @@ public class DrinkDb extends DataAccessObject {
 		}
 	}
 
+	@Override
 	public void editDrink(int id, Drink drink) {
 		String sqlProductUpdate = "UPDATE pizzeria.product SET name=?, price=?, image=? WHERE idProduct=?;";
 		String sqlDrinkUpdate = "UPDATE pizzeria.drink SET litres = ?  WHERE Product_idProduct = ? ;";
@@ -76,6 +78,7 @@ public class DrinkDb extends DataAccessObject {
 		}
 	}
 
+	@Override
 	public void removeDrink(int id) {
 		String sqlProductUpdate = "DELETE FROM pizzeria.product WHERE idProduct = ?;";
 		String sqlDrinkUpdate = "DELETE FROM pizzeria.drink WHERE Product_idProduct = ?;";
@@ -101,6 +104,7 @@ public class DrinkDb extends DataAccessObject {
 		}
 	}
 
+	@Override
 	public Drink getDrinkById(int id) {
 		Drink drink = null;
 		String sql = "select p.idProduct, p.name , p.price, p.image, d.litres from pizzeria.product p "
@@ -128,6 +132,7 @@ public class DrinkDb extends DataAccessObject {
 		return drink;
 	}
 
+	@Override
 	public List<Drink> getAllDrinks() {
 		List<Drink> drinks = new ArrayList<Drink>();
 		String sql = "select p.idProduct, p.name , p.price, p.image, d.litres,  from pizzeria.product p "
