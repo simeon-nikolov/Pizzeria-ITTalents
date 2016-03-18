@@ -177,4 +177,31 @@ public class OrderDb extends DataAccessObject implements IOrderDao {
 		
 		return order;
 	}
+	
+	@Override
+	public void deleteUserOrders(int userId) {
+		String sqlSelectOrdersIds = "SELECT `idOrder` FROM `pizzeria`.`Order` WHERE `User_idUser`=?;";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(sqlSelectOrdersIds);
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				this.removeOrder(id);
+			}
+			
+			connection.commit();
+			System.out.println("Success!");
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+				System.out.println("Transaction ROLLBACK");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
 }

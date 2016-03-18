@@ -12,4 +12,5 @@ public interface IOrderDao {
 
 	Order getOrderById(int idOrder);
 
+	void deleteUserOrders(int userId);
 }

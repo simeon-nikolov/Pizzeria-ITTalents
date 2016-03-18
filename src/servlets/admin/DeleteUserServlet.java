@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import pizzeria.account.User;
 import servlets.BaseHttpServlet;
+import database.OrderDb;
 import database.UserDb;
 
 /**
@@ -36,8 +37,10 @@ public class DeleteUserServlet extends BaseHttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (BaseHttpServlet.isAdmin(request)) {
-			UserDb userDao = new UserDb();
 			int userId = Integer.parseInt(request.getParameter("id"));
+			OrderDb orderDao = new OrderDb();
+			orderDao.deleteUserOrders(userId);
+			UserDb userDao = new UserDb();
 			userDao.removeUser(userId);
 			response.sendRedirect("../admin/users");
 		} else {
